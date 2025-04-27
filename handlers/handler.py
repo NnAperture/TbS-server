@@ -19,7 +19,7 @@ def account(request):
                 try:
                     edit(id, text)
                 except:
-                    new(text)
+                    return HttpResponse(str(new(text)))
                 return HttpResponse('Succesfully')
             else:
                 return HttpResponse('Text is empty!')
