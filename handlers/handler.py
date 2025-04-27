@@ -15,11 +15,12 @@ def account(request):
         try:
             id = request.POST.get('id')
             text = request.POST.get('text')
-            try:
-                edit(id, text)
-            except:
-                new(text)
-            return HttpResponse('Succesfully')
+            if(text != None and text != ""):
+                try:
+                    edit(id, text)
+                except:
+                    new(text)
+                return HttpResponse('Succesfully')
         except:
             return HttpResponse('Error')
     else:
