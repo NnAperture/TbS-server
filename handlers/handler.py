@@ -9,8 +9,8 @@ def account(request):
         return HttpResponse(read(id))
     elif(request.method == 'POST'):
         try:
-            id = request.GET.get('id')
-            text = request.GET.get('text')
+            id = request.POST.get('id')
+            text = request.POST.get('text')
             try:
                 edit(id, text)
             except:
