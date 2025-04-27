@@ -1,2 +1,3 @@
 Django~=4.2 # Используйте вашу версию Django
 gunicorn~=21.2 # Используйте вашу версию Gunicorn
+PyTelegramBotAPI~=5.0 # Используйте вашу версию PyTelegramBotAPI
