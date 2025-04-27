@@ -21,6 +21,8 @@ def account(request):
                 except:
                     new(text)
                 return HttpResponse('Succesfully')
+            else:
+                return HttpResponse('Text is empty!')
         except:
             return HttpResponse('Error')
     else:
