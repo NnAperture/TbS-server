@@ -9,8 +9,10 @@ def account(request):
     if(request.method == 'GET'):
         print("get")
         id = request.GET.get('id')
+        ab = request.GET.get('ab')
         print(id)
-        if(id != None):
+        print(ab)
+        if(id == None):
             return HttpResponse('Id is empty!')
         return HttpResponse(str(read(id)))
     elif(request.method == 'POST'):
