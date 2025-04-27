@@ -8,8 +8,11 @@ from django.views.decorators.csrf import csrf_exempt
 def account(request):
     if(request.method == 'GET'):
         print("get")
+        if(id != None):
+            return HttpResponse('Id is empty!')
         id = request.GET.get('id')
-        return HttpResponse(read(id))
+        print(id)
+        return HttpResponse(str(read(id)))
     elif(request.method == 'POST'):
         print("post")
         try:
