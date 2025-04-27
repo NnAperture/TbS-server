@@ -3,6 +3,7 @@ from TgCloud import config
 from django.shortcuts import render
 from django.http import HttpResponse
 
+@csrf_exempt
 def account(request):
     if(request.method == 'GET'):
         id = request.GET.get('id')
