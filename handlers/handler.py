@@ -7,16 +7,12 @@ from django.views.decorators.csrf import csrf_exempt
 @csrf_exempt
 def account(request):
     if(request.method == 'GET'):
-        print("get")
         id = request.GET.get('id')
         ab = request.GET.get('ab')
-        print(id)
-        print(ab)
         if(id == None):
             return HttpResponse('Id is empty!')
         return HttpResponse(str(read(id)))
     elif(request.method == 'POST'):
-        print("post")
         try:
             id = request.POST.get('id')
             text = request.POST.get('text')
