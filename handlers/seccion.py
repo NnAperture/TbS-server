@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
 @csrf_exempt
-async def seccion(request):
+def seccion(request):
     if(request.method == "GET"):
         print("get")
         id = new("{}")
