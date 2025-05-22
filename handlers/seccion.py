@@ -29,7 +29,7 @@ def visits(request):
     if(request.method == "GET"):
         try:
             ip = get_client_ip(request)
-            nw = set(Getfile(id, pack='mes', encoding='utf-8').split('|')) + {ip}
+            nw = set(Getfile(id, pack='mes', encoding='utf-8').split('|')) | {ip}
             edit(id, Getkey("|".join(nw), ram=True, encoding='utf-8'))
             response = JsonResponse({"count":(count := count + 1), "unique":len(nw)})
 
