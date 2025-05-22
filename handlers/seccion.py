@@ -30,4 +30,10 @@ def visits(request):
         ip = get_client_ip(request)
         nw = set(Getfile(id, pack='mes', encoding='utf-8').split('|')) + {ip}
         edit(id, Getkey("|".join(nw), ram=True, encoding='utf-8'))
-        return JsonResponse({"count":(count := count + 1), "unique":len(nw)})
+        response = JsonResponse({"count":(count := count + 1), "unique":len(nw)})
+        
+        response["Access-Control-Allow-Origin"] = "*"  # Разрешить запросы с любых доменов
+        response["Access-Control-Allow-Methods"] = "GET, OPTIONS"
+        response["Access-Control-Allow-Headers"] = "Content-Type"
+
+        return response
