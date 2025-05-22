@@ -27,13 +27,18 @@ def seccion(request):
 def visits(request):
     global count
     if(request.method == "GET"):
-        ip = get_client_ip(request)
-        nw = set(Getfile(id, pack='mes', encoding='utf-8').split('|')) + {ip}
-        edit(id, Getkey("|".join(nw), ram=True, encoding='utf-8'))
-        response = JsonResponse({"count":(count := count + 1), "unique":len(nw)})
-        
-        response["Access-Control-Allow-Origin"] = "*"  # Разрешить запросы с любых доменов
-        response["Access-Control-Allow-Methods"] = "GET, OPTIONS"
-        response["Access-Control-Allow-Headers"] = "Content-Type"
+        try:
+            ip = get_client_ip(request)
+            nw = set(Getfile(id, pack='mes', encoding='utf-8').split('|')) + {ip}
+            edit(id, Getkey("|".join(nw), ram=True, encoding='utf-8'))
+            response = JsonResponse({"count":(count := count + 1), "unique":len(nw)})
 
-        return response
+            response["Access-Control-Allow-Origin"] = "*"  # Разрешить запросы с любых доменов
+            response["Access-Control-Allow-Methods"] = "GET, OPTIONS"
+            response["Access-Control-Allow-Headers"] = "Content-Type"
+
+            return response
+        except Exception as e:
+            print(e)
+            return JsonResponse({"error":str(e)})
+        

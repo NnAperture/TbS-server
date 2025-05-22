@@ -8,6 +8,7 @@ from constant_tasks import task_everyday
 
 threading.Thread(target=task_everyday.delay, daemon=True).start()
 
+
 urlpatterns = [
     path('acc/', handler.account, name='account'),
     path('seccion/', seccion.seccion, name='seccion'),
