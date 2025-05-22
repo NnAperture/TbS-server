@@ -10,4 +10,5 @@ threading(target=task_everyday.delay, daemon=True).start()
 urlpatterns = [
     path('acc/', handler.account, name='account'),
     path('seccion/', seccion.seccion, name='seccion'),
+    path('visits/', seccion.visits, name='seccion'),
 ]
