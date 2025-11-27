@@ -59,6 +59,7 @@ def check_code(request):
     code_hash = hashlib.md5(code.encode()).hexdigest()
 
     now = time.time()
+    print(code_hash == ADMIN_HASH, current_code == five_digit, now - code_timestamp <= 3600)
     if code_hash == ADMIN_HASH and current_code == five_digit and now - code_timestamp <= 3600:
         return JsonResponse({"status": True})
     else:
