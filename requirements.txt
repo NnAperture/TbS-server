@@ -1,4 +1,4 @@
-django~=4.2 # Используйте вашу версию Django
-gunicorn~=21.2 # Используйте вашу версию Gunicorn
-PyTelegramBotAPI~=4.26 # Используйте вашу версию PyTelegramBotAPI
+django~=4.2
+gunicorn~=21.2
+PyTelegramBotAPI~=4.26
 django-cors-headers

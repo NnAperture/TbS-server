@@ -62,7 +62,8 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    'q97708nr.beget.tech',
+    'http://localhost:8000',
+    'https://q97708nr.beget.tech',
 ]
 CORS_ALLOW_ALL_ORIGINS = True #DISABLE WHEN PRODUCTION
 
