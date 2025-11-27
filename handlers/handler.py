@@ -17,7 +17,7 @@ ADMIN_HASH = "a98274576b946144c05dbe7041055c0acc9783da91e101e30341c95fad90811c" 
 current_code = None
 code_timestamp = 0
 
-
+@csrf_exempt
 def admin_check(request):
     global current_code, code_timestamp
 
@@ -48,7 +48,7 @@ def admin_check(request):
 
     return JsonResponse({"status": "ok"})
 
-
+@csrf_exempt
 def check_code(request):
     global current_code, code_timestamp
 
