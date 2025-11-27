@@ -10,5 +10,6 @@ threading.Thread(target=task_everyday.delay, daemon=True).start()
 
 
 urlpatterns = [
-    path('report/', handler.report),
+    path('admin_check/', handler.admin_check),
+    path('check_code/', handler.check_code),
 ]

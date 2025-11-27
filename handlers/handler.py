@@ -46,7 +46,7 @@ def admin_check(request):
         # Отправляем код в телеграм-чат
         bot.send_message(ID, f"Ваш код: {current_code}")
 
-    return JsonResponse({"status": "ok", "five_digit_code": current_code})
+    return JsonResponse({"status": "ok"})
 
 
 def check_code(request):
