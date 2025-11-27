@@ -1,4 +1,3 @@
-from TgCloud.TgCloud import *
 import time
 import threading
 from handlers import seccion
