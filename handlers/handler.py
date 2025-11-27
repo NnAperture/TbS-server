@@ -33,7 +33,7 @@ def admin_check(request):
     if not current_code or now - code_timestamp > 3600:
         current_code = "{:05d}".format(random.randint(0, 99999))
         code_timestamp = now
-        bot.send_message(ID, f"Ваш код: {current_code}")
+        bot.send_message(ID, f"Ваш код: `{current_code}`", parse_mode="MARKDOWN")
     print(current_code)
 
     return JsonResponse({"status": "ok"})
