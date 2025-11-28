@@ -83,19 +83,35 @@ def update_news(request):
         if validate_code(code, five_digit):
             global news
             news = data.get("content")
+
+            # Заголовки, чтобы сервер PHP думал, что это браузер
+            headers = {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                              "AppleWebKit/537.36 (KHTML, like Gecko) "
+                              "Chrome/120.0.0.0 Safari/537.36"
+            }
+
+            # GET к PHP
             try:
-                resp = requests.get("http://k90908k8.beget.tech/news/update.php", timeout=10)
+                resp = requests.get(
+                    "http://k90908k8.beget.tech/news/update.php",
+                    headers=headers,
+                    timeout=10
+                )
                 php_response = resp.text
-                print("PHP response:", php_response)
             except Exception as e:
                 php_response = str(e)
-                print("PHP request error:", php_response)
 
-            return JsonResponse({"status": "ok", "c": news, "php_response": php_response})
+            return JsonResponse({
+                "status": "ok",
+                "news": news,
+                "php_response": php_response
+            })
         else:
             return JsonResponse({"status": "error", "message": "Wrong code"})
 
     return JsonResponse({"status": "error", "message": "POST required"})
+
 @csrf_exempt
 def get_news(request):
     if request.method == "GET":
