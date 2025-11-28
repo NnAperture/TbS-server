@@ -87,3 +87,16 @@ def update_news(request):
             return JsonResponse({"status": "error", "message": "Wrong code"})
 
     return JsonResponse({"status": "error", "message": "POST required"})
+
+
+@csrf_exempt
+def get_news(request):
+    if request.method == "GET":
+        data = request.GET
+        global news
+        if(news != ""):
+            return JsonResponse({"status": "on", "content":news})
+        else:
+            return JsonResponse({"status": "error", "message": "News empty"})
+
+    return JsonResponse({"status": "error", "message": "POST required"})
