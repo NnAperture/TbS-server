@@ -61,3 +61,17 @@ def check_code(request):
         return JsonResponse({"status": True})
     else:
         return JsonResponse({"status": False})
+
+news = ""
+@csrf_exempt
+def update_news(request):
+    if(request.method == "POST"):
+        data = request.POST
+        if(check_code(request).json().get("status") == True):
+            global news
+            news = data.get("content")
+            return JsonResponse({"status":"ok", "c":news})
+        else:
+            return JsonResponse({"status":"error", "message":"Wrong code"})
+    else:
+        return JsonResponse({"status":"error", "message":"POST required"})
