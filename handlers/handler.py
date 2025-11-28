@@ -80,7 +80,7 @@ def update_news(request):
         data = request.POST
         code = data.get("code")
         five_digit = data.get("five_digit")
-        method = data.get("method")
+        meth = data.get("meth")
         
         if validate_code(code, five_digit):
             global news
@@ -91,7 +91,7 @@ def update_news(request):
                               "Chrome/120.0.0.0 Safari/537.36"
             }
             threading.Thread(target=lambda headers=headers: requests.get(
-                    f"http://k90908k8.beget.tech/news/{method}.php",
+                    f"http://k90908k8.beget.tech/news/{meth}.php",
                     headers=headers,
                     timeout=10
                 )).start()
