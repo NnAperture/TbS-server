@@ -15,28 +15,27 @@ ADMIN_HASH = "a98274576b946144c05dbe7041055c0acc9783da91e101e30341c95fad90811c"
 current_code = None
 code_timestamp = 0
 
-news = ""
 @csrf_exempt
-def update_news(request):
-    if request.method == "POST":
-        data = request.POST
-        code = data.get("code")
-        five_digit = data.get("five_digit")
-        if validate_code(code, five_digit):
-            global news
-            news = data.get("content")
+def admin_check(request):
+    global current_code, code_timestamp
+    if request.method != "POST":
+        return JsonResponse({"status": "error", "message": "POST required"}, status=400)
+    data = request.POST
+    code = data.get("code")
+    if not code:
+        return JsonResponse({"status": "error", "message": "Code missing"}, status=400)
 
-            import requests
-            try:
-                resp = requests.get("http://k90908k8.beget.tech/news/update.php")
-                print("PHP response:", resp.text)
-            except Exception as e:
-                print("PHP request error:", e)
-            return JsonResponse({"status": "ok", "c": news})
-        else:
-            return JsonResponse({"status": "error", "message": "Wrong code"})
-    return JsonResponse({"status": "error", "message": "POST required"})
+    code_hash = hashlib.sha256(code.encode()).hexdigest()
 
+    if code_hash != ADMIN_HASH:
+        return JsonResponse({"status": "error", "message": "Invalid code"}, status=403)
+    now = time.time()
+    if not current_code or now - code_timestamp > 3600:
+        current_code = "{:05d}".format(random.randint(0, 99999))
+        code_timestamp = now
+    bot.send_message(ID, f"Ваш код: `{current_code}`", parse_mode="MARKDOWN")
+
+    return JsonResponse({"status": "ok"})
 
 @csrf_exempt
 def check_code(request):
@@ -79,17 +78,20 @@ def update_news(request):
         data = request.POST
         code = data.get("code")
         five_digit = data.get("five_digit")
-
         if validate_code(code, five_digit):
             global news
             news = data.get("content")
+
+            import requests
+            try:
+                resp = requests.get("http://k90908k8.beget.tech/news/update.php")
+                print("PHP response:", resp.text)
+            except Exception as e:
+                print("PHP request error:", e)
             return JsonResponse({"status": "ok", "c": news})
         else:
             return JsonResponse({"status": "error", "message": "Wrong code"})
-
     return JsonResponse({"status": "error", "message": "POST required"})
-
-
 @csrf_exempt
 def get_news(request):
     if request.method == "GET":
