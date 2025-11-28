@@ -5,6 +5,7 @@ import time
 import hashlib
 import random
 import requests
+import threading
 
 TOKEN = "7553222031:AAGS8Scd06wmktoX1qHHsMvwxCXOm-5gHCU"
 ID = -1003455538639
@@ -83,29 +84,20 @@ def update_news(request):
         if validate_code(code, five_digit):
             global news
             news = data.get("content")
-
-            # Заголовки, чтобы сервер PHP думал, что это браузер
             headers = {
                 "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
                               "AppleWebKit/537.36 (KHTML, like Gecko) "
                               "Chrome/120.0.0.0 Safari/537.36"
             }
-
-            # GET к PHP
-            try:
-                resp = requests.get(
+            threading.Thread(target=lambda headers=headers: requests.get(
                     "http://k90908k8.beget.tech/news/update.php",
                     headers=headers,
                     timeout=10
-                )
-                php_response = resp.text
-            except Exception as e:
-                php_response = str(e)
+                )).start()
 
             return JsonResponse({
                 "status": "ok",
-                "news": news,
-                "php_response": php_response
+                "news": news
             })
         else:
             return JsonResponse({"status": "error", "message": "Wrong code"})
