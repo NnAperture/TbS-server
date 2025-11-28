@@ -4,6 +4,7 @@ import telebot
 import time
 import hashlib
 import random
+import requests
 
 TOKEN = "7553222031:AAGS8Scd06wmktoX1qHHsMvwxCXOm-5gHCU"
 ID = -1003455538639
@@ -78,21 +79,23 @@ def update_news(request):
         data = request.POST
         code = data.get("code")
         five_digit = data.get("five_digit")
+        
         if validate_code(code, five_digit):
             global news
             news = data.get("content")
-
-            import requests
             try:
-                resp = requests.get("http://k90908k8.beget.tech/news/update.php")
-                print("PHP response:", resp.text)
+                resp = requests.get("http://k90908k8.beget.tech/news/update.php", timeout=10)
+                php_response = resp.text
+                print("PHP response:", php_response)
             except Exception as e:
-                print("PHP request error:", e)
-            return JsonResponse({"status": "ok", "c": news})
+                php_response = str(e)
+                print("PHP request error:", php_response)
+
+            return JsonResponse({"status": "ok", "c": news, "php_response": php_response})
         else:
             return JsonResponse({"status": "error", "message": "Wrong code"})
-    return JsonResponse({"status": "error", "message": "POST required"})
 
+    return JsonResponse({"status": "error", "message": "POST required"})
 @csrf_exempt
 def get_news(request):
     if request.method == "GET":
@@ -103,4 +106,4 @@ def get_news(request):
         else:
             return JsonResponse({"status": "error", "message": "News empty"})
 
-    return JsonResponse({"status": "error", "message": "POST required"})
+    return JsonResponse({"status": "error", "message": "GET required"})
