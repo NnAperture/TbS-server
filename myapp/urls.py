@@ -12,5 +12,5 @@ threading.Thread(target=task_everyday.delay, daemon=True).start()
 urlpatterns = [
     path('admin_check/', handler.admin_check),
     path('check_code/', handler.check_code),
-    path('admin_check/', handler.update_news),
+    path('update_news943411234540/', handler.update_news),
 ]
