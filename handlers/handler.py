@@ -62,16 +62,28 @@ def check_code(request):
     else:
         return JsonResponse({"status": False})
 
+def validate_code(code, five_digit):
+    if not code or not five_digit:
+        return False
+
+    code_hash = hashlib.sha256(code.encode()).hexdigest()
+    now = time.time()
+    return code_hash == ADMIN_HASH and current_code == five_digit and now - code_timestamp <= 3600
+
+
 news = ""
 @csrf_exempt
 def update_news(request):
-    if(request.method == "POST"):
+    if request.method == "POST":
         data = request.POST
-        if(check_code(request).json().get("status") == True):
+        code = data.get("code")
+        five_digit = data.get("five_digit")
+
+        if validate_code(code, five_digit):
             global news
             news = data.get("content")
-            return JsonResponse({"status":"ok", "c":news})
+            return JsonResponse({"status": "ok", "c": news})
         else:
-            return JsonResponse({"status":"error", "message":"Wrong code"})
-    else:
-        return JsonResponse({"status":"error", "message":"POST required"})
+            return JsonResponse({"status": "error", "message": "Wrong code"})
+
+    return JsonResponse({"status": "error", "message": "POST required"})
