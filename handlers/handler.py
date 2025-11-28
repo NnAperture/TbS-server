@@ -92,13 +92,14 @@ def update_news(request):
         else:
             return JsonResponse({"status": "error", "message": "Wrong code"})
     return JsonResponse({"status": "error", "message": "POST required"})
+
 @csrf_exempt
 def get_news(request):
     if request.method == "GET":
         global news
         if(news != ""):
-            n, news = news, None
-            return JsonResponse({"status": "ok", "content":news})
+            n, news = news, ""
+            return JsonResponse({"status": "ok", "content":n})
         else:
             return JsonResponse({"status": "error", "message": "News empty"})
 
