@@ -2,6 +2,7 @@ from django.http import JsonResponse
 from .models import Profile
 from django.views.decorators.csrf import csrf_exempt
 
+@csrf_exempt
 def register_api(request):
     if request.method != "POST":
         return JsonResponse({"error": "POST required"})
@@ -22,6 +23,7 @@ def register_api(request):
     request.session["user_id"] = p.id
     return JsonResponse({"success": True})
 
+@csrf_exempt
 def login_api(request):
     if request.method != "POST":
         return JsonResponse({"error": "POST required"})
@@ -41,6 +43,7 @@ def login_api(request):
 
     return JsonResponse({"success": True})
 
+@csrf_exempt
 def me_api(request):
     user_id = request.session.get("user_id")
     if not user_id:
