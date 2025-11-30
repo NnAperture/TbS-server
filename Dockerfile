@@ -1,18 +1,18 @@
-# Используем официальный образ Python как базу
 FROM python:3.12-slim
 
-# Устанавливаем рабочую директорию внутри контейнера
 WORKDIR /app
 
-# Копируем файлы проекта
-COPY . /app
+COPY requirements.txt .
 
-# Устанавливаем зависимости
+RUN apt-get update && apt-get install -y \
+    default-libmysqlclient-dev \
+    build-essential \
+    python3-dev \
+    && rm -rf /var/lib/apt/lists/*
+
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
-# Открываем порт, который будет слушать ваше приложение (обычно 8000)
-EXPOSE 8000
+COPY . .
 
-# Команда для запуска Gunicorn, аналогично вашему Procfile
-CMD ["gunicorn", "myproject.wsgi:application", "--bind", "0.0.0.0:8000", "--log-file", "-"]
+CMD ["gunicorn", "myproject.wsgi:application", "--bind", "0.0.0.0:8000"]
