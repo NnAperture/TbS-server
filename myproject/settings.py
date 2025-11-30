@@ -44,8 +44,6 @@ RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
-# Если вы запускаете локально (например, python manage.py runserver)
-# добавьте '127.0.0.1' и 'localhost'
 ALLOWED_HOSTS.append('127.0.0.1')
 ALLOWED_HOSTS.append('localhost')
 
@@ -74,11 +72,22 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+INSTALLED_APPS += ["corsheaders"]
+
+MIDDLEWARE = ["corsheaders.middleware.CorsMiddleware"] + MIDDLEWARE
+
+CORS_ALLOW_CREDENTIALS = True
+
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:8000',
     'https://q97708nr.beget.tech',
+    'https://k90908k8.beget.tech',
 ]
-CORS_ALLOW_ALL_ORIGINS = True #DISABLE WHEN PRODUCTION
+
+SESSION_COOKIE_SAMESITE = "None"
+SESSION_COOKIE_SECURE = True
+
+CORS_ALLOW_ALL_ORIGINS = False #DISABLE WHEN PRODUCTION
 
 ROOT_URLCONF = 'myproject.urls'
 
@@ -105,10 +114,16 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'q97708nr_a',
+        'USER': 'q97708nr_a',
+        'PASSWORD': 'GXiw&gjZ89Z0',
+        'HOST': 'q97708nr.beget.tech',
+        'PORT': '3306',
+        'OPTIONS': {'charset': 'utf8mb4'}
     }
 }
+
 
 
 # Password validation
