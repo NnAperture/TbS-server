@@ -2,3 +2,4 @@ django~=4.2
 gunicorn~=21.2
 PyTelegramBotAPI~=4.26
 django-cors-headers
+mysqlclient==2.3.1
