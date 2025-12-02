@@ -1,3 +1,5 @@
+import tgcloud
+import config
 import json
 import random
 import string
@@ -6,8 +8,10 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.utils import timezone
 from django.conf import settings
+import os
 
-PHP_API_URL = settings.PHP_API_URL
+
+PHP_API_URL = os.environ.get('backend_url')
 
 # временное хранилище SID
 sessions = {}
