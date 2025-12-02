@@ -6,9 +6,10 @@ import hashlib
 import random
 import requests
 import threading
+import os
 
-TOKEN = "7553222031:AAGS8Scd06wmktoX1qHHsMvwxCXOm-5gHCU"
-ID = -1003455538639
+TOKEN = os.environ.get('TOKEN')
+ID = int(os.environ.get('admin_id'))
 
 bot = telebot.TeleBot(TOKEN)
 

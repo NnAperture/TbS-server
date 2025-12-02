@@ -3,3 +3,4 @@ gunicorn~=21.2
 PyTelegramBotAPI~=4.26
 django-cors-headers
 PyMySQL
+dotenv

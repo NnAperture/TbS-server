@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+load_dotenv(BASE_DIR / '.env')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -57,7 +61,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'myapp',
-    'accounts',
     'corsheaders',
 ]
 
@@ -76,7 +79,7 @@ CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:8000',
-    'https://q97708nr.beget.tech',
+    os.environ.get('backend_url'),
     'https://k90908k8.beget.tech',
 ]
 
@@ -110,13 +113,15 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': os.environ.get('DB_NAME'),
         'USER': os.environ.get('DB_USER'),
-        'PASSWORD': os.environ.get('DB_PASSWORD'),
+        'PASSWORD': os.environ.get('DB_PASS'),
         'HOST': os.environ.get('DB_HOST'),
-        'PORT': '22943',
-        'OPTIONS': {'charset': 'utf8mb4'}
+        'PORT': os.environ.get('DB_PORT', '22943'),
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+            'ssl': {'ca': os.path.join(BASE_DIR, 'ca.pem')},
+        },
     }
 }
-
 
 
 # Password validation
