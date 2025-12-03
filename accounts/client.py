@@ -1,3 +1,4 @@
+# accounts/client.py
 import requests
 import json
 import logging
@@ -11,13 +12,11 @@ class PHPApiClient:
         self.secret = settings.PHP_API_SECRET
         self.session = requests.Session()
         
-        # Настройка сессии
         self.session.headers.update({
             'Content-Type': 'application/json',
             'Authorization': f'Bearer {self.secret}'
         })
         
-        # Таймауты для запросов
         self.timeout = 30
     
     def _make_request(self, action, data=None):
@@ -31,11 +30,11 @@ class PHPApiClient:
                 url, 
                 json=data, 
                 timeout=self.timeout,
-                verify=True  # Включаем проверку SSL
+                verify=True
             )
             
             logger.debug(f"PHP API response status: {response.status_code}")
-            logger.debug(f"PHP API response text: {response.text}")
+            logger.debug(f"PHP API response text: {response.text[:200]}...")
             
             response.raise_for_status()
             

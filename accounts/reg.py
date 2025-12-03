@@ -1,3 +1,4 @@
+# accounts/reg.py
 from django.shortcuts import redirect
 from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -35,13 +36,11 @@ def google_callback(request):
     
     if error:
         logger.error(f"Google OAuth error: {error}")
-        return JsonResponse({'error': f'Google OAuth error: {error}'}, status=400)
+        return redirect(f'http://k90908k8.beget.tech/login?error={error}')
     
     if not code:
         logger.error("No authorization code received from Google")
-        return JsonResponse({'error': 'No authorization code received'}, status=400)
-    
-    logger.info("Received authorization code from Google")
+        return redirect('http://k90908k8.beget.tech/login?error=no_code')
     
     try:
         # Получаем токен у Google
@@ -58,10 +57,6 @@ def google_callback(request):
         token_response = requests.post(token_url, data=token_data, timeout=30)
         token_response.raise_for_status()
         token_json = token_response.json()
-        
-        if 'access_token' not in token_json:
-            logger.error("No access token in Google response")
-            return JsonResponse({'error': 'Failed to get access token from Google'}, status=400)
         
         # Получаем информацию о пользователе
         user_info_url = 'https://www.googleapis.com/oauth2/v3/userinfo'
@@ -92,7 +87,7 @@ def google_callback(request):
         
         if not user_response.get('success'):
             logger.error(f"Failed to create user: {user_response}")
-            return JsonResponse({'error': 'Failed to create user in database'}, status=500)
+            return redirect('http://k90908k8.beget.tech/login?error=user_creation_failed')
         
         user = user_response['user']
         logger.info(f"User created/retrieved: ID={user['id']}")
@@ -103,16 +98,19 @@ def google_callback(request):
         
         if not session_response.get('success'):
             logger.error(f"Failed to create session: {session_response}")
-            return JsonResponse({'error': 'Failed to create session'}, status=500)
+            return redirect('http://k90908k8.beget.tech/login?error=session_creation_failed')
         
         session_token = session_response['session_token']
         logger.info("Session created successfully")
         
-        # Перенаправляем на фронтенд с токеном сессии
-        frontend_url = f"http://your-frontend-server.com/auth/success?session={session_token}"
+        # Перенаправляем на фронтенд с токеном в URL
+        frontend_redirect_url = f'http://k90908k8.beget.tech/auth-success.html?session_token={session_token}'
         
-        response = redirect(frontend_url)
-        # Устанавливаем куку для сессии
+        logger.info(f"Redirecting to frontend: {frontend_redirect_url}")
+        
+        response = redirect(frontend_redirect_url)
+        
+        # Устанавливаем куку на Django домене (на случай прямого доступа к Django)
         response.set_cookie(
             key=settings.SESSION_COOKIE_NAME,
             value=session_token,
@@ -120,91 +118,135 @@ def google_callback(request):
             secure=settings.SESSION_COOKIE_SECURE,
             httponly=settings.SESSION_COOKIE_HTTPONLY,
             samesite=settings.SESSION_COOKIE_SAMESITE,
-            path='/',
-            domain=None
+            path='/'
         )
         
-        logger.info(f"Redirecting to frontend: {frontend_url}")
         return response
         
     except requests.exceptions.RequestException as e:
         logger.error(f"HTTP request error in google_callback: {str(e)}")
-        return JsonResponse({'error': f'HTTP request failed: {str(e)}'}, status=500)
+        return redirect(f'http://k90908k8.beget.tech/login?error=request_failed')
     except Exception as e:
         logger.error(f"Unexpected error in google_callback: {str(e)}")
-        return JsonResponse({'error': f'Internal server error: {str(e)}'}, status=500)
+        return redirect(f'http://k90908k8.beget.tech/login?error=internal_error')
 
-@csrf_exempt
-@require_http_methods(["POST", "GET"])
-def validate_session(request):
-    """Валидация сессии (для AJAX запросов с фронтенда)"""
-    logger.debug(f"validate_session called. Method: {request.method}")
+def settings_page(request):
+    """Страница для передачи сессии на фронтенд"""
+    logger.info("Settings page accessed")
     
-    # Для GET запросов - просто возвращаем информацию о методе
-    if request.method == 'GET':
-        return JsonResponse({
-            'method': 'GET',
-            'message': 'Use POST method to validate session'
-        })
-    
-    # Для POST запросов - валидируем сессию
-    session_token = request.COOKIES.get(settings.SESSION_COOKIE_NAME)
+    # Получаем токен из параметра URL или из куки
+    session_token = request.GET.get('session_token') or request.COOKIES.get(settings.SESSION_COOKIE_NAME)
     
     if not session_token:
-        logger.warning("No session token in cookies")
-        return JsonResponse({'authenticated': False, 'error': 'No session token'}, status=401)
-    
-    logger.debug(f"Validating session token: {session_token[:10]}...")
+        logger.warning("No session token found")
+        return redirect('http://k90908k8.beget.tech/login')
     
     try:
+        # Валидируем сессию
+        logger.debug(f"Validating session token: {session_token[:10]}...")
         session_response = php_client.validate_session(session_token)
         
-        if session_response.get('success'):
-            user = session_response['user']
-            logger.info(f"Session validated successfully for user: {user.get('email', 'No email')}")
-            return JsonResponse({
-                'authenticated': True,
-                'user': {
-                    'id': user['id'],
-                    'google_id': user['google_id'],
-                    'email': user.get('email'),
-                    'name': user.get('name'),
-                    'base_link': user.get('base_link')
-                }
-            })
-        else:
-            logger.warning(f"Invalid session: {session_response.get('error', 'Unknown error')}")
-            return JsonResponse({
-                'authenticated': False,
-                'error': session_response.get('error', 'Invalid session')
-            }, status=401)
-            
+        if not session_response.get('success'):
+            logger.warning("Invalid session")
+            response = redirect('http://k90908k8.beget.tech/login')
+            response.delete_cookie(settings.SESSION_COOKIE_NAME)
+            return response
+        
+        user = session_response['user']
+        logger.info(f"Showing settings for user: {user.get('email', user.get('google_id', 'Unknown'))}")
+        
+        # Создаем HTML страницу, которая сохранит токен в localStorage фронтенда
+        html = f'''
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Перенаправление на настройки</title>
+            <script>
+                // Сохраняем сессию в localStorage
+                localStorage.setItem('session_token', '{session_token}');
+                
+                // Сохраняем информацию о пользователе
+                const userInfo = {{
+                    id: {user['id']},
+                    google_id: "{user['google_id']}",
+                    email: "{user.get('email', '')}",
+                    name: "{user.get('name', '')}",
+                    base_link: "{user.get('base_link', '')}"
+                }};
+                localStorage.setItem('user_info', JSON.stringify(userInfo));
+                
+                // Перенаправляем на страницу настроек фронтенда
+                window.location.href = 'http://k90908k8.beget.tech/settings.html';
+            </script>
+        </head>
+        <body>
+            <p style="text-align: center; padding: 50px; font-family: Arial;">
+                Перенаправление на страницу настроек...
+            </p>
+        </body>
+        </html>
+        '''
+        
+        response = HttpResponse(html)
+        # Также устанавливаем куку для будущих обращений к Django
+        response.set_cookie(
+            key=settings.SESSION_COOKIE_NAME,
+            value=session_token,
+            max_age=settings.SESSION_COOKIE_AGE,
+            secure=settings.SESSION_COOKIE_SECURE,
+            httponly=settings.SESSION_COOKIE_HTTPONLY,
+            samesite=settings.SESSION_COOKIE_SAMESITE,
+            path='/'
+        )
+        
+        return response
+        
     except Exception as e:
-        logger.error(f"Error validating session: {str(e)}")
+        logger.error(f"Error in settings_page: {str(e)}")
+        return redirect(f'http://k90908k8.beget.tech/login?error={str(e)}')
+
+# ==================== Функции для отладки ====================
+
+@csrf_exempt
+def test_php_connection(request):
+    """Тестовый endpoint для проверки соединения с PHP API"""
+    try:
+        # Тест 1: Простое подключение
+        test_data = {
+            'google_id': 'test123',
+            'base_link': 'https://example.com/test'
+        }
+        
+        result = php_client.get_or_create_user(**test_data)
+        
         return JsonResponse({
-            'authenticated': False,
-            'error': f'Validation error: {str(e)}'
+            'success': True,
+            'php_api_url': settings.PHP_API_URL,
+            'php_secret_set': bool(settings.PHP_API_SECRET),
+            'test_result': result
+        })
+        
+    except Exception as e:
+        return JsonResponse({
+            'success': False,
+            'error': str(e),
+            'php_api_url': settings.PHP_API_URL,
+            'php_secret': settings.PHP_API_SECRET[:5] + '...' if settings.PHP_API_SECRET else 'Not set'
         }, status=500)
 
 @csrf_exempt
-@require_http_methods(["POST"])
-def logout(request):
-    """Выход из системы"""
+def debug_check_session(request):
+    """Отладочная функция для проверки сессии"""
     session_token = request.COOKIES.get(settings.SESSION_COOKIE_NAME)
     
-    if session_token:
-        try:
-            php_client.delete_session(session_token)
-            logger.info(f"Session deleted: {session_token[:10]}...")
-        except Exception as e:
-            logger.error(f"Error deleting session: {str(e)}")
-            # Продолжаем выполнение даже если не удалось удалить сессию
-    
-    response = JsonResponse({'success': True})
-    response.delete_cookie(
-        settings.SESSION_COOKIE_NAME,
-        path='/',
-        domain=None
-    )
-    
-    return response
+    return JsonResponse({
+        'cookie_name': settings.SESSION_COOKIE_NAME,
+        'cookie_present': bool(session_token),
+        'cookie_value': session_token[:20] + '...' if session_token else None,
+        'headers': {k: v for k, v in request.headers.items()},
+        'method': request.method,
+        'user_agent': request.META.get('HTTP_USER_AGENT', ''),
+        'remote_addr': request.META.get('REMOTE_ADDR', ''),
+        'get_params': dict(request.GET),
+        'post_data': request.POST if request.method == 'POST' else None
+    })
