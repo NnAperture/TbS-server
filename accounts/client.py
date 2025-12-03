@@ -1,6 +1,6 @@
 import requests
 import json
-from ..myproject import settings
+from django.conf import settings
 
 class PHPApiClient:
     def __init__(self):
