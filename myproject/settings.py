@@ -17,8 +17,6 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / '.env')
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
 
 LOGGING = {
     'version': 1,
@@ -61,6 +59,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'myapp',
+    'handlers',
+    'accounts',
     'corsheaders',
 ]
 
@@ -84,10 +84,20 @@ CORS_ALLOWED_ORIGINS = [
     'https://k90908k8.beget.tech',
 ]
 
-SESSION_COOKIE_SAMESITE = "None"
-SESSION_COOKIE_SECURE = True
+CORS_ALLOW_ALL_ORIGINS = False
 
-CORS_ALLOW_ALL_ORIGINS = False #DISABLE WHEN PRODUCTION
+GOOGLE_CLIENT_ID = os.environ.get('GOOGLE_CLIENT_ID')
+GOOGLE_CLIENT_SECRET = os.environ.get('GOOGLE_CLIENT_SECRET')
+GOOGLE_REDIRECT_URI = 'https://tbs-server-s7vy.onrender.com/auth/google/callback/'
+PHP_API_URL = 'http://q97708nr.beget.tech/user_api.php'
+PHP_API_SECRET = 'a98274576b946144c05dbe7041055c0acc9783da91e101e30341c95fad90811c'
+
+SESSION_COOKIE_NAME = 'user_session'
+SESSION_COOKIE_AGE = 30 * 24 * 60 * 60
+SESSION_COOKIE_SECURE = False
+SESSION_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SAMESITE = 'None'
+
 
 ROOT_URLCONF = 'myproject.urls'
 

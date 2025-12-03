@@ -1,29 +1,45 @@
 import requests
+import json
+from ..myproject import settings
 
-class PHPUserAPI:
-    def __init__(self, base_url):
-        self.base_url = base_url.rstrip("/")
-
-    def create_user(self, login, password, email, telegram_id=None, body_link=None):
-        url = f"{self.base_url}/api.php?action=create"
-        payload = {
-            "login": login,
-            "password": password,
-            "email": email,
-            "telegram_id": telegram_id,
-            "body_link": body_link,
+class PHPApiClient:
+    def __init__(self):
+        self.base_url = settings.PHP_API_URL
+        self.secret = settings.PHP_API_SECRET
+    
+    def _make_request(self, action, data=None):
+        headers = {
+            'Authorization': f'Bearer {self.secret}',
+            'Content-Type': 'application/json'
         }
-        return requests.post(url, json=payload).json()
+        
+        url = f"{self.base_url}?action={action}"
+        response = requests.post(url, json=data, headers=headers)
+        
+        if response.status_code == 200:
+            return response.json()
+        else:
+            raise Exception(f"PHP API error: {response.text}")
+    
+    def get_or_create_user(self, google_id, base_link, email=None, name=None):
+        data = {
+            'google_id': google_id,
+            'base_link': base_link,
+            'email': email,
+            'name': name
+        }
+        return self._make_request('get_user_by_google', data)
+    
+    def create_session(self, user_id):
+        data = {'user_id': user_id}
+        return self._make_request('create_session', data)
+    
+    def validate_session(self, session_token):
+        data = {'session_token': session_token}
+        return self._make_request('validate_session', data)
+    
+    def delete_session(self, session_token):
+        data = {'session_token': session_token}
+        return self._make_request('delete_session', data)
 
-    def get_user(self, login):
-        url = f"{self.base_url}/api.php?action=get&login={login}"
-        return requests.get(url).json()
-
-    def update_user(self, login, **kwargs):
-        url = f"{self.base_url}/api.php?action=update"
-        data = {"login": login, **kwargs}
-        return requests.post(url, json=data).json()
-
-    def delete_user(self, login):
-        url = f"{self.base_url}/api.php?action=delete&login={login}"
-        return requests.get(url).json()
+php_client = PHPApiClient()
