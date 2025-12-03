@@ -8,8 +8,6 @@ import requests
 import json
 import logging
 from .client import php_client
-import time
-from django.http import HttpResponseRedirect
 
 logger = logging.getLogger(__name__)
 
@@ -32,135 +30,87 @@ def google_login(request):
     return redirect(auth_url)
 
 def google_callback(request):
-    """Обработка callback от Google с фиксом"""
+    """Обработка callback от Google"""
     code = request.GET.get('code')
     error = request.GET.get('error')
     
-    logger.info(f"Callback received. Code: {'Yes' if code else 'No'}, Error: {error}")
-    
     if error:
         logger.error(f"Google OAuth error: {error}")
-        return HttpResponseRedirect(f'http://k90908k8.beget.tech/login?error=google:{error}')
+        return redirect(f'http://k90908k8.beget.tech/auth/login.html?error={error}')
     
     if not code:
         logger.error("No authorization code received from Google")
-        return HttpResponseRedirect('http://k90908k8.beget.tech/login?error=no_code')
+        return redirect('http://k90908k8.beget.tech/auth/login.html?error=no_code')
     
     try:
-        # 1. Обмениваем код на токен доступа
+        # Получаем токен у Google
         token_url = 'https://oauth2.googleapis.com/token'
         token_data = {
             'client_id': settings.GOOGLE_CLIENT_ID,
             'client_secret': settings.GOOGLE_CLIENT_SECRET,
             'code': code,
             'grant_type': 'authorization_code',
-            'redirect_uri': 'https://tbs-server-s7vy.onrender.com/auth/google/callback/'  # Важно: тот же URI что и в запросе
+            'redirect_uri': settings.GOOGLE_REDIRECT_URI
         }
         
-        logger.info(f"Exchanging code for token. Client ID: {settings.GOOGLE_CLIENT_ID[:10]}...")
-        logger.info(f"Redirect URI: {token_data['redirect_uri']}")
-        
-        token_response = requests.post(
-            token_url, 
-            data=token_data, 
-            timeout=30,
-            headers={'Content-Type': 'application/x-www-form-urlencoded'}
-        )
-        
-        logger.info(f"Token response status: {token_response.status_code}")
-        logger.info(f"Token response text: {token_response.text[:200]}")
-        
-        if token_response.status_code != 200:
-            logger.error(f"Token exchange failed: {token_response.text}")
-            return HttpResponseRedirect(f'http://k90908k8.beget.tech/login?error=token_failed:{token_response.status_code}')
-        
+        logger.debug("Requesting token from Google")
+        token_response = requests.post(token_url, data=token_data, timeout=30)
+        token_response.raise_for_status()
         token_json = token_response.json()
         
-        if 'access_token' not in token_json:
-            logger.error(f"No access_token in response: {token_json}")
-            return HttpResponseRedirect('http://k90908k8.beget.tech/login?error=no_access_token')
-        
-        # 2. Получаем информацию о пользователе
+        # Получаем информацию о пользователе
         user_info_url = 'https://www.googleapis.com/oauth2/v3/userinfo'
         headers = {'Authorization': f'Bearer {token_json["access_token"]}'}
         
-        logger.info("Getting user info from Google")
+        logger.debug("Requesting user info from Google")
         user_info_response = requests.get(user_info_url, headers=headers, timeout=30)
+        user_info_response.raise_for_status()
+        user_info = user_info_response.json()
         
-        logger.info(f"User info response status: {user_info_response.status_code}")
+        logger.info(f"Google user info received: {user_info.get('email', 'No email')}")
         
-        if user_info_response.status_code != 200:
-            logger.error(f"User info failed: {user_info_response.text}")
-            # Пробуем получить email из id_token
-            if 'id_token' in token_json:
-                import jwt
-                id_token = token_json['id_token']
-                decoded = jwt.decode(id_token, options={"verify_signature": False})
-                user_info = {
-                    'sub': decoded.get('sub'),
-                    'email': decoded.get('email'),
-                    'name': decoded.get('name')
-                }
-                logger.info(f"Got user info from id_token: {user_info.get('email')}")
-            else:
-                return HttpResponseRedirect('http://k90908k8.beget.tech/login?error=user_info_failed')
-        else:
-            user_info = user_info_response.json()
-            logger.info(f"User info received: {user_info.get('email', 'No email')}")
-        
-        # 3. Сохраняем пользователя в БД через PHP API
+        # Сохраняем пользователя в БД через PHP API
         google_id = user_info['sub']
-        base_link = f"https://api.example.com/users/{google_id}"
+        base_link = f"https://api.example.com/users/{google_id}"  # Замените на реальный base_link
         email = user_info.get('email')
         name = user_info.get('name')
         
-        logger.info(f"Processing user: {email or google_id}")
+        logger.info(f"Creating/updating user in database: {email}")
         
-        # Временно обходим PHP API для теста
-        # Создаем фиктивного пользователя
-        fake_user_id = 1
-        fake_session_token = f"fake_session_{google_id[:10]}_{int(time.time())}"
+        # Создаем или получаем пользователя
+        user_response = php_client.get_or_create_user(
+            google_id=google_id,
+            base_link=base_link,
+            email=email,
+            name=name
+        )
         
-        # ИЛИ пробуем реальный PHP API с улучшенной обработкой ошибок
-        try:
-            user_response = php_client.get_or_create_user(
-                google_id=google_id,
-                base_link=base_link,
-                email=email,
-                name=name
-            )
-            
-            if user_response.get('success'):
-                user = user_response['user']
-                user_id = user['id']
-                
-                # Создаем сессию
-                session_response = php_client.create_session(user_id)
-                if session_response.get('success'):
-                    session_token = session_response['session_token']
-                else:
-                    logger.warning("PHP session creation failed, using fake token")
-                    session_token = fake_session_token
-            else:
-                logger.warning("PHP user creation failed, using fake data")
-                session_token = fake_session_token
-                
-        except Exception as php_error:
-            logger.error(f"PHP API error: {str(php_error)}")
-            logger.info("Using fallback session system")
-            session_token = fake_session_token
+        if not user_response.get('success'):
+            logger.error(f"Failed to create user: {user_response}")
+            return redirect('http://k90908k8.beget.tech/auth/login.html?error=user_creation_failed')
         
-        # 4. Перенаправляем на фронтенд с токеном
-        frontend_url = f'http://k90908k8.beget.tech/auth-success.html?session_token={session_token}'
+        user = user_response['user']
+        logger.info(f"User created/retrieved: ID={user['id']}")
         
-        if email:
-            frontend_url += f'&email={email}'
+        # Создаем сессию
+        logger.info("Creating session for user")
+        session_response = php_client.create_session(user['id'])
         
-        logger.info(f"Redirecting to frontend: {frontend_url}")
+        if not session_response.get('success'):
+            logger.error(f"Failed to create session: {session_response}")
+            return redirect('http://k90908k8.beget.tech/auth/login.html?error=session_creation_failed')
         
-        response = HttpResponseRedirect(frontend_url)
+        session_token = session_response['session_token']
+        logger.info("Session created successfully")
         
-        # Устанавливаем куку на Django домене
+        # Перенаправляем на фронтенд с токеном в URL
+        frontend_redirect_url = f'http://k90908k8.beget.tech/auth/auth-success.html?session_token={session_token}'
+        
+        logger.info(f"Redirecting to frontend: {frontend_redirect_url}")
+        
+        response = redirect(frontend_redirect_url)
+        
+        # Устанавливаем куку на Django домене (на случай прямого доступа к Django)
         response.set_cookie(
             key=settings.SESSION_COOKIE_NAME,
             value=session_token,
@@ -174,12 +124,12 @@ def google_callback(request):
         return response
         
     except requests.exceptions.RequestException as e:
-        logger.error(f"HTTP request error: {str(e)}")
-        return HttpResponseRedirect(f'http://k90908k8.beget.tech/login?error=request_error:{str(e)[:50]}')
+        logger.error(f"HTTP request error in google_callback: {str(e)}")
+        return redirect(f'http://k90908k8.beget.tech/auth/login.html?error=request_failed')
     except Exception as e:
-        logger.error(f"Unexpected error: {str(e)}", exc_info=True)
-        return HttpResponseRedirect(f'http://k90908k8.beget.tech/login?error=unexpected:{str(e)[:50]}')
-    
+        logger.error(f"Unexpected error in google_callback: {str(e)}")
+        return redirect(f'http://k90908k8.beget.tech/auth/login.html?error=internal_error')
+
 def settings_page(request):
     """Страница для передачи сессии на фронтенд"""
     logger.info("Settings page accessed")
