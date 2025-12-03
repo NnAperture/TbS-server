@@ -36,11 +36,11 @@ def google_callback(request):
     
     if error:
         logger.error(f"Google OAuth error: {error}")
-        return redirect(f'http://k90908k8.beget.tech/login.html?error={error}')
+        return redirect(f'http://k90908k8.beget.tech/auth/login.html?error={error}')
     
     if not code:
         logger.error("No authorization code received from Google")
-        return redirect('http://k90908k8.beget.tech/login.html?error=no_code')
+        return redirect('http://k90908k8.beget.tech/auth/login.html?error=no_code')
     
     try:
         # Получаем токен у Google
@@ -87,7 +87,7 @@ def google_callback(request):
         
         if not user_response.get('success'):
             logger.error(f"Failed to create user: {user_response}")
-            return redirect('http://k90908k8.beget.tech/login.html?error=user_creation_failed')
+            return redirect('http://k90908k8.beget.tech/auth/login.html?error=user_creation_failed')
         
         user = user_response['user']
         logger.info(f"User created/retrieved: ID={user['id']}")
@@ -98,13 +98,13 @@ def google_callback(request):
         
         if not session_response.get('success'):
             logger.error(f"Failed to create session: {session_response}")
-            return redirect('http://k90908k8.beget.tech/login.html?error=session_creation_failed')
+            return redirect('http://k90908k8.beget.tech/auth/login.html?error=session_creation_failed')
         
         session_token = session_response['session_token']
         logger.info("Session created successfully")
         
         # Перенаправляем на фронтенд с токеном в URL
-        frontend_redirect_url = f'http://k90908k8.beget.tech/auth-success.html?session_token={session_token}'
+        frontend_redirect_url = f'http://k90908k8.beget.tech/auth/auth-success.html?session_token={session_token}'
         
         logger.info(f"Redirecting to frontend: {frontend_redirect_url}")
         
@@ -125,10 +125,10 @@ def google_callback(request):
         
     except requests.exceptions.RequestException as e:
         logger.error(f"HTTP request error in google_callback: {str(e)}")
-        return redirect(f'http://k90908k8.beget.tech/login.html?error=request_failed')
+        return redirect(f'http://k90908k8.beget.tech/auth/login.html?error=request_failed')
     except Exception as e:
         logger.error(f"Unexpected error in google_callback: {str(e)}")
-        return redirect(f'http://k90908k8.beget.tech/login.html?error=internal_error')
+        return redirect(f'http://k90908k8.beget.tech/auth/login.html?error=internal_error')
 
 def settings_page(request):
     """Страница для передачи сессии на фронтенд"""
@@ -139,7 +139,7 @@ def settings_page(request):
     
     if not session_token:
         logger.warning("No session token found")
-        return redirect('http://k90908k8.beget.tech/login.html')
+        return redirect('http://k90908k8.beget.tech/auth/login.html')
     
     try:
         # Валидируем сессию
@@ -148,7 +148,7 @@ def settings_page(request):
         
         if not session_response.get('success'):
             logger.warning("Invalid session")
-            response = redirect('http://k90908k8.beget.tech/login.html')
+            response = redirect('http://k90908k8.beget.tech/auth/login.html')
             response.delete_cookie(settings.SESSION_COOKIE_NAME)
             return response
         
@@ -176,7 +176,7 @@ def settings_page(request):
                 localStorage.setItem('user_info', JSON.stringify(userInfo));
                 
                 // Перенаправляем на страницу настроек фронтенда
-                window.location.href = 'http://k90908k8.beget.tech/settings.html';
+                window.location.href = 'http://k90908k8.beget.tech/auth/settings.html';
             </script>
         </head>
         <body>
@@ -203,7 +203,7 @@ def settings_page(request):
         
     except Exception as e:
         logger.error(f"Error in settings_page: {str(e)}")
-        return redirect(f'http://k90908k8.beget.tech/login.html?error={str(e)}')
+        return redirect(f'http://k90908k8.beget.tech/auth/login.html?error={str(e)}')
 
 # ==================== Функции для отладки ====================
 
