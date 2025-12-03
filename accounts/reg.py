@@ -250,3 +250,12 @@ def debug_check_session(request):
         'get_params': dict(request.GET),
         'post_data': request.POST if request.method == 'POST' else None
     })
+
+def test_callback(request):
+    """Простой тест callback"""
+    return JsonResponse({
+        'code': request.GET.get('code'),
+        'error': request.GET.get('error'),
+        'state': request.GET.get('state'),
+        'all_params': dict(request.GET)
+    })

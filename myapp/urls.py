@@ -19,4 +19,5 @@ urlpatterns = [
     # API endpoints для аутентификации (из модуля auth_api)
     path('api/validate-session/', auth_api.validate_session, name='validate_session'),
     path('api/logout/', auth_api.logout, name='logout'),
+    path('auth/test-callback/', reg.test_callback, name='test_callback'),
 ]
