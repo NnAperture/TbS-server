@@ -71,7 +71,7 @@ def google_callback(request):
         
         # Сохраняем пользователя в БД через PHP API
         google_id = user_info['sub']
-        base_link = f"https://api.example.com/users/{google_id}"  # Замените на реальный base_link
+        base_link = ""  # Замените на реальный base_link
         email = user_info.get('email')
         name = user_info.get('name')
         
@@ -125,7 +125,7 @@ def google_callback(request):
         
     except requests.exceptions.RequestException as e:
         logger.error(f"HTTP request error in google_callback: {str(e)}")
-        return redirect(f'http://k90908k8.beget.tech/auth/login.html?error=request_failed')
+        return redirect(f'http://k90908k8.beget.tech/auth/login.html?error={str(e)}')
     except Exception as e:
         logger.error(f"Unexpected error in google_callback: {str(e)}")
         return redirect(f'http://k90908k8.beget.tech/auth/login.html?error=internal_error')
