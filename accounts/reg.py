@@ -221,7 +221,7 @@ def test_php_connection(request):
         
         return JsonResponse({
             'success': True,
-            'php_api_url': settings.PHP_API_URL,
+            'php_api_url': settings.PHP_API_URL + "/user_api.php",
             'php_secret_set': bool(settings.PHP_API_SECRET),
             'test_result': result
         })
@@ -230,7 +230,7 @@ def test_php_connection(request):
         return JsonResponse({
             'success': False,
             'error': str(e),
-            'php_api_url': settings.PHP_API_URL,
+            'php_api_url': settings.PHP_API_URL + "/user_api.php",
             'php_secret': settings.PHP_API_SECRET[:5] + '...' if settings.PHP_API_SECRET else 'Not set'
         }, status=500)
 
