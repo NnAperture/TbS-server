@@ -71,40 +71,26 @@ def google_callback(request):
         
         # Сохраняем пользователя в БД через PHP API
         google_id = user_info['sub']
-        base_link = ""  # Замените на реальный base_link
         email = user_info.get('email')
         name = user_info.get('name')
         
         logger.info(f"Creating/updating user in database: {email}")
         
         # Создаем или получаем пользователя
-        user_response = php_client.get_or_create_user(
+        user = php_client.get_or_create_user(
             google_id=google_id,
-            base_link=base_link,
             email=email,
             name=name
         )
-        
-        if not user_response.get('success'):
-            logger.error(f"Failed to create user: {user_response}")
-            return redirect('http://k90908k8.beget.tech/auth/login.html?error=user_creation_failed')
-        
-        user = user_response['user']
         logger.info(f"User created/retrieved: ID={user['id']}")
         
         # Создаем сессию
         logger.info("Creating session for user")
-        session_response = php_client.create_session(user['id'])
-        
-        if not session_response.get('success'):
-            logger.error(f"Failed to create session: {session_response}")
-            return redirect('http://k90908k8.beget.tech/auth/login.html?error=session_creation_failed')
-        
-        session_token = session_response['session_token']
+        session_token = php_client.create_session(user['id'])
         logger.info("Session created successfully")
         
         # Перенаправляем на фронтенд с токеном в URL
-        frontend_redirect_url = f'http://k90908k8.beget.tech/auth/auth-success.html?session_token={session_token}'
+        frontend_redirect_url = f'http://k90908k8.beget.tech/auth/auth-success.html'
         
         logger.info(f"Redirecting to frontend: {frontend_redirect_url}")
         
