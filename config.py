@@ -1,7 +1,43 @@
+# /app/config.py
+import sys
+import os
+
+print("Текущая директория:", os.getcwd())
+print("Пути Python:", sys.path)
+
+# Проверьте, где находится tgcloud
+try:
+    import tgcloud
+    print("Модуль tgcloud найден по пути:", tgcloud.__file__)
+    print("Содержимое tgcloud:", dir(tgcloud))
+    
+    # Проверьте config отдельно
+    import tgcloud.config
+    print("tgcloud.config найден:", tgcloud.config.__file__)
+    print("Функции в tgcloud.config:", dir(tgcloud.config))
+    
+    # Импортируем явно
+    from tgcloud.config import conf as tg_conf
+    tgcloud.conf = tg_conf
+    
+except Exception as e:
+    print(f"Ошибка: {e}")
+    import traceback
+    traceback.print_exc()
+    
+    # Заглушка на время отладки
+    def conf_stub(config_dict):
+        print(f"Заглушка: conf({config_dict})")
+        return {"stub": True}
+    
+    tgcloud.conf = conf_stub
+
+
+
 import tgcloud
 
 
-tgcloud.config.conf({
+tgcloud.__init__.conf({
  "cache_size":50,
  "trashgroup":-1002066546289,
  "tokens": [
