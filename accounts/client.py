@@ -22,8 +22,8 @@ logger = logging.getLogger(__name__)
 
 class PHPApiClient:
     def __init__(self):
+        self.lock = threading.RLock()
         with self.lock:
-            self.lock = threading.RLock()
             manifest = tg.UndefinedVar(id=acc_manifest_id)
             self.accounts:dict = tg.UndefinedVar(id=manifest.get()[-1]).get()
             self.sessions:dict = tg.UndefinedVar(sessions_manifest_id).get()
