@@ -1,7 +1,7 @@
 import tgcloud
 
 
-tgcloud.conf({
+tgcloud.config({
  "cache_size":50,
  "trashgroup":-1002066546289,
  "tokens": [
