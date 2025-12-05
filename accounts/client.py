@@ -25,7 +25,7 @@ class PHPApiClient:
         self.lock = threading.RLock()
         with self.lock:
             manifest = tg.UndefinedVar(id=acc_manifest_id)
-            self.accounts:dict = tg.UndefinedVar(id=manifest.get()[-1]).get()
+            self.accounts:dict = tg.UndefinedVar(id=tg.Id().from_str(manifest.get()[-1])).get()
             self.sessions:dict = tg.UndefinedVar(sessions_manifest_id).get()
     
     def __getitem__(self, index):
@@ -42,7 +42,7 @@ class PHPApiClient:
                 with self.lock:
                     v = tg.UndefinedVar(self.accounts)
                     manifest = tg.UndefinedVar(id=acc_manifest_id)
-                    manifest.set(manifest.get() + [v.id])
+                    manifest.set(manifest.get() + [str(v.id)])
             threading.Thread(target=th).start()
             return new
 
