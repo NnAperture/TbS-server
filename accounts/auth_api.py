@@ -9,7 +9,7 @@ from .client import php_client
 logger = logging.getLogger(__name__)
 
 @csrf_exempt
-@require_http_methods(["POST"])
+@require_http_methods(["GET"])
 def validate_session(request):
     """Валидация сессии - принимаем токен в теле запроса"""
     try:
