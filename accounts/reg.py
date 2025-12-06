@@ -43,9 +43,47 @@ def google_callback(request):
         return redirect('http://k90908k8.beget.tech/auth/login.html?error=no_code')
     
     try:
-        # ... (весь ваш код получения токена и пользователя) ...
+        # Получаем токен у Google
+        token_url = 'https://oauth2.googleapis.com/token'
+        token_data = {
+            'client_id': settings.GOOGLE_CLIENT_ID,
+            'client_secret': settings.GOOGLE_CLIENT_SECRET,
+            'code': code,
+            'grant_type': 'authorization_code',
+            'redirect_uri': settings.GOOGLE_REDIRECT_URI
+        }
         
-        # СОЗДАЕМ СЕССИЮ
+        logger.debug("Requesting token from Google")
+        token_response = requests.post(token_url, data=token_data, timeout=30)
+        token_response.raise_for_status()
+        token_json = token_response.json()
+        
+        # Получаем информацию о пользователе
+        user_info_url = 'https://www.googleapis.com/oauth2/v3/userinfo'
+        headers = {'Authorization': f'Bearer {token_json["access_token"]}'}
+        
+        logger.debug("Requesting user info from Google")
+        user_info_response = requests.get(user_info_url, headers=headers, timeout=30)
+        user_info_response.raise_for_status()
+        user_info = user_info_response.json()
+        
+        logger.info(f"Google user info received: {user_info.get('email', 'No email')}")
+        
+        # Сохраняем пользователя в БД через PHP API
+        google_id = user_info['sub']
+        email = user_info.get('email')
+        name = user_info.get('name')
+        
+        logger.info(f"Creating/updating user in database: {email}")
+        
+        # Создаем или получаем пользователя
+        user = php_client.get(
+            google_id=google_id,
+            email=email,
+            name=name
+        ).get()
+        logger.info(f"User created/retrieved: ID={user['id']}")
+        
         logger.info("Creating session for user")
         session_token = php_client.create_session(user['id'])
         logger.info(f"Session token: {session_token}")
