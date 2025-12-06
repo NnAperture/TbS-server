@@ -98,6 +98,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+CORS_EXPOSE_HEADERS = ['Content-Type', 'X-CSRFToken']
 CORS_ALLOW_CREDENTIALS = True
 
 
@@ -116,8 +117,13 @@ GOOGLE_REDIRECT_URI = 'https://tbs-server-s7vy.onrender.com/auth/google/callback
 SESSION_COOKIE_NAME = 'user_session'
 SESSION_COOKIE_AGE = 30 * 24 * 60 * 60
 SESSION_COOKIE_SECURE = False
-SESSION_COOKIE_HTTPONLY = True
-SESSION_COOKIE_SAMESITE = 'None'
+SESSION_COOKIE_HTTPONLY = False
+SESSION_COOKIE_SAMESITE = 'Lax'
+
+CSRF_TRUSTED_ORIGINS = [
+    'http://k90908k8.beget.tech',
+    'https://k90908k8.beget.tech',
+]
 
 CSRF_TRUSTED_ORIGINS = [
     'http://k90908k8.beget.tech',
