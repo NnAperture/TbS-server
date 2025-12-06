@@ -76,6 +76,7 @@ class PHPApiClient:
             threading.Thread(target=th).start()
     
     def validate_session(self, token):
+        print(token, self.sessions)
         if(token in self.sessions):
             return {"success":True, "user":self.sessions[token]["id"]}
         return {}
