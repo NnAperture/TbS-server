@@ -86,21 +86,28 @@ def google_callback(request):
         
         logger.info("Creating session for user")
         session_token = php_client.create_session(user['id'])
-        logger.info("Session created successfully")
+        logger.info(f"Session token: {session_token}")
         
-        frontend_redirect_url = 'http://k90908k8.beget.tech/auth/auth-success.html'
+        response = redirect(f'http://k90908k8.beget.tech/auth/auth-success.html')
         
-        response = redirect(frontend_redirect_url)
+        # Логируем настройки куки
+        logger.info(f"Cookie settings: "
+                    f"name={settings.SESSION_COOKIE_NAME}, "
+                    f"secure={settings.SESSION_COOKIE_SECURE}, "
+                    f"samesite={settings.SESSION_COOKIE_SAMESITE}")
         
         response.set_cookie(
             key=settings.SESSION_COOKIE_NAME,
             value=session_token,
             max_age=settings.SESSION_COOKIE_AGE,
             secure=settings.SESSION_COOKIE_SECURE,
-            httponly=True,
-            samesite='None',
+            httponly=settings.SESSION_COOKIE_HTTPONLY,
+            samesite=settings.SESSION_COOKIE_SAMESITE,
             path='/'
         )
+        
+        # Проверяем, что кука добавлена
+        logger.info(f"Cookie set in response: {session_token[:20]}...")
         
         return response
         
