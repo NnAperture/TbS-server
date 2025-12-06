@@ -12,79 +12,72 @@ logger = logging.getLogger(__name__)
 @csrf_exempt
 @require_http_methods(["GET", "POST", "OPTIONS"])
 def validate_session(request):
-    """Валидация сессии с улучшенной отладкой"""
+    """Валидация сессии с поддержкой mixed HTTP/HTTPS"""
     
-    # Обработка CORS preflight запросов
+    # CORS preflight
     if request.method == "OPTIONS":
         response = JsonResponse({})
-        response["Access-Control-Allow-Origin"] = "http://k90908k8.beget.tech"
+        origin = request.headers.get('Origin', '')
+        if origin in settings.CORS_ALLOWED_ORIGINS:
+            response["Access-Control-Allow-Origin"] = origin
         response["Access-Control-Allow-Credentials"] = "true"
         response["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
-        response["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
+        response["Access-Control-Allow-Headers"] = "Content-Type, Authorization, X-Session-Token"
         return response
     
     try:
-        # Логируем все куки для отладки
-        logger.info(f"Request cookies: {dict(request.COOKIES)}")
-        logger.info(f"Session cookie name: {settings.SESSION_COOKIE_NAME}")
+        # Способ 1: Ищем токен в кастомном заголовке
+        session_token = request.headers.get('X-Session-Token')
         
-        # Получаем токен из кук
-        session_token = request.COOKIES.get(settings.SESSION_COOKIE_NAME)
+        # Способ 2: Ищем в cookies
+        if not session_token:
+            session_token = request.COOKIES.get(settings.SESSION_COOKIE_NAME)
+        
+        # Способ 3: Ищем в теле запроса
+        if not session_token and request.body:
+            try:
+                body_data = json.loads(request.body)
+                session_token = body_data.get('session_token')
+            except:
+                pass
+        
+        logger.info(f"Session token received: {'Yes' if session_token else 'No'}")
         
         if not session_token:
-            logger.warning(f"No session token found in cookies. Available cookies: {list(request.COOKIES.keys())}")
             response = JsonResponse({
                 'authenticated': False, 
-                'error': 'No session token',
+                'error': 'No session token provided',
                 'debug': {
-                    'cookie_name': settings.SESSION_COOKIE_NAME,
-                    'available_cookies': list(request.COOKIES.keys())
+                    'headers': {k: v for k, v in request.headers.items() if 'token' in k.lower()},
+                    'cookies': list(request.COOKIES.keys())
                 }
-            }, status=200)  # Используем 200 вместо 401 для фронтенда
-            
-            # Добавляем CORS заголовки
-            response["Access-Control-Allow-Origin"] = "http://k90908k8.beget.tech"
-            response["Access-Control-Allow-Credentials"] = "true"
-            return response
-        
-        logger.debug(f"Validating session token: {session_token[:20]}...")
-        
-        # Валидируем сессию через PHP API
-        session_response = php_client.validate_session(session_token)
-        
-        if session_response.get('success'):
-            user = session_response['user']
-            logger.info(f"Session validated for user: {user.get('email', 'Unknown')}")
-            
-            response_data = {
-                'authenticated': True,
-                'user': {
-                    'id': user.get('id'),
-                    'google_id': user.get('google_id'),
-                    'email': user.get('email'),
-                    'name': user.get('name'),
-                    'base_link': user.get('base_link')
-                }
-            }
-            
-            response = JsonResponse(response_data)
-            
-        else:
-            logger.warning(f"Invalid session: {session_response.get('error', 'Unknown error')}")
-            response = JsonResponse({
-                'authenticated': False,
-                'error': session_response.get('error', 'Invalid session')
             }, status=200)
+        else:
+            # Валидируем сессию через PHP API
+            session_response = php_client.validate_session(session_token)
             
-            # Удаляем невалидную куку
-            response.delete_cookie(
-                settings.SESSION_COOKIE_NAME,
-                path='/',
-                samesite='Lax'
-            )
+            if session_response.get('success'):
+                user = session_response['user']
+                response_data = {
+                    'authenticated': True,
+                    'user': {
+                        'id': user.get('id'),
+                        'email': user.get('email'),
+                        'name': user.get('name'),
+                        'base_link': user.get('base_link')
+                    }
+                }
+                response = JsonResponse(response_data)
+            else:
+                response = JsonResponse({
+                    'authenticated': False,
+                    'error': session_response.get('error', 'Invalid session')
+                }, status=200)
         
-        # Добавляем CORS заголовки
-        response["Access-Control-Allow-Origin"] = "http://k90908k8.beget.tech"
+        # CORS заголовки
+        origin = request.headers.get('Origin')
+        if origin and origin in settings.CORS_ALLOWED_ORIGINS:
+            response["Access-Control-Allow-Origin"] = origin
         response["Access-Control-Allow-Credentials"] = "true"
         
         return response
@@ -93,10 +86,9 @@ def validate_session(request):
         logger.error(f"Error validating session: {str(e)}", exc_info=True)
         response = JsonResponse({
             'authenticated': False, 
-            'error': 'Internal server error',
-            'debug': str(e)
+            'error': 'Internal server error'
         }, status=500)
-        response["Access-Control-Allow-Origin"] = "http://k90908k8.beget.tech"
+        response["Access-Control-Allow-Origin"] = request.headers.get('Origin', 'http://k90908k8.beget.tech')
         response["Access-Control-Allow-Credentials"] = "true"
         return response
 

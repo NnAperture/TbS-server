@@ -63,7 +63,12 @@ SECRET_KEY = 'django-insecure-)str2j1-od*djq2p=#i8zma&sgyc@#^b=+s3fpcyioc*3@b=d7
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'tbs-server-s7vy.onrender.com',
+    '127.0.0.1',
+    'localhost',
+    'k90908k8.beget.tech',
+]
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
@@ -117,12 +122,17 @@ GOOGLE_REDIRECT_URI = 'https://tbs-server-s7vy.onrender.com/auth/google/callback
 SESSION_COOKIE_NAME = 'user_session'
 SESSION_COOKIE_AGE = 30 * 24 * 60 * 60
 SESSION_COOKIE_SECURE = False
-SESSION_COOKIE_HTTPONLY = False
+SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_SAMESITE = 'Lax'
+SESSION_COOKIE_DOMAIN = None
 
-CSRF_TRUSTED_ORIGINS = [
-    'http://k90908k8.beget.tech',
-    'https://k90908k8.beget.tech',
+CSRF_COOKIE_SECURE = False
+
+CORS_ALLOW_HEADERS = [
+    'content-type',
+    'authorization',
+    'x-csrftoken',
+    'x-session-token',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
