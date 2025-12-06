@@ -12,28 +12,22 @@ logger = logging.getLogger(__name__)
 @csrf_exempt
 @require_http_methods(["GET", "POST", "OPTIONS"])
 def validate_session(request):
-    """Валидация сессии с поддержкой mixed HTTP/HTTPS"""
+    """Валидация сессии"""
     
     # CORS preflight
     if request.method == "OPTIONS":
         response = JsonResponse({})
-        origin = request.headers.get('Origin', '')
-        if origin in settings.CORS_ALLOWED_ORIGINS:
-            response["Access-Control-Allow-Origin"] = origin
+        response["Access-Control-Allow-Origin"] = "http://k90908k8.beget.tech"
         response["Access-Control-Allow-Credentials"] = "true"
         response["Access-Control-Allow-Methods"] = "GET, POST, OPTIONS"
         response["Access-Control-Allow-Headers"] = "Content-Type, Authorization, X-Session-Token"
         return response
     
     try:
-        # Способ 1: Ищем токен в кастомном заголовке
+        # 1. Проверяем токен в заголовке X-Session-Token
         session_token = request.headers.get('X-Session-Token')
         
-        # Способ 2: Ищем в cookies
-        if not session_token:
-            session_token = request.COOKIES.get(settings.SESSION_COOKIE_NAME)
-        
-        # Способ 3: Ищем в теле запроса
+        # 2. Если нет в заголовке, проверяем в теле запроса
         if not session_token and request.body:
             try:
                 body_data = json.loads(request.body)
@@ -44,53 +38,40 @@ def validate_session(request):
         logger.info(f"Session token received: {'Yes' if session_token else 'No'}")
         
         if not session_token:
-            response = JsonResponse({
-                'authenticated': False, 
-                'error': 'No session token provided',
-                'debug': {
-                    'headers': {k: v for k, v in request.headers.items() if 'token' in k.lower()},
-                    'cookies': list(request.COOKIES.keys())
-                }
+            return JsonResponse({
+                'authenticated': False,
+                'error': 'No session token provided'
             }, status=200)
-        else:
-            # Валидируем сессию через PHP API
-            session_response = php_client.validate_session(session_token)
+        
+        # Валидируем сессию через PHP API
+        session_response = php_client.validate_session(session_token)
+        
+        if session_response.get('success'):
+            user = session_response['user']
+            logger.info(f"Session validated for user: {user.get('email', 'Unknown')}")
             
-            if session_response.get('success'):
-                user = session_response['user']
-                response_data = {
-                    'authenticated': True,
-                    'user': {
-                        'id': user.get('id'),
-                        'email': user.get('email'),
-                        'name': user.get('name'),
-                        'base_link': user.get('base_link')
-                    }
+            return JsonResponse({
+                'authenticated': True,
+                'user': {
+                    'id': user.get('id'),
+                    'email': user.get('email'),
+                    'name': user.get('name'),
+                    'base_link': user.get('base_link')
                 }
-                response = JsonResponse(response_data)
-            else:
-                response = JsonResponse({
-                    'authenticated': False,
-                    'error': session_response.get('error', 'Invalid session')
-                }, status=200)
-        
-        # CORS заголовки
-        origin = request.headers.get('Origin')
-        if origin and origin in settings.CORS_ALLOWED_ORIGINS:
-            response["Access-Control-Allow-Origin"] = origin
-        response["Access-Control-Allow-Credentials"] = "true"
-        
-        return response
+            })
+        else:
+            logger.warning(f"Invalid session: {session_response.get('error')}")
+            return JsonResponse({
+                'authenticated': False,
+                'error': session_response.get('error', 'Invalid session')
+            }, status=200)
             
     except Exception as e:
         logger.error(f"Error validating session: {str(e)}", exc_info=True)
-        response = JsonResponse({
-            'authenticated': False, 
+        return JsonResponse({
+            'authenticated': False,
             'error': 'Internal server error'
         }, status=500)
-        response["Access-Control-Allow-Origin"] = request.headers.get('Origin', 'http://k90908k8.beget.tech')
-        response["Access-Control-Allow-Credentials"] = "true"
-        return response
 
 @csrf_exempt
 @require_http_methods(["POST"])
