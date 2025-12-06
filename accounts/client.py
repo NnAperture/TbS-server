@@ -26,7 +26,7 @@ class PHPApiClient:
         with self.lock:
             manifest = tg.UndefinedVar(id=acc_manifest_id)
             self.accounts:dict = tg.UndefinedVar(id=tg.Id().from_str(manifest.get()[-1])).get()
-            self.sessions:dict = tg.UndefinedVar(sessions_manifest_id).get()
+            self.sessions:dict = tg.UndefinedVar(id=sessions_manifest_id).get()
     
     def __getitem__(self, index):
         return self.accounts[index]
@@ -34,11 +34,11 @@ class PHPApiClient:
     def _create_user(self, id, email, name):
         with self.lock:
             self.accounts = self.accounts | {id: 
-                                             (new := tg.UndefinedVar({"id":id,
+                                             (new := str(tg.UndefinedVar({"id":id,
                                                                       "email":email,
-                                                                      "name":name}))
+                                                                      "name":name}).id))
                                              }
-            def th(self):
+            def th(self=self):
                 with self.lock:
                     v = tg.UndefinedVar(self.accounts)
                     manifest = tg.UndefinedVar(id=acc_manifest_id)
