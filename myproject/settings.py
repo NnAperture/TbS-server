@@ -104,7 +104,7 @@ CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:8000',
     os.environ.get('backend_url'),
-    'https://k90908k8.beget.tech',
+    'http://k90908k8.beget.tech',
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
@@ -112,8 +112,6 @@ CORS_ALLOW_ALL_ORIGINS = True
 GOOGLE_CLIENT_ID = os.environ.get('GOOGLE_CLIENT_ID')
 GOOGLE_CLIENT_SECRET = os.environ.get('GOOGLE_CLIENT_SECRET')
 GOOGLE_REDIRECT_URI = 'https://tbs-server-s7vy.onrender.com/auth/google/callback/'
-PHP_API_URL = 'http://q97708nr.beget.tech'
-PHP_API_SECRET = 'a98274576b946144c05dbe7041055c0acc9783da91e101e30341c95fad90811c'
 
 SESSION_COOKIE_NAME = 'user_session'
 SESSION_COOKIE_AGE = 30 * 24 * 60 * 60
