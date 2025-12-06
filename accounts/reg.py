@@ -81,7 +81,7 @@ def google_callback(request):
             google_id=google_id,
             email=email,
             name=name
-        )
+        ).get()
         logger.info(f"User created/retrieved: ID={user['id']}")
         
         # Создаем сессию

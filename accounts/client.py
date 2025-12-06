@@ -34,9 +34,9 @@ class PHPApiClient:
     def _create_user(self, id, email, name):
         with self.lock:
             self.accounts = self.accounts | {id: 
-                                             (new := str(tg.UndefinedVar({"id":id,
+                                             (str((new := tg.UndefinedVar({"id":id,
                                                                       "email":email,
-                                                                      "name":name}).id))
+                                                                      "name":name})).id))
                                              }
             def th(self=self):
                 with self.lock:
@@ -49,9 +49,9 @@ class PHPApiClient:
     def __contains__(self, value):
         return value in self.accounts
     
-    def get(self, google_id, email=None, name=None):
+    def get(self, google_id, email=None, name=None) -> tg.UndefinedVar:
         if(google_id in self):
-            return self[google_id]
+            return tg.UndefinedVar(id=tg.Id().from_str(self[google_id]))
         else:
             return self._create_user(google_id, email, name)
     
@@ -72,7 +72,7 @@ class PHPApiClient:
             self.sessions.pop(s)
         if(len(delete) != 0 or save):
             def th(self):
-                tg.UndefinedVar(sessions_manifest_id).set(self.sessions)
+                tg.UndefinedVar(id=sessions_manifest_id).set(self.sessions)
             threading.Thread(target=th).start()
     
     def validate_session(self, token):
