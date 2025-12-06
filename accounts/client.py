@@ -71,7 +71,7 @@ class PHPApiClient:
         for s in delete:
             self.sessions.pop(s)
         if(len(delete) != 0 or save):
-            def th(self):
+            def th(self=self):
                 tg.UndefinedVar(id=sessions_manifest_id).set(self.sessions)
             threading.Thread(target=th).start()
     
