@@ -77,7 +77,7 @@ def google_callback(request):
         logger.info(f"Creating/updating user in database: {email}")
         
         # Создаем или получаем пользователя
-        user = php_client.get_or_create_user(
+        user = php_client.get(
             google_id=google_id,
             email=email,
             name=name
