@@ -26,7 +26,7 @@ class Chain:
             def make_editer(h=hdr):
                 def edit_fn(value):
                     res = getbot_id(h).edit_message(h, value)
-                    return res
+                    return h
                 return edit_fn
             yield make_editer()
         while True:
