@@ -9,6 +9,7 @@ import json
 import logging
 import urllib.parse
 import secrets
+import tgcloud as tg
 from .client import php_client
 
 logger = logging.getLogger(__name__)

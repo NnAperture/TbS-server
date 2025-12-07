@@ -16,7 +16,7 @@ public_manifest_id = tg.Id().from_str("0|1|4150")
 pub_id_id = tg.Id().from_str("0|1|4154")
 telegram_manifest_id = tg.Id().from_str("0|2|4012")
 
-pub_id_v = tg.Int(pub_id_id)
+pub_id_v = tg.Int(id=pub_id_id)
 
 logger = logging.getLogger(__name__)
 
