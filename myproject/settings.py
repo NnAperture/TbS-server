@@ -104,9 +104,11 @@ CORS_EXPOSE_HEADERS = ['Content-Type', 'X-CSRFToken']
 CORS_ALLOW_CREDENTIALS = True
 
 CORS_ALLOWED_ORIGINS = [
+    'tbs-server-s7vy.onrender.com',
     'http://localhost:8000',
     os.environ.get('backend_url'),
     'http://k90908k8.beget.tech',
+
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True

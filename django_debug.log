@@ -102,3 +102,6 @@ INFO 2025-12-07 21:33:16,439 autoreload E:\projects\1A.TbS-server\accounts\reg.p
 INFO 2025-12-07 21:33:17,492 autoreload Watching for file changes with StatReloader
 INFO 2025-12-07 21:33:20,580 autoreload E:\projects\1A.TbS-server\accounts\reg.py changed, reloading.
 INFO 2025-12-07 21:33:21,700 autoreload Watching for file changes with StatReloader
+INFO 2025-12-07 21:41:10,279 autoreload E:\projects\1A.TbS-server\myproject\settings.py changed, reloading.
+INFO 2025-12-07 21:41:11,389 autoreload Watching for file changes with StatReloader
+INFO 2025-12-07 21:41:30,785 autoreload E:\projects\1A.TbS-server\myproject\settings.py changed, reloading.
