@@ -15,7 +15,7 @@ urlpatterns = [
 
     path('', dashboard, name='index'),
     path('set-csrf/', set_csrf_token, name='set_csrf'),
-    path('auth/google/', google_login, name='google_login'),
+    path('oauth/google/', google_login, name='google_login'),
     path('oauth/google/callback/', google_callback, name='google_callback'),
     path('dashboard/', dashboard, name='dashboard'),
     path('api/user-info/', api_user_info, name='api_user_info'),
