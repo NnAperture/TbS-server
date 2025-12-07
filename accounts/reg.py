@@ -1,7 +1,7 @@
 # accounts/views.py
 from django.shortcuts import render, redirect
 from django.http import JsonResponse, HttpResponse
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.conf import settings
 from django.urls import reverse
 import requests
