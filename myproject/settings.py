@@ -113,7 +113,7 @@ CORS_ALLOW_ALL_ORIGINS = True
 
 GOOGLE_CLIENT_ID = os.environ.get('GOOGLE_CLIENT_ID')
 GOOGLE_CLIENT_SECRET = os.environ.get('GOOGLE_CLIENT_SECRET')
-GOOGLE_REDIRECT_URI = 'https://tbs-server-s7vy.onrender.com/auth/google/callback/'
+GOOGLE_REDIRECT_URI = 'https://tbs-server-s7vy.onrender.com/oauth/google/callback/'
 
 # Настройки сессий для работы без БД (используем файлы)
 SESSION_ENGINE = 'django.contrib.sessions.backends.file'  # Используем файловые сессии

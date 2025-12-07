@@ -13,7 +13,6 @@ urlpatterns = [
     path('update_news0023399/', handler.update_news, name='update_news'),
     path('news_pop/', handler.get_news, name='get_news'),
     
-    path('', index, name='index'),
     path('oauth/google/', google_login, name='google_login'),
     path('oauth/google/callback/', google_callback, name='google_callback'),
     path('dashboard/', dashboard, name='dashboard'),
