@@ -5,6 +5,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Панель управления - {{ user.name }}</title>
+    
+    <!-- Простой CSRF токен через JavaScript -->
+    <script>
+        // Функция для получения CSRF токена из куки
+        function getCSRFToken() {
+            const name = 'csrftoken';
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        
+        // При загрузке проверяем и показываем CSRF токен
+        document.addEventListener('DOMContentLoaded', function() {
+            const csrfToken = getCSRFToken();
+            console.log('CSRF Token:', csrfToken ? 'Установлен' : 'Не найден');
+            
+            // Сохраняем pub_id в localStorage
+            const pubId = '{{ user.pub }}';
+            localStorage.setItem('pub_id', pubId);
+            localStorage.setItem('user_name', '{{ user.name }}');
+            console.log('Pub ID сохранен в localStorage:', pubId);
+        });
+    </script>
+    
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -44,36 +77,14 @@
             color: white;
             font-size: 24px;
             font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-        .user-avatar:hover {
-            transform: scale(1.05);
         }
         .user-details h1 {
             margin: 0;
             color: #333;
-            display: flex;
-            align-items: center;
-            gap: 10px;
         }
         .user-details p {
             margin: 5px 0 0;
             color: #666;
-        }
-        .edit-btn {
-            background: none;
-            border: none;
-            color: #6c757d;
-            cursor: pointer;
-            font-size: 14px;
-            padding: 2px 6px;
-            border-radius: 3px;
-            transition: background 0.2s;
-        }
-        .edit-btn:hover {
-            background: #f8f9fa;
-            color: #495057;
         }
         .logout-btn {
             padding: 10px 20px;
@@ -103,9 +114,6 @@
         .info-card h3 {
             margin-top: 0;
             color: #495057;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
         .info-card .value {
             font-size: 18px;
@@ -114,131 +122,58 @@
             margin: 10px 0;
             word-break: break-all;
         }
-        .editable-value {
-            cursor: pointer;
-            padding: 5px;
-            border-radius: 4px;
-            transition: background 0.2s;
-        }
-        .editable-value:hover {
-            background: rgba(0, 123, 255, 0.1);
-        }
         .edit-input {
             width: 100%;
-            padding: 8px 12px;
-            border: 2px solid #007bff;
+            padding: 8px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
             border-radius: 4px;
-            font-size: 16px;
-            box-sizing: border-box;
         }
-        .edit-buttons {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 5px;
         }
-        .save-btn {
+        .btn-primary {
+            background: #007bff;
+            color: white;
+        }
+        .btn-success {
             background: #28a745;
             color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 4px;
-            cursor: pointer;
         }
-        .save-btn:hover {
-            background: #218838;
-        }
-        .cancel-btn {
-            background: #6c757d;
+        .btn-danger {
+            background: #dc3545;
             color: white;
-            border: none;
-            padding: 8px 15px;
+        }
+        .message {
+            padding: 10px;
+            margin: 10px 0;
             border-radius: 4px;
-            cursor: pointer;
         }
-        .cancel-btn:hover {
-            background: #5a6268;
-        }
-        .copy-btn {
-            background: #28a745;
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-        .copy-btn:hover {
-            background: #218838;
-        }
-        .instructions {
-            background: #fff3cd;
-            border: 1px solid #ffeaa7;
-            border-radius: 8px;
-            padding: 20px;
-            margin-top: 30px;
-        }
-        .instructions h3 {
-            color: #856404;
-            margin-top: 0;
-        }
-        code {
-            background: #f1f1f1;
-            padding: 2px 5px;
-            border-radius: 3px;
-            font-family: 'Courier New', monospace;
-        }
-        .api-section {
-            margin-top: 40px;
-            padding-top: 20px;
-            border-top: 2px solid #eee;
-        }
-        .api-test {
-            margin-top: 20px;
-            padding: 15px;
-            background: #e9ecef;
-            border-radius: 5px;
-        }
-        .success-message {
-            background-color: #d4edda;
-            border-color: #c3e6cb;
+        .success {
+            background: #d4edda;
             color: #155724;
-            padding: 12px;
-            border-radius: 5px;
-            margin-bottom: 15px;
-            display: none;
         }
-        .error-message {
-            background-color: #f8d7da;
-            border-color: #f5c6cb;
+        .error {
+            background: #f8d7da;
             color: #721c24;
-            padding: 12px;
-            border-radius: 5px;
-            margin-bottom: 15px;
-            display: none;
-        }
-        .loading {
-            color: #6c757d;
-            font-style: italic;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div id="success-message" class="success-message"></div>
-        <div id="error-message" class="error-message"></div>
+        <div id="message" class="message" style="display: none;"></div>
         
         <div class="header">
             <div class="user-info">
-                <div class="user-avatar" onclick="changeAvatar()">
-                    <span id="avatar-text">{{ user.name|first|upper }}</span>
+                <div class="user-avatar">
+                    {{ user.name|first|upper }}
                 </div>
                 <div class="user-details">
-                    <h1>
-                        <span id="name-display">{{ user.name }}</span>
-                        <button class="edit-btn" onclick="editName()" title="Изменить имя">
-                            ✏️
-                        </button>
-                    </h1>
+                    <h1>{{ user.name }}</h1>
                     <p>{{ user.email }}</p>
                     <p>ID: {{ user.id }}</p>
                 </div>
@@ -250,21 +185,19 @@
             <div class="info-card">
                 <h3>Публичный ID</h3>
                 <div class="value">{{ user.pub }}</div>
-                <button class="copy-btn" onclick="copyToClipboard('{{ user.pub }}')">
-                    Скопировать Pub ID
+                <button class="btn btn-primary" onclick="copyToClipboard('{{ user.pub }}')">
+                    Скопировать
                 </button>
-                <p><small>Используйте этот ID для интеграции с фронтендом</small></p>
             </div>
 
             <div class="info-card">
-                <h3>Google ID</h3>
-                <div class="value">{{ user.google_id }}</div>
+                <h3>Изменить имя</h3>
+                <input type="text" id="new-name" class="edit-input" value="{{ user.name }}" maxlength="50">
+                <button class="btn btn-success" onclick="updateName()">Сохранить имя</button>
             </div>
 
             <div class="info-card">
-                <h3>
-                    <span>Дата регистрации</span>
-                </h3>
+                <h3>Дата регистрации</h3>
                 <div class="value">
                     {% if user.created_at_formatted %}
                         {{ user.created_at_formatted }}
@@ -277,379 +210,118 @@
             </div>
 
             <div class="info-card">
-                <h3>
-                    <span>Текущие куки</span>
-                </h3>
+                <h3>Текущие куки</h3>
                 <div class="value">
                     session_token: <span id="session-token">***</span><br>
-                    pub_id: {{ pub_id }}
-                </div>
-            </div>
-            
-            <div class="info-card">
-                <h3>
-                    <span>Дополнительная информация</span>
-                </h3>
-                <div class="value">
-                    <div class="editable-value" onclick="editField('bio', 'О себе')" id="bio-value">
-                        {% if user.bio %}
-                            {{ user.bio }}
-                        {% else %}
-                            Нажмите, чтобы добавить информацию о себе
-                        {% endif %}
-                    </div>
-                </div>
-            </div>
-            
-            <div class="info-card">
-                <h3>
-                    <span>Настройки профиля</span>
-                </h3>
-                <div class="value">
-                    <div style="margin-bottom: 10px;">
-                        <button class="save-btn" onclick="saveProfile()" style="width: 100%;">
-                            Сохранить все изменения
-                        </button>
-                    </div>
-                    <div style="font-size: 14px; color: #6c757d;">
-                        Все изменения сохраняются автоматически
-                    </div>
+                    pub_id: {{ user.pub }}
                 </div>
             </div>
         </div>
 
-        <div class="instructions">
-            <h3>Инструкция для фронтенда</h3>
-            <p>Для доступа к данным пользователя с фронтенда:</p>
-            <ol>
-                <li>Используйте <code>pub_id: {{ user.pub }}</code> для идентификации пользователя</li>
-                <li>Для получения данных пользователя используйте API:
-                    <code>GET /api/pub-data/{{ user.pub }}/</code>
-                </li>
-                <li>Или проверьте свою аутентификацию:
-                    <code>GET /api/user-info/</code>
-                </li>
-                <li>Для обновления профиля используйте:
-                    <code>POST /api/update-profile/</code>
-                </li>
-            </ol>
-            <p>Куки работают в домене Django и доступны для фронтенда через CORS.</p>
-        </div>
-
-        <div class="api-section">
-            <h2>Тестирование API</h2>
-            <div class="api-test">
-                <button onclick="testApi()">Проверить API пользователя</button>
-                <button onclick="testPubApi()">Проверить публичное API</button>
-                <button onclick="testUpdateProfile()">Тест обновления профиля</button>
-                <div id="api-result" style="margin-top: 20px; padding: 15px; background: white; border-radius: 5px;"></div>
-            </div>
+        <div style="margin-top: 30px; padding: 20px; background: #f8f9fa; border-radius: 8px;">
+            <h3>Тестирование API</h3>
+            <button class="btn btn-primary" onclick="testApi()">Проверить API пользователя</button>
+            <button class="btn btn-primary" onclick="testUpdateProfile()">Тест обновления профиля</button>
+            <div id="api-result" style="margin-top: 20px; padding: 15px; background: white; border-radius: 5px;"></div>
         </div>
     </div>
 
     <script>
-        let editingField = null;
-        let originalValue = null;
-        let profileChanges = {};
-
-        function showMessage(elementId, message, isError = false) {
-            const element = document.getElementById(elementId);
-            element.textContent = message;
-            element.style.display = 'block';
-            element.className = isError ? 'error-message' : 'success-message';
+        function showMessage(text, isError = false) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.textContent = text;
+            messageDiv.className = isError ? 'message error' : 'message success';
+            messageDiv.style.display = 'block';
             
             setTimeout(() => {
-                element.style.display = 'none';
-            }, 5000);
+                messageDiv.style.display = 'none';
+            }, 3000);
         }
 
         function copyToClipboard(text) {
             navigator.clipboard.writeText(text).then(() => {
-                showMessage('success-message', 'Скопировано: ' + text);
-            }).catch(err => {
-                showMessage('error-message', 'Ошибка копирования: ' + err, true);
+                showMessage('Скопировано: ' + text);
             });
         }
 
-        function editName() {
-            const nameDisplay = document.getElementById('name-display');
-            const currentName = nameDisplay.textContent;
-            
-            nameDisplay.innerHTML = `
-                <input type="text" id="name-input" class="edit-input" value="${currentName}" maxlength="50">
-                <div class="edit-buttons">
-                    <button class="save-btn" onclick="saveName()">Сохранить</button>
-                    <button class="cancel-btn" onclick="cancelEditName()">Отмена</button>
-                </div>
-            `;
-            
-            document.getElementById('name-input').focus();
-            document.getElementById('name-input').select();
-        }
-
-        function saveName() {
-            const nameInput = document.getElementById('name-input');
-            const newName = nameInput.value.trim();
+        async function updateName() {
+            const newName = document.getElementById('new-name').value.trim();
             
             if (!newName) {
-                showMessage('error-message', 'Имя не может быть пустым', true);
+                showMessage('Имя не может быть пустым', true);
                 return;
             }
             
             if (newName.length > 50) {
-                showMessage('error-message', 'Имя слишком длинное (максимум 50 символов)', true);
+                showMessage('Имя слишком длинное', true);
                 return;
             }
-            
-            // Сохраняем изменение
-            profileChanges.name = newName;
-            
-            // Обновляем отображение
-            document.getElementById('name-display').innerHTML = `
-                ${newName}
-                <button class="edit-btn" onclick="editName()" title="Изменить имя">
-                    ✏️
-                </button>
-            `;
-            
-            // Обновляем аватар
-            document.getElementById('avatar-text').textContent = newName.charAt(0).toUpperCase();
-            
-            // Сохраняем в localStorage
-            localStorage.setItem('user_name', newName);
-            
-            showMessage('success-message', 'Имя обновлено! Сохраните изменения.');
-        }
-
-        function cancelEditName() {
-            const nameDisplay = document.getElementById('name-display');
-            const currentName = '{{ user.name }}'; // Исходное имя из шаблона
-            nameDisplay.innerHTML = `
-                ${currentName}
-                <button class="edit-btn" onclick="editName()" title="Изменить имя">
-                    ✏️
-                </button>
-            `;
-            
-            delete profileChanges.name;
-        }
-
-        function editField(fieldId, fieldTitle) {
-            if (editingField === fieldId) return;
-            
-            const valueElement = document.getElementById(fieldId + '-value');
-            const currentValue = valueElement.textContent.trim();
-            
-            // Сохраняем оригинальное значение
-            originalValue = currentValue;
-            editingField = fieldId;
-            
-            valueElement.innerHTML = `
-                <input type="text" 
-                       id="${fieldId}-input" 
-                       class="edit-input" 
-                       value="${currentValue === 'Нажмите, чтобы добавить информацию о себе' ? '' : currentValue}"
-                       placeholder="Введите ${fieldTitle.toLowerCase()}"
-                       maxlength="200">
-                <div class="edit-buttons">
-                    <button class="save-btn" onclick="saveField('${fieldId}')">Сохранить</button>
-                    <button class="cancel-btn" onclick="cancelEditField('${fieldId}')">Отмена</button>
-                </div>
-            `;
-            
-            const input = document.getElementById(fieldId + '-input');
-            input.focus();
-            input.select();
-        }
-
-        function saveField(fieldId) {
-            const input = document.getElementById(fieldId + '-input');
-            const newValue = input.value.trim();
-            const valueElement = document.getElementById(fieldId + '-value');
-            
-            // Сохраняем изменение
-            profileChanges[fieldId] = newValue || '';
-            
-            // Обновляем отображение
-            if (newValue) {
-                valueElement.textContent = newValue;
-            } else {
-                valueElement.textContent = fieldId === 'bio' 
-                    ? 'Нажмите, чтобы добавить информацию о себе'
-                    : 'Не указано';
-            }
-            
-            valueElement.classList.add('editable-value');
-            valueElement.onclick = function() { editField(fieldId, fieldId === 'bio' ? 'О себе' : fieldId); };
-            
-            editingField = null;
-            
-            showMessage('success-message', 'Изменение сохранено! Не забудьте сохранить профиль.');
-        }
-
-        function cancelEditField(fieldId) {
-            const valueElement = document.getElementById(fieldId + '-value');
-            
-            // Восстанавливаем оригинальное значение
-            if (originalValue) {
-                valueElement.textContent = originalValue;
-            } else {
-                valueElement.textContent = fieldId === 'bio' 
-                    ? 'Нажмите, чтобы добавить информацию о себе'
-                    : 'Не указано';
-            }
-            
-            valueElement.classList.add('editable-value');
-            valueElement.onclick = function() { editField(fieldId, fieldId === 'bio' ? 'О себе' : fieldId); };
-            
-            editingField = null;
-            delete profileChanges[fieldId];
-        }
-
-        async function saveProfile() {
-            if (Object.keys(profileChanges).length === 0) {
-                showMessage('error-message', 'Нет изменений для сохранения', true);
-                return;
-            }
-            
-            const resultDiv = document.getElementById('api-result');
-            resultDiv.innerHTML = '<div class="loading">Сохранение...</div>';
             
             try {
                 const response = await fetch('/api/update-profile/', {
                     method: 'POST',
-                    credentials: 'include',
                     headers: {
                         'Content-Type': 'application/json',
-                        'X-CSRFToken': getCSRFToken()
                     },
-                    body: JSON.stringify(profileChanges)
+                    body: JSON.stringify({ name: newName })
                 });
                 
                 const data = await response.json();
                 
                 if (data.success) {
-                    resultDiv.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
-                    showMessage('success-message', 'Профиль успешно обновлен!');
-                    
-                    // Очищаем изменения
-                    profileChanges = {};
-                    
-                    // Обновляем данные на странице
-                    setTimeout(() => {
-                        window.location.reload();
-                    }, 1000);
+                    showMessage('Имя успешно обновлено!');
+                    // Обновляем отображение
+                    document.querySelector('.user-details h1').textContent = newName;
+                    document.querySelector('.user-avatar').textContent = newName.charAt(0).toUpperCase();
                 } else {
-                    resultDiv.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
-                    showMessage('error-message', `Ошибка: ${data.error}`, true);
+                    showMessage('Ошибка: ' + data.error, true);
                 }
             } catch (error) {
-                resultDiv.innerHTML = `Ошибка: ${error.message}`;
-                showMessage('error-message', 'Ошибка сети при сохранении', true);
+                showMessage('Ошибка сети: ' + error.message, true);
             }
-        }
-
-        function getCSRFToken() {
-            let csrfToken = null;
-            const cookies = document.cookie.split(';');
-            for (let cookie of cookies) {
-                const [name, value] = cookie.trim().split('=');
-                if (name === 'csrftoken') {
-                    csrfToken = value;
-                    break;
-                }
-            }
-            return csrfToken;
-        }
-
-        function changeAvatar() {
-            // В будущем можно добавить загрузку изображения
-            showMessage('success-message', 'Функция смены аватара появится скоро!');
         }
 
         async function testApi() {
             const resultDiv = document.getElementById('api-result');
-            resultDiv.innerHTML = '<div class="loading">Запрос отправляется...</div>';
+            resultDiv.innerHTML = 'Запрос отправляется...';
             
             try {
-                const response = await fetch('/api/user-info/', {
-                    credentials: 'include'
-                });
+                const response = await fetch('/api/user-info/');
                 const data = await response.json();
-                resultDiv.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+                resultDiv.innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
             } catch (error) {
-                resultDiv.innerHTML = `Ошибка: ${error.message}`;
-                showMessage('error-message', 'Ошибка при тестировании API', true);
-            }
-        }
-
-        async function testPubApi() {
-            const resultDiv = document.getElementById('api-result');
-            const pubId = '{{ user.pub }}';
-            resultDiv.innerHTML = '<div class="loading">Запрос отправляется...</div>';
-            
-            try {
-                const response = await fetch(`/api/pub-data/${pubId}/`);
-                const data = await response.json();
-                resultDiv.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
-            } catch (error) {
-                resultDiv.innerHTML = `Ошибка: ${error.message}`;
-                showMessage('error-message', 'Ошибка при тестировании публичного API', true);
+                resultDiv.innerHTML = 'Ошибка: ' + error.message;
             }
         }
 
         async function testUpdateProfile() {
             const resultDiv = document.getElementById('api-result');
-            resultDiv.innerHTML = '<div class="loading">Тестовое обновление профиля...</div>';
+            resultDiv.innerHTML = 'Тестовое обновление...';
             
             const testData = {
-                test_field: 'test_value_' + Date.now()
+                test_field: 'test_' + Date.now()
             };
             
             try {
                 const response = await fetch('/api/update-profile/', {
                     method: 'POST',
-                    credentials: 'include',
                     headers: {
                         'Content-Type': 'application/json',
-                        'X-CSRFToken': getCSRFToken()
                     },
                     body: JSON.stringify(testData)
                 });
                 
                 const data = await response.json();
-                resultDiv.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+                resultDiv.innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
                 
                 if (data.success) {
-                    showMessage('success-message', 'Тестовое обновление успешно!');
-                } else {
-                    showMessage('error-message', `Тестовое обновление не удалось: ${data.error}`, true);
+                    showMessage('Тест успешен!');
                 }
             } catch (error) {
-                resultDiv.innerHTML = `Ошибка: ${error.message}`;
-                showMessage('error-message', 'Ошибка при тестировании обновления профиля', true);
+                resultDiv.innerHTML = 'Ошибка: ' + error.message;
+                showMessage('Тест не удался', true);
             }
         }
-
-        // Инициализация при загрузке
-        document.addEventListener('DOMContentLoaded', () => {
-            // Сохраняем pub_id в localStorage для фронтенда
-            const pubId = '{{ user.pub }}';
-            const userName = '{{ user.name }}';
-            
-            localStorage.setItem('pub_id', pubId);
-            localStorage.setItem('user_name', userName);
-            
-            console.log('Pub ID сохранен в localStorage:', pubId);
-            
-            // Проверяем, есть ли несохраненные изменения
-            window.addEventListener('beforeunload', (e) => {
-                if (Object.keys(profileChanges).length > 0) {
-                    e.preventDefault();
-                    e.returnValue = 'У вас есть несохраненные изменения. Вы уверены, что хотите уйти?';
-                }
-            });
-        });
     </script>
 </body>
 </html>
