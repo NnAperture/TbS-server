@@ -103,15 +103,29 @@ MIDDLEWARE = [
 CORS_EXPOSE_HEADERS = ['Content-Type', 'X-CSRFToken']
 CORS_ALLOW_CREDENTIALS = True
 
-CORS_ALLOWED_ORIGINS = [
-    'tbs-server-s7vy.onrender.com',
-    'http://localhost:8000',
-    os.environ.get('backend_url'),
-    'http://k90908k8.beget.tech',
+# Разрешаем все домены для CORS (для тестирования, в продакшене укажите конкретные)
+CORS_ALLOW_ALL_ORIGINS = True
 
+# ИЛИ укажите конкретные домены:
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:8000',
+    'http://127.0.0.1:8000',
+    'http://localhost:3000',
+    'http://127.0.0.1:3000',
+    'http://k90908k8.beget.tech',
+    'https://k90908k8.beget.tech',
+    'https://tbs-server-s7vy.onrender.com',
+    'http://tbs-server-s7vy.onrender.com',
 ]
 
-CORS_ALLOW_ALL_ORIGINS = True
+# Для разработки можно использовать это:
+if DEBUG:
+    CORS_ALLOW_ALL_ORIGINS = True
+else:
+    CORS_ALLOWED_ORIGINS = [
+        'https://k90908k8.beget.tech',
+        'https://tbs-server-s7vy.onrender.com',
+    ]
 
 GOOGLE_CLIENT_ID = os.environ.get('GOOGLE_CLIENT_ID')
 GOOGLE_CLIENT_SECRET = os.environ.get('GOOGLE_CLIENT_SECRET')
@@ -122,27 +136,53 @@ SESSION_ENGINE = 'django.contrib.sessions.backends.file'  # Используем
 SESSION_FILE_PATH = os.path.join(BASE_DIR, 'session_files')  # Папка для файлов сессий
 SESSION_COOKIE_NAME = 'user_session'
 SESSION_COOKIE_AGE = 30 * 24 * 60 * 60  # 30 дней
-SESSION_COOKIE_SECURE = True  # True для HTTPS в продакшене
+SESSION_COOKIE_SECURE = not DEBUG  # True для HTTPS в продакшене, False для разработки
 SESSION_COOKIE_HTTPONLY = True
-SESSION_COOKIE_SAMESITE = 'Lax'
+SESSION_COOKIE_SAMESITE = 'Lax' if DEBUG else 'None'  # Для кросс-доменных запросов нужен 'None'
 SESSION_COOKIE_DOMAIN = None  # Оставляем None для текущего домена
 
-# ИЛИ используем signed cookies (еще проще):
-# SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
-
-CSRF_COOKIE_SECURE = False  # True для HTTPS
-
-CORS_ALLOW_HEADERS = [
-    'content-type',
-    'authorization',
-    'x-csrftoken',
-    'x-session-token',
-]
-
+# Настройки CSRF - КРИТИЧЕСКИ ВАЖНЫ!
+CSRF_COOKIE_NAME = 'csrftoken'
+CSRF_COOKIE_AGE = 31449600  # 1 год в секундах
+CSRF_COOKIE_SECURE = not DEBUG  # True для HTTPS в продакшене
+CSRF_COOKIE_HTTPONLY = False  # Должно быть False для доступа JavaScript к CSRF токену
+CSRF_COOKIE_SAMESITE = 'Lax' if DEBUG else 'None'  # 'None' для кросс-доменных запросов
+CSRF_USE_SESSIONS = False  # Хранить CSRF токен в cookie, не в сессии (важно!)
 CSRF_TRUSTED_ORIGINS = [
+    'http://localhost:8000',
+    'http://127.0.0.1:8000',
+    'http://localhost:3000',
+    'http://127.0.0.1:3000',
     'http://k90908k8.beget.tech',
     'https://k90908k8.beget.tech',
     'https://tbs-server-s7vy.onrender.com',
+    'http://tbs-server-s7vy.onrender.com',
+]
+
+# Дополнительные заголовки для CORS
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+    'x-session-token',
+    'access-control-allow-origin',
+    'access-control-allow-credentials',
+]
+
+# Разрешаем методы CORS
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
 ]
 
 ROOT_URLCONF = 'myproject.urls'
@@ -206,3 +246,27 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Создаем папку для файлов сессий если ее нет
 if SESSION_ENGINE == 'django.contrib.sessions.backends.file':
     os.makedirs(SESSION_FILE_PATH, exist_ok=True)
+
+# Дополнительные настройки безопасности
+if not DEBUG:
+    # В продакшене включаем дополнительные настройки безопасности
+    SECURE_SSL_REDIRECT = True
+    SECURE_HSTS_SECONDS = 31536000  # 1 year
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    SECURE_BROWSER_XSS_FILTER = True
+    X_FRAME_OPTIONS = 'DENY'
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    
+    # Для кросс-доменных запросов с куками
+    CSRF_COOKIE_SAMESITE = 'None'
+    SESSION_COOKIE_SAMESITE = 'None'
+    CSRF_COOKIE_SECURE = True
+    SESSION_COOKIE_SECURE = True
+else:
+    # Настройки для разработки
+    CSRF_COOKIE_SAMESITE = 'Lax'
+    SESSION_COOKIE_SAMESITE = 'Lax'
+    CSRF_COOKIE_SECURE = False
+    SESSION_COOKIE_SECURE = False
