@@ -78,3 +78,22 @@ INFO 2025-12-07 20:25:03,092 autoreload E:\projects\1A.TbS-server\tgcloud\Int.py
 INFO 2025-12-07 20:25:04,242 autoreload Watching for file changes with StatReloader
 INFO 2025-12-07 20:25:07,250 autoreload E:\projects\1A.TbS-server\tgcloud\Int.py changed, reloading.
 INFO 2025-12-07 20:25:08,368 autoreload Watching for file changes with StatReloader
+WARNING 2025-12-07 20:27:37,802 log Not Found: /
+WARNING 2025-12-07 20:27:37,804 basehttp "GET / HTTP/1.1" 404 179
+INFO 2025-12-07 20:27:42,598 basehttp "GET /dashboard/ HTTP/1.1" 200 2099
+INFO 2025-12-07 20:27:44,691 basehttp "GET /oauth/google/ HTTP/1.1" 302 0
+INFO 2025-12-07 20:28:15,356 autoreload E:\projects\1A.TbS-server\myapp\urls.py changed, reloading.
+INFO 2025-12-07 20:28:16,441 autoreload Watching for file changes with StatReloader
+INFO 2025-12-07 20:31:07,369 basehttp "GET /dashboard HTTP/1.1" 301 0
+INFO 2025-12-07 20:31:07,385 basehttp "GET /dashboard/ HTTP/1.1" 200 2099
+WARNING 2025-12-07 20:31:07,623 log Not Found: /favicon.ico
+WARNING 2025-12-07 20:31:07,624 basehttp "GET /favicon.ico HTTP/1.1" 404 179
+WARNING 2025-12-07 20:31:09,205 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-12-07 20:31:09,206 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 179
+INFO 2025-12-07 20:35:31,823 autoreload E:\projects\1A.TbS-server\myapp\urls.py changed, reloading.
+INFO 2025-12-07 20:35:32,895 autoreload Watching for file changes with StatReloader
+INFO 2025-12-07 20:36:15,922 autoreload E:\projects\1A.TbS-server\accounts\reg.py changed, reloading.
+INFO 2025-12-07 20:36:17,021 autoreload Watching for file changes with StatReloader
+INFO 2025-12-07 20:36:25,320 autoreload E:\projects\1A.TbS-server\accounts\reg.py changed, reloading.
+INFO 2025-12-07 20:36:26,331 autoreload Watching for file changes with StatReloader
+INFO 2025-12-07 21:28:54,172 autoreload E:\projects\1A.TbS-server\accounts\reg.py changed, reloading.

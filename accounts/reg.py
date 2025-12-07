@@ -268,7 +268,7 @@ def api_get_pub_data(request, pub_id):
             'error': 'Invalid pub_id format'
         }, status=400)
 
-@csrf_exempt
+@csrf_protect
 def api_update_profile(request):
     """API для обновления профиля пользователя"""
     user_data = SessionManager.validate_request(request)
@@ -289,19 +289,55 @@ def api_update_profile(request):
         data = json.loads(request.body)
         user_id = user_data['id']
         
-        # Обновляем данные пользователя
-        success = php_client.update_user_info(user_id, **data)
+        # Проверяем и валидируем данные
+        validated_data = {}
         
-        if success:
-            return JsonResponse({
-                'success': True,
-                'message': 'Profile updated successfully'
-            })
+        if 'name' in data:
+            name = data['name'].strip()
+            if name and 1 <= len(name) <= 50:
+                validated_data['name'] = name
+            else:
+                return JsonResponse({
+                    'success': False,
+                    'error': 'Имя должно быть от 1 до 50 символов'
+                }, status=400)
+        
+        if 'bio' in data:
+            bio = data['bio'].strip()
+            if len(bio) <= 200:
+                validated_data['bio'] = bio
+            else:
+                return JsonResponse({
+                    'success': False,
+                    'error': 'Описание не должно превышать 200 символов'
+                }, status=400)
+        
+        # Добавляем другие поля по мере необходимости
+        for key, value in data.items():
+            if key not in ['name', 'bio'] and isinstance(value, (str, int, float, bool)):
+                validated_data[key] = value
+        
+        # Обновляем данные пользователя
+        if validated_data:
+            success = php_client.update_user_info(user_id, **validated_data)
+            
+            if success:
+                logger.info(f"User {user_id} updated profile with fields: {list(validated_data.keys())}")
+                return JsonResponse({
+                    'success': True,
+                    'message': 'Profile updated successfully',
+                    'updated_fields': list(validated_data.keys())
+                })
+            else:
+                return JsonResponse({
+                    'success': False,
+                    'error': 'Failed to update profile'
+                }, status=500)
         else:
             return JsonResponse({
                 'success': False,
-                'error': 'Failed to update profile'
-            }, status=500)
+                'error': 'No valid data to update'
+            }, status=400)
             
     except json.JSONDecodeError:
         return JsonResponse({
@@ -314,12 +350,3 @@ def api_update_profile(request):
             'success': False,
             'error': 'Internal server error'
         }, status=500)
-
-def index(request):
-    """Главная страница"""
-    user_data = SessionManager.validate_request(request)
-    
-    if user_data:
-        return redirect('/dashboard/')
-    
-    return render(request, 'accounts/index.html')

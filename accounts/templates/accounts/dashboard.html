@@ -44,14 +44,36 @@
             color: white;
             font-size: 24px;
             font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .user-avatar:hover {
+            transform: scale(1.05);
         }
         .user-details h1 {
             margin: 0;
             color: #333;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         .user-details p {
             margin: 5px 0 0;
             color: #666;
+        }
+        .edit-btn {
+            background: none;
+            border: none;
+            color: #6c757d;
+            cursor: pointer;
+            font-size: 14px;
+            padding: 2px 6px;
+            border-radius: 3px;
+            transition: background 0.2s;
+        }
+        .edit-btn:hover {
+            background: #f8f9fa;
+            color: #495057;
         }
         .logout-btn {
             padding: 10px 20px;
@@ -81,6 +103,9 @@
         .info-card h3 {
             margin-top: 0;
             color: #495057;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         .info-card .value {
             font-size: 18px;
@@ -88,6 +113,50 @@
             color: #212529;
             margin: 10px 0;
             word-break: break-all;
+        }
+        .editable-value {
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+        .editable-value:hover {
+            background: rgba(0, 123, 255, 0.1);
+        }
+        .edit-input {
+            width: 100%;
+            padding: 8px 12px;
+            border: 2px solid #007bff;
+            border-radius: 4px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .edit-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .save-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .save-btn:hover {
+            background: #218838;
+        }
+        .cancel-btn {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .cancel-btn:hover {
+            background: #5a6268;
         }
         .copy-btn {
             background: #28a745;
@@ -129,17 +198,47 @@
             background: #e9ecef;
             border-radius: 5px;
         }
+        .success-message {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+            padding: 12px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            display: none;
+        }
+        .error-message {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+            padding: 12px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            display: none;
+        }
+        .loading {
+            color: #6c757d;
+            font-style: italic;
+        }
     </style>
 </head>
 <body>
     <div class="container">
+        <div id="success-message" class="success-message"></div>
+        <div id="error-message" class="error-message"></div>
+        
         <div class="header">
             <div class="user-info">
-                <div class="user-avatar">
-                    {{ user.name|first|upper }}
+                <div class="user-avatar" onclick="changeAvatar()">
+                    <span id="avatar-text">{{ user.name|first|upper }}</span>
                 </div>
                 <div class="user-details">
-                    <h1>{{ user.name }}</h1>
+                    <h1>
+                        <span id="name-display">{{ user.name }}</span>
+                        <button class="edit-btn" onclick="editName()" title="Изменить имя">
+                            ✏️
+                        </button>
+                    </h1>
                     <p>{{ user.email }}</p>
                     <p>ID: {{ user.id }}</p>
                 </div>
@@ -163,7 +262,9 @@
             </div>
 
             <div class="info-card">
-                <h3>Дата регистрации</h3>
+                <h3>
+                    <span>Дата регистрации</span>
+                </h3>
                 <div class="value">
                     {% if user.created_at_formatted %}
                         {{ user.created_at_formatted }}
@@ -176,10 +277,43 @@
             </div>
 
             <div class="info-card">
-                <h3>Текущие куки</h3>
+                <h3>
+                    <span>Текущие куки</span>
+                </h3>
                 <div class="value">
                     session_token: <span id="session-token">***</span><br>
                     pub_id: {{ pub_id }}
+                </div>
+            </div>
+            
+            <div class="info-card">
+                <h3>
+                    <span>Дополнительная информация</span>
+                </h3>
+                <div class="value">
+                    <div class="editable-value" onclick="editField('bio', 'О себе')" id="bio-value">
+                        {% if user.bio %}
+                            {{ user.bio }}
+                        {% else %}
+                            Нажмите, чтобы добавить информацию о себе
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="info-card">
+                <h3>
+                    <span>Настройки профиля</span>
+                </h3>
+                <div class="value">
+                    <div style="margin-bottom: 10px;">
+                        <button class="save-btn" onclick="saveProfile()" style="width: 100%;">
+                            Сохранить все изменения
+                        </button>
+                    </div>
+                    <div style="font-size: 14px; color: #6c757d;">
+                        Все изменения сохраняются автоматически
+                    </div>
                 </div>
             </div>
         </div>
@@ -195,6 +329,9 @@
                 <li>Или проверьте свою аутентификацию:
                     <code>GET /api/user-info/</code>
                 </li>
+                <li>Для обновления профиля используйте:
+                    <code>POST /api/update-profile/</code>
+                </li>
             </ol>
             <p>Куки работают в домене Django и доступны для фронтенда через CORS.</p>
         </div>
@@ -204,52 +341,318 @@
             <div class="api-test">
                 <button onclick="testApi()">Проверить API пользователя</button>
                 <button onclick="testPubApi()">Проверить публичное API</button>
+                <button onclick="testUpdateProfile()">Тест обновления профиля</button>
                 <div id="api-result" style="margin-top: 20px; padding: 15px; background: white; border-radius: 5px;"></div>
             </div>
         </div>
     </div>
 
     <script>
+        let editingField = null;
+        let originalValue = null;
+        let profileChanges = {};
+
+        function showMessage(elementId, message, isError = false) {
+            const element = document.getElementById(elementId);
+            element.textContent = message;
+            element.style.display = 'block';
+            element.className = isError ? 'error-message' : 'success-message';
+            
+            setTimeout(() => {
+                element.style.display = 'none';
+            }, 5000);
+        }
+
         function copyToClipboard(text) {
             navigator.clipboard.writeText(text).then(() => {
-                alert('Скопировано: ' + text);
+                showMessage('success-message', 'Скопировано: ' + text);
+            }).catch(err => {
+                showMessage('error-message', 'Ошибка копирования: ' + err, true);
             });
+        }
+
+        function editName() {
+            const nameDisplay = document.getElementById('name-display');
+            const currentName = nameDisplay.textContent;
+            
+            nameDisplay.innerHTML = `
+                <input type="text" id="name-input" class="edit-input" value="${currentName}" maxlength="50">
+                <div class="edit-buttons">
+                    <button class="save-btn" onclick="saveName()">Сохранить</button>
+                    <button class="cancel-btn" onclick="cancelEditName()">Отмена</button>
+                </div>
+            `;
+            
+            document.getElementById('name-input').focus();
+            document.getElementById('name-input').select();
+        }
+
+        function saveName() {
+            const nameInput = document.getElementById('name-input');
+            const newName = nameInput.value.trim();
+            
+            if (!newName) {
+                showMessage('error-message', 'Имя не может быть пустым', true);
+                return;
+            }
+            
+            if (newName.length > 50) {
+                showMessage('error-message', 'Имя слишком длинное (максимум 50 символов)', true);
+                return;
+            }
+            
+            // Сохраняем изменение
+            profileChanges.name = newName;
+            
+            // Обновляем отображение
+            document.getElementById('name-display').innerHTML = `
+                ${newName}
+                <button class="edit-btn" onclick="editName()" title="Изменить имя">
+                    ✏️
+                </button>
+            `;
+            
+            // Обновляем аватар
+            document.getElementById('avatar-text').textContent = newName.charAt(0).toUpperCase();
+            
+            // Сохраняем в localStorage
+            localStorage.setItem('user_name', newName);
+            
+            showMessage('success-message', 'Имя обновлено! Сохраните изменения.');
+        }
+
+        function cancelEditName() {
+            const nameDisplay = document.getElementById('name-display');
+            const currentName = '{{ user.name }}'; // Исходное имя из шаблона
+            nameDisplay.innerHTML = `
+                ${currentName}
+                <button class="edit-btn" onclick="editName()" title="Изменить имя">
+                    ✏️
+                </button>
+            `;
+            
+            delete profileChanges.name;
+        }
+
+        function editField(fieldId, fieldTitle) {
+            if (editingField === fieldId) return;
+            
+            const valueElement = document.getElementById(fieldId + '-value');
+            const currentValue = valueElement.textContent.trim();
+            
+            // Сохраняем оригинальное значение
+            originalValue = currentValue;
+            editingField = fieldId;
+            
+            valueElement.innerHTML = `
+                <input type="text" 
+                       id="${fieldId}-input" 
+                       class="edit-input" 
+                       value="${currentValue === 'Нажмите, чтобы добавить информацию о себе' ? '' : currentValue}"
+                       placeholder="Введите ${fieldTitle.toLowerCase()}"
+                       maxlength="200">
+                <div class="edit-buttons">
+                    <button class="save-btn" onclick="saveField('${fieldId}')">Сохранить</button>
+                    <button class="cancel-btn" onclick="cancelEditField('${fieldId}')">Отмена</button>
+                </div>
+            `;
+            
+            const input = document.getElementById(fieldId + '-input');
+            input.focus();
+            input.select();
+        }
+
+        function saveField(fieldId) {
+            const input = document.getElementById(fieldId + '-input');
+            const newValue = input.value.trim();
+            const valueElement = document.getElementById(fieldId + '-value');
+            
+            // Сохраняем изменение
+            profileChanges[fieldId] = newValue || '';
+            
+            // Обновляем отображение
+            if (newValue) {
+                valueElement.textContent = newValue;
+            } else {
+                valueElement.textContent = fieldId === 'bio' 
+                    ? 'Нажмите, чтобы добавить информацию о себе'
+                    : 'Не указано';
+            }
+            
+            valueElement.classList.add('editable-value');
+            valueElement.onclick = function() { editField(fieldId, fieldId === 'bio' ? 'О себе' : fieldId); };
+            
+            editingField = null;
+            
+            showMessage('success-message', 'Изменение сохранено! Не забудьте сохранить профиль.');
+        }
+
+        function cancelEditField(fieldId) {
+            const valueElement = document.getElementById(fieldId + '-value');
+            
+            // Восстанавливаем оригинальное значение
+            if (originalValue) {
+                valueElement.textContent = originalValue;
+            } else {
+                valueElement.textContent = fieldId === 'bio' 
+                    ? 'Нажмите, чтобы добавить информацию о себе'
+                    : 'Не указано';
+            }
+            
+            valueElement.classList.add('editable-value');
+            valueElement.onclick = function() { editField(fieldId, fieldId === 'bio' ? 'О себе' : fieldId); };
+            
+            editingField = null;
+            delete profileChanges[fieldId];
+        }
+
+        async function saveProfile() {
+            if (Object.keys(profileChanges).length === 0) {
+                showMessage('error-message', 'Нет изменений для сохранения', true);
+                return;
+            }
+            
+            const resultDiv = document.getElementById('api-result');
+            resultDiv.innerHTML = '<div class="loading">Сохранение...</div>';
+            
+            try {
+                const response = await fetch('/api/update-profile/', {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCSRFToken()
+                    },
+                    body: JSON.stringify(profileChanges)
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    resultDiv.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+                    showMessage('success-message', 'Профиль успешно обновлен!');
+                    
+                    // Очищаем изменения
+                    profileChanges = {};
+                    
+                    // Обновляем данные на странице
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000);
+                } else {
+                    resultDiv.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+                    showMessage('error-message', `Ошибка: ${data.error}`, true);
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `Ошибка: ${error.message}`;
+                showMessage('error-message', 'Ошибка сети при сохранении', true);
+            }
+        }
+
+        function getCSRFToken() {
+            const name = 'csrftoken';
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        function changeAvatar() {
+            // В будущем можно добавить загрузку изображения
+            showMessage('success-message', 'Функция смены аватара появится скоро!');
         }
 
         async function testApi() {
             const resultDiv = document.getElementById('api-result');
-            resultDiv.innerHTML = 'Запрос отправляется...';
+            resultDiv.innerHTML = '<div class="loading">Запрос отправляется...</div>';
             
             try {
                 const response = await fetch('/api/user-info/', {
-                    credentials: 'include'  // Важно для отправки кук
+                    credentials: 'include'
                 });
                 const data = await response.json();
-                resultDiv.innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+                resultDiv.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
             } catch (error) {
-                resultDiv.innerHTML = 'Ошибка: ' + error.message;
+                resultDiv.innerHTML = `Ошибка: ${error.message}`;
+                showMessage('error-message', 'Ошибка при тестировании API', true);
             }
         }
 
         async function testPubApi() {
             const resultDiv = document.getElementById('api-result');
             const pubId = '{{ user.pub }}';
-            resultDiv.innerHTML = 'Запрос отправляется...';
+            resultDiv.innerHTML = '<div class="loading">Запрос отправляется...</div>';
             
             try {
                 const response = await fetch(`/api/pub-data/${pubId}/`);
                 const data = await response.json();
-                resultDiv.innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
+                resultDiv.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
             } catch (error) {
-                resultDiv.innerHTML = 'Ошибка: ' + error.message;
+                resultDiv.innerHTML = `Ошибка: ${error.message}`;
+                showMessage('error-message', 'Ошибка при тестировании публичного API', true);
             }
         }
 
-        // Сохраняем pub_id в localStorage для фронтенда
-        localStorage.setItem('pub_id', '{{ user.pub }}');
-        localStorage.setItem('user_name', '{{ user.name }}');
-        
-        console.log('Pub ID сохранен в localStorage:', '{{ user.pub }}');
+        async function testUpdateProfile() {
+            const resultDiv = document.getElementById('api-result');
+            resultDiv.innerHTML = '<div class="loading">Тестовое обновление профиля...</div>';
+            
+            const testData = {
+                test_field: 'test_value_' + Date.now()
+            };
+            
+            try {
+                const response = await fetch('/api/update-profile/', {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCSRFToken()
+                    },
+                    body: JSON.stringify(testData)
+                });
+                
+                const data = await response.json();
+                resultDiv.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+                
+                if (data.success) {
+                    showMessage('success-message', 'Тестовое обновление успешно!');
+                } else {
+                    showMessage('error-message', `Тестовое обновление не удалось: ${data.error}`, true);
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `Ошибка: ${error.message}`;
+                showMessage('error-message', 'Ошибка при тестировании обновления профиля', true);
+            }
+        }
+
+        // Инициализация при загрузке
+        document.addEventListener('DOMContentLoaded', () => {
+            // Сохраняем pub_id в localStorage для фронтенда
+            const pubId = '{{ user.pub }}';
+            const userName = '{{ user.name }}';
+            
+            localStorage.setItem('pub_id', pubId);
+            localStorage.setItem('user_name', userName);
+            
+            console.log('Pub ID сохранен в localStorage:', pubId);
+            
+            // Проверяем, есть ли несохраненные изменения
+            window.addEventListener('beforeunload', (e) => {
+                if (Object.keys(profileChanges).length > 0) {
+                    e.preventDefault();
+                    e.returnValue = 'У вас есть несохраненные изменения. Вы уверены, что хотите уйти?';
+                }
+            });
+        });
     </script>
 </body>
 </html>
