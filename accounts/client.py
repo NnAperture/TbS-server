@@ -5,6 +5,7 @@ import logging
 from django.conf import settings
 import time
 import tgcloud as tg
+import config
 import threading
 import secrets
 
