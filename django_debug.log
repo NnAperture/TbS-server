@@ -70,3 +70,5 @@ INFO 2025-12-07 20:13:33,676 autoreload Watching for file changes with StatReloa
 INFO 2025-12-07 20:13:35,499 basehttp "GET /oauth/google/ HTTP/1.1" 302 0
 INFO 2025-12-07 20:15:32,652 autoreload E:\projects\1A.TbS-server\myproject\settings.py changed, reloading.
 INFO 2025-12-07 20:15:33,734 autoreload Watching for file changes with StatReloader
+INFO 2025-12-07 20:19:34,382 autoreload E:\projects\1A.TbS-server\accounts\client.py changed, reloading.
+INFO 2025-12-07 20:19:36,251 autoreload Watching for file changes with StatReloader

@@ -35,6 +35,7 @@ class PHPApiClient:
         return self.accounts[index]
 
     def _create_user(self, id, email, name):
+        global pub_id_v
         with self.lock:
             pub_id = pub_id_v.get()
             pub_id_v += 1
