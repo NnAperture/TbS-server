@@ -14,8 +14,8 @@ urlpatterns = [
     path('news_pop/', handler.get_news, name='get_news'),
     
     path('', index, name='index'),
-    path('auth/google/', google_login, name='google_login'),
-    path('auth/google/callback/', google_callback, name='google_callback'),
+    path('oauth/google/', google_login, name='google_login'),
+    path('oauth/google/callback/', google_callback, name='google_callback'),
     path('dashboard/', dashboard, name='dashboard'),
     path('api/user-info/', api_user_info, name='api_user_info'),
     path('api/pub-data/<int:pub_id>/', api_get_pub_data, name='api_get_pub_data'),

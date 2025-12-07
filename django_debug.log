@@ -1,0 +1,67 @@
+INFO 2025-12-07 20:00:08,050 autoreload Watching for file changes with StatReloader
+INFO 2025-12-07 20:02:20,390 autoreload Watching for file changes with StatReloader
+INFO 2025-12-07 20:03:48,249 autoreload E:\projects\1A.TbS-server\myproject\settings.py changed, reloading.
+INFO 2025-12-07 20:03:49,346 autoreload Watching for file changes with StatReloader
+INFO 2025-12-07 20:04:10,872 autoreload Watching for file changes with StatReloader
+ERROR 2025-12-07 20:04:21,756 log Internal Server Error: /
+Traceback (most recent call last):
+  File "E:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\projects\1A.TbS-server\accounts\reg.py", line 325, in index
+    return render(request, 'accounts/index.html')
+  File "E:\projects\1A.TbS-server\venv\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "E:\projects\1A.TbS-server\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "E:\projects\1A.TbS-server\venv\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: accounts/index.html
+INFO 2025-12-07 20:04:21,850 basehttp - Broken pipe from ('127.0.0.1', 55106)
+INFO 2025-12-07 20:05:02,425 autoreload Watching for file changes with StatReloader
+ERROR 2025-12-07 20:05:20,927 log Internal Server Error: /
+Traceback (most recent call last):
+  File "E:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\projects\1A.TbS-server\accounts\reg.py", line 325, in index
+    return render(request, 'accounts/index.html')
+  File "E:\projects\1A.TbS-server\venv\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "E:\projects\1A.TbS-server\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "E:\projects\1A.TbS-server\venv\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: accounts/index.html
+ERROR 2025-12-07 20:05:20,932 basehttp "GET / HTTP/1.1" 500 145
+WARNING 2025-12-07 20:05:20,980 log Not Found: /favicon.ico
+WARNING 2025-12-07 20:05:20,981 basehttp "GET /favicon.ico HTTP/1.1" 404 179
+INFO 2025-12-07 20:05:27,239 basehttp "GET /dashboard HTTP/1.1" 301 0
+INFO 2025-12-07 20:05:27,305 basehttp "GET /dashboard/ HTTP/1.1" 200 2098
+INFO 2025-12-07 20:05:28,594 basehttp "GET /auth/google/ HTTP/1.1" 302 0
+INFO 2025-12-07 20:06:07,666 autoreload Watching for file changes with StatReloader
+INFO 2025-12-07 20:07:06,950 autoreload E:\projects\1A.TbS-server\myapp\urls.py changed, reloading.
+INFO 2025-12-07 20:07:08,122 autoreload Watching for file changes with StatReloader
+INFO 2025-12-07 20:07:36,202 autoreload Watching for file changes with StatReloader
+ERROR 2025-12-07 20:07:42,819 log Internal Server Error: /
+Traceback (most recent call last):
+  File "E:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "E:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "E:\projects\1A.TbS-server\accounts\reg.py", line 325, in index
+    return render(request, 'accounts/index.html')
+  File "E:\projects\1A.TbS-server\venv\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "E:\projects\1A.TbS-server\venv\Lib\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "E:\projects\1A.TbS-server\venv\Lib\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: accounts/index.html
+ERROR 2025-12-07 20:07:42,825 basehttp "GET / HTTP/1.1" 500 145
+WARNING 2025-12-07 20:07:43,040 log Not Found: /favicon.ico
+WARNING 2025-12-07 20:07:43,041 basehttp "GET /favicon.ico HTTP/1.1" 404 179
+INFO 2025-12-07 20:07:49,928 basehttp "GET /dashboard HTTP/1.1" 301 0
+INFO 2025-12-07 20:07:49,955 basehttp "GET /dashboard/ HTTP/1.1" 200 2099

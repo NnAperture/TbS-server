@@ -107,7 +107,6 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:8000',
     os.environ.get('backend_url'),
     'http://k90908k8.beget.tech',
-    'https://k90908k8.beget.tech',
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
