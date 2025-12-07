@@ -1,3 +1,4 @@
+<!-- accounts/templates/accounts/dashboard.html -->
 <!DOCTYPE html>
 <html lang="ru">
 <head>
@@ -117,20 +118,16 @@
             border-radius: 3px;
             font-family: 'Courier New', monospace;
         }
-        .alert {
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
-        .alert-success {
-            background-color: #d4edda;
-            border-color: #c3e6cb;
-            color: #155724;
-        }
         .api-section {
             margin-top: 40px;
             padding-top: 20px;
             border-top: 2px solid #eee;
+        }
+        .api-test {
+            margin-top: 20px;
+            padding: 15px;
+            background: #e9ecef;
+            border-radius: 5px;
         }
     </style>
 </head>
@@ -147,16 +144,8 @@
                     <p>ID: {{ user.id }}</p>
                 </div>
             </div>
-            <a href="{% url 'logout' %}" class="logout-btn">Выйти</a>
+            <a href="/logout/" class="logout-btn">Выйти</a>
         </div>
-
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-{{ message.tags }}">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        {% endif %}
 
         <div class="info-grid">
             <div class="info-card">
@@ -176,8 +165,10 @@
             <div class="info-card">
                 <h3>Дата регистрации</h3>
                 <div class="value">
-                    {% if user.created_at %}
-                        {{ user.created_at|date:"d.m.Y H:i" }}
+                    {% if user.created_at_formatted %}
+                        {{ user.created_at_formatted }}
+                    {% elif user.created_at %}
+                        {{ user.created_at }}
                     {% else %}
                         Неизвестно
                     {% endif %}
@@ -185,9 +176,11 @@
             </div>
 
             <div class="info-card">
-                <h3>Текущая сессия</h3>
-                <div class="value">{{ session_token|slice:":20" }}...</div>
-                <p><small>Действует до: {{ expiry_date|date:"d.m.Y H:i" }}</small></p>
+                <h3>Текущие куки</h3>
+                <div class="value">
+                    session_token: <span id="session-token">***</span><br>
+                    pub_id: {{ pub_id }}
+                </div>
             </div>
         </div>
 
@@ -195,22 +188,24 @@
             <h3>Инструкция для фронтенда</h3>
             <p>Для доступа к данным пользователя с фронтенда:</p>
             <ol>
-                <li>Сохраните <code>pub_id</code> в localStorage фронтенда: <code>{{ user.pub }}</code></li>
-                <li>Используйте API endpoint для получения данных:
+                <li>Используйте <code>pub_id: {{ user.pub }}</code> для идентификации пользователя</li>
+                <li>Для получения данных пользователя используйте API:
                     <code>GET /api/pub-data/{{ user.pub }}/</code>
                 </li>
-                <li>Или проверьте аутентификацию через:
+                <li>Или проверьте свою аутентификацию:
                     <code>GET /api/user-info/</code>
                 </li>
             </ol>
-            <p><strong>Куки настроены правильно</strong> и будут работать в домене Django.</p>
+            <p>Куки работают в домене Django и доступны для фронтенда через CORS.</p>
         </div>
 
         <div class="api-section">
             <h2>Тестирование API</h2>
-            <button onclick="testApi()">Проверить API пользователя</button>
-            <button onclick="testPubApi()">Проверить публичное API</button>
-            <div id="api-result" style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 5px;"></div>
+            <div class="api-test">
+                <button onclick="testApi()">Проверить API пользователя</button>
+                <button onclick="testPubApi()">Проверить публичное API</button>
+                <div id="api-result" style="margin-top: 20px; padding: 15px; background: white; border-radius: 5px;"></div>
+            </div>
         </div>
     </div>
 
@@ -226,7 +221,9 @@
             resultDiv.innerHTML = 'Запрос отправляется...';
             
             try {
-                const response = await fetch('/api/user-info/');
+                const response = await fetch('/api/user-info/', {
+                    credentials: 'include'  // Важно для отправки кук
+                });
                 const data = await response.json();
                 resultDiv.innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
             } catch (error) {

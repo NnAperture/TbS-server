@@ -3,10 +3,8 @@ import requests
 import json
 import logging
 from django.conf import settings
-from urllib.parse import urlencode
 import time
 import tgcloud as tg
-import config
 import threading
 import secrets
 
@@ -18,7 +16,7 @@ public_manifest_id = tg.Id().from_str("0|1|4150")
 pub_id_id = tg.Id().from_str("0|1|4154")
 telegram_manifest_id = tg.Id().from_str("0|2|4012")
 
-pub_id_v = tg.Int(id=pub_id_id)
+pub_id_v = tg.Int(pub_id_id)
 
 logger = logging.getLogger(__name__)
 
@@ -70,11 +68,12 @@ class PHPApiClient:
             return self._create_user(google_id, email, name)
     
     def create_session(self, user_id):
+        """Создает сессию в нашей системе (не Django)"""
         while (session_id := secrets.token_urlsafe(32)) in self.sessions:
             pass
+        
         self.sessions[session_id] = {
             "user_id": user_id,
-            "google_id": user_id,  # Для совместимости
             "created_at": time.time(),
             "last_activity": time.time()
         }
@@ -82,6 +81,7 @@ class PHPApiClient:
         return session_id
     
     def _sessions_gc(self, save=False):
+        """Очистка старых сессий"""
         delete = []
         for session_id, session_data in list(self.sessions.items()):
             if time.time() - session_data.get("last_activity", 0) > LIFE_TIME:
@@ -96,6 +96,7 @@ class PHPApiClient:
             threading.Thread(target=th).start()
     
     def validate_session(self, session_token):
+        """Валидация сессии из нашей системы"""
         if session_token in self.sessions:
             # Обновляем время последней активности
             self.sessions[session_token]["last_activity"] = time.time()
@@ -135,6 +136,14 @@ class PHPApiClient:
             user_data = user_var.get()
             user_data.update(kwargs)
             user_var.set(user_data)
+            return True
+        return False
+    
+    def delete_session(self, session_token):
+        """Удалить сессию"""
+        if session_token in self.sessions:
+            self.sessions.pop(session_token)
+            self._sessions_gc(True)
             return True
         return False
 

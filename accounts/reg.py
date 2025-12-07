@@ -2,28 +2,74 @@
 from django.shortcuts import render, redirect
 from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_http_methods
 from django.conf import settings
 from django.urls import reverse
-from django.middleware.csrf import get_token
 import requests
 import json
 import logging
 import urllib.parse
-import tgcloud as tg
+import secrets
 from .client import php_client
 
 logger = logging.getLogger(__name__)
 
+class SessionManager:
+    """Менеджер сессий, использующий наши куки и PHPApiClient"""
+    
+    @staticmethod
+    def set_session_cookies(response, session_token, pub_id):
+        """Устанавливает куки сессии"""
+        response.set_cookie(
+            key='session_token',
+            value=session_token,
+            max_age=settings.SESSION_COOKIE_AGE,
+            secure=settings.SESSION_COOKIE_SECURE,
+            httponly=True,
+            samesite=settings.SESSION_COOKIE_SAMESITE
+        )
+        
+        # pub_id для фронтенда (не HttpOnly, чтобы JS мог читать)
+        response.set_cookie(
+            key='pub_id',
+            value=str(pub_id),
+            max_age=settings.SESSION_COOKIE_AGE,
+            secure=settings.SESSION_COOKIE_SECURE,
+            httponly=False,
+            samesite=settings.SESSION_COOKIE_SAMESITE
+        )
+        return response
+    
+    @staticmethod
+    def delete_session_cookies(response):
+        """Удаляет куки сессии"""
+        response.delete_cookie('session_token')
+        response.delete_cookie('pub_id')
+        return response
+    
+    @staticmethod
+    def get_session_token(request):
+        """Получает токен сессии из запроса"""
+        return request.COOKIES.get('session_token')
+    
+    @staticmethod
+    def validate_request(request):
+        """Валидирует запрос и возвращает данные пользователя"""
+        session_token = SessionManager.get_session_token(request)
+        if not session_token:
+            return None
+        
+        session_data = php_client.validate_session(session_token)
+        if not session_data.get('success'):
+            return None
+        
+        return session_data['user']
+
 def google_login(request):
-    """Перенаправление на Google OAuth с сохранением состояния"""
+    """Перенаправление на Google OAuth с простой state защитой"""
     google_auth_url = 'https://accounts.google.com/o/oauth2/v2/auth'
     
-    # Генерируем state для защиты от CSRF
-    import secrets
+    # Генерируем простой state (можете использовать сессии файловые)
     state = secrets.token_urlsafe(16)
-    request.session['oauth_state'] = state
-    request.session['next_url'] = request.GET.get('next', '/dashboard/')
     
     params = {
         'client_id': settings.GOOGLE_CLIENT_ID,
@@ -35,35 +81,33 @@ def google_login(request):
         'state': state
     }
     
+    # Сохраняем state в cookie вместо сессии БД
     auth_url = f"{google_auth_url}?{urllib.parse.urlencode(params)}"
     
-    logger.info(f"Redirecting to Google OAuth: {auth_url}")
-    return redirect(auth_url)
+    response = redirect(auth_url)
+    response.set_cookie('oauth_state', state, max_age=300)  # 5 минут
+    return response
 
 def google_callback(request):
-    """Обработка callback от Google с установкой кук в домене Django"""
+    """Обработка callback от Google"""
     code = request.GET.get('code')
     state = request.GET.get('state')
     error = request.GET.get('error')
     
-    # Проверяем state для защиты от CSRF
-    if state != request.session.get('oauth_state'):
-        logger.error("Invalid state parameter")
-        return render(request, 'accounts/error.html', {
-            'error': 'Invalid authentication request'
-        })
+    # Получаем state из cookie
+    saved_state = request.COOKIES.get('oauth_state')
+    
+    if not saved_state or state != saved_state:
+        logger.error("Invalid or missing state parameter")
+        return JsonResponse({'error': 'Invalid authentication request'}, status=400)
     
     if error:
         logger.error(f"Google OAuth error: {error}")
-        return render(request, 'accounts/error.html', {
-            'error': f'Google authentication error: {error}'
-        })
+        return JsonResponse({'error': f'Google authentication error: {error}'}, status=400)
     
     if not code:
         logger.error("No authorization code received from Google")
-        return render(request, 'accounts/error.html', {
-            'error': 'No authorization code received'
-        })
+        return JsonResponse({'error': 'No authorization code received'}, status=400)
     
     try:
         # Получаем токен у Google
@@ -107,135 +151,93 @@ def google_callback(request):
         session_token = php_client.create_session(user_data['id'])
         logger.info(f"Session token created: {session_token[:10]}...")
         
-        # Получаем URL для редиректа
-        next_url = request.session.get('next_url', '/dashboard/')
-        
         # Создаем ответ с редиректом на дашборд
-        response = redirect(next_url)
+        response = redirect('/dashboard/')
         
-        # Устанавливаем куку с сессионным токеном
-        response.set_cookie(
-            key='session_token',
-            value=session_token,
-            max_age=settings.SESSION_COOKIE_AGE,
-            secure=settings.SESSION_COOKIE_SECURE,
-            httponly=True,  # Защищаем от XSS
-            samesite='Lax',  # Разрешаем кросс-доменные запросы
-            domain=settings.SESSION_COOKIE_DOMAIN  # Ваш домен Django
+        # Устанавливаем куки
+        response = SessionManager.set_session_cookies(
+            response, 
+            session_token, 
+            user_data.get('pub')
         )
         
-        # Также устанавливаем куку с pub_id для фронтенда
-        response.set_cookie(
-            key='pub_id',
-            value=str(user_data.get('pub')),
-            max_age=settings.SESSION_COOKIE_AGE,
-            secure=settings.SESSION_COOKIE_SECURE,
-            httponly=False,  # Доступно для JavaScript
-            samesite='Lax',
-            domain=settings.SESSION_COOKIE_DOMAIN
-        )
-        
-        # Очищаем сессионные данные
-        if 'oauth_state' in request.session:
-            del request.session['oauth_state']
-        if 'next_url' in request.session:
-            del request.session['next_url']
+        # Удаляем временный state cookie
+        response.delete_cookie('oauth_state')
         
         return response
         
     except requests.exceptions.RequestException as e:
         logger.error(f"HTTP request error in google_callback: {str(e)}")
-        return render(request, 'accounts/error.html', {
-            'error': 'Network error during authentication'
-        })
+        return JsonResponse({'error': 'Network error during authentication'}, status=500)
     except Exception as e:
         logger.error(f"Unexpected error in google_callback: {str(e)}", exc_info=True)
-        return render(request, 'accounts/error.html', {
-            'error': 'Internal server error'
-        })
-
+        return JsonResponse({'error': 'Internal server error'}, status=500)
 
 def dashboard(request):
     """Основной дашборд пользователя"""
-    session_token = request.COOKIES.get('session_token')
+    user_data = SessionManager.validate_request(request)
     
-    if not session_token:
+    if not user_data:
         # Пользователь не аутентифицирован
         return render(request, 'accounts/login_required.html', {
-            'login_url': reverse('google_login') + '?next=/dashboard/'
+            'login_url': reverse('google_login')
         })
     
-    # Валидируем сессию
-    session_response = php_client.validate_session(session_token)
-    
-    if not session_response.get('success'):
-        response = render(request, 'accounts/login_required.html', {
-            'login_url': reverse('google_login') + '?next=/dashboard/'
-        })
-        response.delete_cookie('session_token')
-        response.delete_cookie('pub_id')
-        return response
-    
-    user_info = session_response['user']
-    
-    # Получаем полные данные пользователя
-    if user_info['id'] in php_client.accounts:
-        user_var = tg.UndefinedVar(id=tg.Id().from_str(php_client[user_info['id']]))
+    # Получаем полные данные пользователя из tgcloud
+    user_id = user_data['id']
+    if user_id in php_client.accounts:
+        user_var = tg.UndefinedVar(id=tg.Id().from_str(php_client[user_id]))
         full_user_data = user_var.get()
     else:
-        full_user_data = user_info
+        full_user_data = user_data
+    
+    # Форматируем дату создания
+    import datetime
+    if 'created_at' in full_user_data:
+        created_at = datetime.datetime.fromtimestamp(full_user_data['created_at'])
+        full_user_data['created_at_formatted'] = created_at.strftime('%d.%m.%Y %H:%M')
     
     return render(request, 'accounts/dashboard.html', {
         'user': full_user_data,
-        'session_token': session_token,
-        'pub_id': user_info.get('pub_id'),
-        'csrf_token': get_token(request)
+        'pub_id': user_data.get('pub_id')
     })
-
 
 @csrf_exempt
 def api_user_info(request):
-    """API для получения информации о пользователе (для фронтенда)"""
-    session_token = request.COOKIES.get('session_token')
+    """API для получения информации о пользователе"""
+    user_data = SessionManager.validate_request(request)
     
-    if not session_token:
+    if not user_data:
         return JsonResponse({
             'authenticated': False,
-            'error': 'No session token'
+            'error': 'Authentication required'
         }, status=401)
     
-    session_response = php_client.validate_session(session_token)
+    # Получаем дополнительные данные если нужно
+    user_id = user_data['id']
+    if user_id in php_client.accounts:
+        user_var = tg.UndefinedVar(id=tg.Id().from_str(php_client[user_id]))
+        full_data = user_var.get()
+        user_data.update(full_data)
     
-    if not session_response.get('success'):
-        return JsonResponse({
-            'authenticated': False,
-            'error': 'Invalid session'
-        }, status=401)
-    
-    user_info = session_response['user']
-    
-    # Добавляем дополнительную информацию если нужно
     return JsonResponse({
         'authenticated': True,
-        'user': user_info
+        'user': user_data
     })
-
 
 def logout(request):
     """Выход из системы"""
-    session_token = request.COOKIES.get('session_token')
+    session_token = SessionManager.get_session_token(request)
     
-    if session_token and session_token in php_client.sessions:
-        php_client.sessions.pop(session_token)
-        php_client._sessions_gc(True)
+    if session_token:
+        php_client.delete_session(session_token)
     
     response = redirect('/')
-    response.delete_cookie('session_token')
-    response.delete_cookie('pub_id')
+    response = SessionManager.delete_session_cookies(response)
     
     return response
 
-
+@csrf_exempt
 def api_get_pub_data(request, pub_id):
     """API для получения публичных данных пользователя по pub_id"""
     try:
@@ -251,7 +253,7 @@ def api_get_pub_data(request, pub_id):
         public_data = {
             'pub_id': user_data.get('pub'),
             'name': user_data.get('name'),
-            # Добавьте другие публичные поля
+            'created_at': user_data.get('created_at'),
         }
         
         return JsonResponse({
@@ -265,24 +267,15 @@ def api_get_pub_data(request, pub_id):
             'error': 'Invalid pub_id format'
         }, status=400)
 
-
 @csrf_exempt
 def api_update_profile(request):
     """API для обновления профиля пользователя"""
-    session_token = request.COOKIES.get('session_token')
+    user_data = SessionManager.validate_request(request)
     
-    if not session_token:
+    if not user_data:
         return JsonResponse({
             'success': False,
             'error': 'Authentication required'
-        }, status=401)
-    
-    session_response = php_client.validate_session(session_token)
-    
-    if not session_response.get('success'):
-        return JsonResponse({
-            'success': False,
-            'error': 'Invalid session'
         }, status=401)
     
     if request.method != 'POST':
@@ -293,7 +286,7 @@ def api_update_profile(request):
     
     try:
         data = json.loads(request.body)
-        user_id = session_response['user']['id']
+        user_id = user_data['id']
         
         # Обновляем данные пользователя
         success = php_client.update_user_info(user_id, **data)
@@ -320,3 +313,12 @@ def api_update_profile(request):
             'success': False,
             'error': 'Internal server error'
         }, status=500)
+
+def index(request):
+    """Главная страница"""
+    user_data = SessionManager.validate_request(request)
+    
+    if user_data:
+        return redirect('/dashboard/')
+    
+    return render(request, 'accounts/index.html')

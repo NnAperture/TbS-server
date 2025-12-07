@@ -1,3 +1,5 @@
+# settings.py - обновленная версия
+
 """
 Django settings for myproject project.
 
@@ -16,7 +18,6 @@ from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(BASE_DIR / '.env')
-
 
 LOGGING = {
     'version': 1,
@@ -73,16 +74,12 @@ RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
-ALLOWED_HOSTS.append('127.0.0.1')
-ALLOWED_HOSTS.append('localhost')
-
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
-    'django.contrib.sessions',
+    'django.contrib.sessions',  # Оставляем, но настроим на использование файлов/кэша
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'myapp',
@@ -106,11 +103,11 @@ MIDDLEWARE = [
 CORS_EXPOSE_HEADERS = ['Content-Type', 'X-CSRFToken']
 CORS_ALLOW_CREDENTIALS = True
 
-
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:8000',
     os.environ.get('backend_url'),
     'http://k90908k8.beget.tech',
+    'https://k90908k8.beget.tech',
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
@@ -119,14 +116,20 @@ GOOGLE_CLIENT_ID = os.environ.get('GOOGLE_CLIENT_ID')
 GOOGLE_CLIENT_SECRET = os.environ.get('GOOGLE_CLIENT_SECRET')
 GOOGLE_REDIRECT_URI = 'https://tbs-server-s7vy.onrender.com/auth/google/callback/'
 
+# Настройки сессий для работы без БД (используем файлы)
+SESSION_ENGINE = 'django.contrib.sessions.backends.file'  # Используем файловые сессии
+SESSION_FILE_PATH = os.path.join(BASE_DIR, 'session_files')  # Папка для файлов сессий
 SESSION_COOKIE_NAME = 'user_session'
-SESSION_COOKIE_AGE = 30 * 24 * 60 * 60
-SESSION_COOKIE_SECURE = False
+SESSION_COOKIE_AGE = 30 * 24 * 60 * 60  # 30 дней
+SESSION_COOKIE_SECURE = True  # True для HTTPS в продакшене
 SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_SAMESITE = 'Lax'
-SESSION_COOKIE_DOMAIN = None
+SESSION_COOKIE_DOMAIN = None  # Оставляем None для текущего домена
 
-CSRF_COOKIE_SECURE = False
+# ИЛИ используем signed cookies (еще проще):
+# SESSION_ENGINE = 'django.contrib.sessions.backends.signed_cookies'
+
+CSRF_COOKIE_SECURE = False  # True для HTTPS
 
 CORS_ALLOW_HEADERS = [
     'content-type',
@@ -137,6 +140,8 @@ CORS_ALLOW_HEADERS = [
 
 CSRF_TRUSTED_ORIGINS = [
     'http://k90908k8.beget.tech',
+    'https://k90908k8.beget.tech',
+    'https://tbs-server-s7vy.onrender.com',
 ]
 
 ROOT_URLCONF = 'myproject.urls'
@@ -157,29 +162,18 @@ TEMPLATES = [
     },
 ]
 
-
 WSGI_APPLICATION = 'myproject.wsgi.application'
 
-
+# УДАЛИТЕ ИЛИ ЗАКОММЕНТИРУЙТЕ DATABASES если не используете БД Django
+# Или создайте простую SQLite базу для сессий:
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ.get('DB_NAME'),
-        'USER': os.environ.get('DB_USER'),
-        'PASSWORD': os.environ.get('DB_PASS'),
-        'HOST': os.environ.get('DB_HOST'),
-        'PORT': os.environ.get('DB_PORT', '22943'),
-        'OPTIONS': {
-            'charset': 'utf8mb4',
-            'ssl': {'ca': os.path.join(BASE_DIR, 'ca.pem')},
-        },
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
-
 # Password validation
-# https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -195,26 +189,19 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
-# https://docs.djangoproject.com/en/5.2/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.2/howto/static-files/
-
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Default primary key field type
-# https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Создаем папку для файлов сессий если ее нет
+if SESSION_ENGINE == 'django.contrib.sessions.backends.file':
+    os.makedirs(SESSION_FILE_PATH, exist_ok=True)
