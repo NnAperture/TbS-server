@@ -201,6 +201,9 @@ class Int:
         while(self.value == None):
             time.sleep(0.05)
         return int(self.value)
+    
+    def get(self):
+        return int(self)
 
 
 def int_bytes_g(a):
