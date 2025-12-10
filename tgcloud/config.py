@@ -114,3 +114,11 @@ def getbot() -> Bot:
 def getbot_id(id) -> Bot:
     id = Id(id)
     return matrix[id.bot][id.group]
+
+def send_file(content):
+    return getbot().send_document_id(content)
+
+def get_file(id):
+    file_id = getbot_id(id).forward(id).document.file_id
+    file_info = getbot_id(id).bot.get_file(file_id)
+    return getbot_id(id).bot.download_file(file_info.file_path)

@@ -95,10 +95,7 @@ def dashboard(request):
     
     return response
 
-# ВРЕМЕННО отключаем CSRF для разработки
-@csrf_exempt
 def api_update_profile(request):
-    """API для обновления профиля пользователя - ВРЕМЕННО БЕЗ CSRF"""
     user_data = SessionManager.validate_request(request)
     
     if not user_data:
@@ -132,7 +129,7 @@ def api_update_profile(request):
         
         # Обновляем данные
         if validated_data:
-            success = php_client.update_user_info(user_id, **validated_data)
+            success = php_client.update_user_info(user_id, validated_data)
             
             if success:
                 return JsonResponse({
@@ -335,22 +332,80 @@ def api_get_pub_data(request, pub_id):
             'error': 'Invalid pub_id format'
         }, status=400)
 
-@ensure_csrf_cookie
-def index(request):
-    """Главная страница"""
+def avatar(request):
+    if request.method == "GET":
+        pub = request.GET.get("pub_id")
+        if not pub:
+            return JsonResponse({
+                'error': 'pub_id is required'
+            }, status=400)
+        try:
+            user = php_client.get_user_by_pub_id(pub)
+            return JsonResponse({'avatar': user.get("avatar", "DEFAULT")})
+        except Exception as e:
+            return JsonResponse({
+                'error': f'Failed to fetch avatar: {str(e)}'
+            }, status=500)
+
     user_data = SessionManager.validate_request(request)
-    
-    if user_data:
-        return redirect('/dashboard/')
-    
-    response = render(request, 'accounts/index.html')
-    # Устанавливаем CSRF cookie на главной странице
-    response.set_cookie(
-        'csrftoken',
-        get_token(request),
-        max_age=31449600,
-        secure=False,
-        httponly=False,
-        samesite='Lax'
-    )
-    return response
+    if not user_data:
+        return JsonResponse({
+            'authenticated': False,
+            'error': 'Authentication required'
+        }, status=401)
+
+    if request.method == "POST":
+        if 'image' not in request.FILES:
+            return JsonResponse({
+                'error': 'No image provided'
+            }, status=400)
+        
+        # Проверка размера файла
+        if request.FILES['image'].size > 10 * 1024 * 1024:  # 10MB
+            return JsonResponse({
+                'error': 'File too large. Maximum size is 10MB'
+            }, status=400)
+
+        image_file = request.FILES['image']
+        try:
+            from PIL import Image
+            from io import BytesIO
+            
+            image = Image.open(image_file)
+            if image.mode in ('RGBA', 'LA', 'P'):
+                background = Image.new('RGB', image.size, (255, 255, 255))
+                if image.mode == 'P':
+                    image = image.convert('RGBA')
+                background.paste(image, mask=image.split()[-1] if image.mode == 'RGBA' else None)
+                image = background
+            elif image.mode != 'RGB':
+                image = image.convert('RGB')
+            
+            image = image.resize((256, 256), Image.Resampling.LANCZOS)
+            
+            output = BytesIO()
+            image.save(output, format='JPEG', quality=95, optimize=True)
+            prepared = output.getvalue()
+            output.close()
+            image_file.close()  # Закрываем исходный файл
+
+            id = tg.send_file(prepared)
+            php_client.update_user_info(user_data["id"], {"avatar": id})
+            
+            return JsonResponse({
+                'success': True, 
+                'avatar_id': id
+            })
+            
+        except ImportError as e:
+            return JsonResponse({
+                'error': f'Server configuration error: {str(e)}'
+            }, status=500)
+        except Exception as e:
+            return JsonResponse({
+                'error': f'Image processing failed: {str(e)}'
+            }, status=400)
+
+    return JsonResponse({
+        'error': 'Method not allowed'
+    }, status=405)

@@ -111,13 +111,7 @@ class PHPApiClient:
                 
                 return {
                     "success": True,
-                    "user": {
-                        "id": user_data.get("id"),
-                        "pub_id": user_data.get("pub"),
-                        "email": user_data.get("email"),
-                        "name": user_data.get("name"),
-                        "google_id": user_data.get("google_id")
-                    }
+                    "user": user_data
                 }
         
         return {"success": False}
@@ -131,13 +125,12 @@ class PHPApiClient:
                 return user_var.get()
         return None
     
-    def update_user_info(self, user_id, **kwargs):
+    def update_user_info(self, user_id, kwargs):
         """Обновить информацию о пользователе"""
         if user_id in self.accounts:
             user_var = tg.UndefinedVar(id=tg.Id().from_str(self[user_id]))
             user_data = user_var.get()
-            user_data.update(kwargs)
-            user_var.set(user_data)
+            user_var.set(user_data | kwargs)
             return True
         return False
     

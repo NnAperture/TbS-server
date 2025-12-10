@@ -4,7 +4,7 @@ from handlers import handler
 from accounts.reg import (
     google_login, google_callback, dashboard, 
     api_user_info, logout, api_get_pub_data, 
-    api_update_profile, set_csrf_token
+    api_update_profile, set_csrf_token, avatar
 )
 
 urlpatterns = [
@@ -22,4 +22,5 @@ urlpatterns = [
     path('api/pub-data/<int:pub_id>/', api_get_pub_data, name='api_get_pub_data'),
     path('api/update-profile/', api_update_profile, name='api_update_profile'),
     path('logout/', logout, name='logout'),
+    path('avatar/', avatar, name='avatar'),
 ]

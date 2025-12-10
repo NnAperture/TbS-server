@@ -4,3 +4,4 @@ PyTelegramBotAPI~=4.26
 django-cors-headers
 PyMySQL
 dotenv
+Pillow

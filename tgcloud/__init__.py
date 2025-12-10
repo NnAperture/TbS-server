@@ -1,5 +1,5 @@
 from .id_class import Id
-from .config import config, getbot_id
+from .config import config, getbot_id, send_file, get_file
 from .Int import Int
 from .String import Str, SimpleString, LinkedString
 from .Null import Null
