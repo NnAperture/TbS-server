@@ -6,126 +6,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Панель управления - {{ user.name }}</title>
     
-    <!-- Простой CSRF токен через JavaScript -->
     <script>
-        // Функция для получения CSRF токена из куки
-        function getCSRFToken() {
-            const name = 'csrftoken';
-            let cookieValue = null;
-            if (document.cookie && document.cookie !== '') {
-                const cookies = document.cookie.split(';');
-                for (let i = 0; i < cookies.length; i++) {
-                    const cookie = cookies[i].trim();
-                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                        break;
-                    }
-                }
-            }
-            return cookieValue;
-        }
-        
-        // Глобальные переменные для хранения данных пользователя
-        let userData = {
-            pub_id: '{{ user.pub }}',
+        // Данные пользователя
+        const userData = {
+            pubId: '{{ user.pub }}',
             name: '{{ user.name }}',
-            avatar: null,
-            avatar_id: '{{ user.avatar_id|default:"" }}'
+            email: '{{ user.email }}'
         };
         
-        // При загрузке страницы
-        document.addEventListener('DOMContentLoaded', async function() {
-            const csrfToken = getCSRFToken();
-            console.log('CSRF Token:', csrfToken ? 'Установлен' : 'Не найден');
-            
-            // Сохраняем данные в localStorage
-            localStorage.setItem('pub_id', userData.pub_id);
+        document.addEventListener('DOMContentLoaded', function() {
+            // Сохраняем в localStorage
+            localStorage.setItem('pub_id', userData.pubId);
             localStorage.setItem('user_name', userData.name);
-            console.log('Pub ID сохранен в localStorage:', userData.pub_id);
             
-            // Загружаем аватар пользователя
-            await loadUserAvatar();
+            // Загружаем аватар
+            loadAvatar();
         });
         
-        // Функция загрузки аватара пользователя
-        async function loadUserAvatar() {
-            try {
-                console.log('Загрузка аватара для pub_id:', userData.pub_id);
-                
-                // Получаем ID аватара с Django сервера
-                const response = await fetch(`/avatar/?pub_id=${userData.pub_id}`);
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
-                const data = await response.json();
-                console.log('Получены данные аватара:', data);
-                
-                if (data.avatar && data.avatar !== 'DEFAULT') {
-                    userData.avatar_id = data.avatar;
-                    
-                    // Формируем URL для получения аватара с PHP сервера
-                    const avatarUrl = `http://q97708nr.beget.tech/avatar/get.php?id=${encodeURIComponent(data.avatar)}`;
-                    console.log('URL аватара:', avatarUrl);
-                    
-                    // Загружаем и отображаем аватар
-                    await displayAvatar(avatarUrl);
-                } else {
-                    console.log('Аватар не найден, используется дефолтный');
-                    displayDefaultAvatar();
-                }
-            } catch (error) {
-                console.error('Ошибка загрузки аватара:', error);
-                displayDefaultAvatar();
-            }
-        }
-        
-        // Функция отображения аватара
-        async function displayAvatar(avatarUrl) {
+        // Загрузка аватара по pub_id
+        async function loadAvatar() {
             const avatarElement = document.getElementById('user-avatar');
             
-            if (!avatarElement) {
-                console.error('Элемент аватара не найден');
-                return;
-            }
+            if (!avatarElement) return;
             
             try {
+                // Формируем URL для Beget сервера
+                const avatarUrl = `http://q97708nr.beget.tech/avatar/get.php?pub_id=${encodeURIComponent(userData.pubId)}&t=${Date.now()}`;
+                
+                console.log('Загрузка аватара с URL:', avatarUrl);
+                
                 // Пробуем загрузить аватар
                 const img = new Image();
-                img.crossOrigin = 'anonymous'; // Разрешаем CORS
+                img.crossOrigin = 'anonymous';
                 
                 img.onload = function() {
                     console.log('Аватар успешно загружен');
-                    avatarElement.innerHTML = ''; // Очищаем иконку
+                    avatarElement.innerHTML = '';
                     avatarElement.style.backgroundImage = `url(${avatarUrl})`;
                     avatarElement.style.backgroundSize = 'cover';
                     avatarElement.style.backgroundPosition = 'center';
                 };
                 
                 img.onerror = function() {
-                    console.warn('Не удалось загрузить аватар, используется дефолтный');
-                    displayDefaultAvatar();
+                    console.warn('Ошибка загрузки аватара');
+                    showDefaultAvatar();
                 };
                 
                 img.src = avatarUrl;
                 
-                // Добавляем таймаут на случай если загрузка зависнет
-                setTimeout(() => {
-                    if (!img.complete) {
-                        console.warn('Таймаут загрузки аватара');
-                        displayDefaultAvatar();
-                    }
-                }, 3000);
-                
             } catch (error) {
-                console.error('Ошибка при отображении аватара:', error);
-                displayDefaultAvatar();
+                console.error('Ошибка:', error);
+                showDefaultAvatar();
             }
         }
         
-        // Функция отображения дефолтного аватара
-        function displayDefaultAvatar() {
+        // Показать дефолтный аватар
+        function showDefaultAvatar() {
             const avatarElement = document.getElementById('user-avatar');
             if (avatarElement) {
                 avatarElement.style.backgroundImage = '';
@@ -135,25 +71,23 @@
                 avatarElement.style.alignItems = 'center';
                 avatarElement.style.justifyContent = 'center';
                 avatarElement.style.color = 'white';
-                avatarElement.style.fontSize = '24px';
+                avatarElement.style.fontSize = '32px';
                 avatarElement.style.fontWeight = 'bold';
             }
         }
         
-        // Функция загрузки нового аватара
+        // Загрузка нового аватара
         async function uploadAvatar(file) {
             if (!file) {
                 showMessage('Выберите файл для загрузки', true);
                 return;
             }
             
-            // Проверка размера файла (10MB)
             if (file.size > 10 * 1024 * 1024) {
                 showMessage('Файл слишком большой. Максимальный размер: 10MB', true);
                 return;
             }
             
-            // Проверка типа файла
             if (!file.type.match('image.*')) {
                 showMessage('Выберите изображение (JPG, PNG, GIF)', true);
                 return;
@@ -165,36 +99,34 @@
                 const formData = new FormData();
                 formData.append('image', file);
                 
+                // Отправляем на Render сервер
                 const response = await fetch('/avatar/', {
                     method: 'POST',
                     body: formData,
-                    // Django автоматически добавит CSRF токен из куки
+                    // CSRF токен из куки добавится автоматически
                 });
                 
                 const result = await response.json();
                 
                 if (result.success) {
                     showMessage('Аватар успешно загружен!');
-                    userData.avatar_id = result.avatar_id;
                     
-                    // Перезагружаем аватар
+                    // Ждем немного и обновляем аватар
                     setTimeout(() => {
-                        loadUserAvatar();
+                        loadAvatar();
                     }, 1000);
                     
-                    return result.avatar_id;
                 } else {
                     showMessage('Ошибка: ' + (result.error || 'Неизвестная ошибка'), true);
-                    return null;
                 }
             } catch (error) {
                 showMessage('Ошибка сети: ' + error.message, true);
-                return null;
             }
         }
     </script>
     
     <style>
+        /* Стили остаются такими же, как в предыдущем примере */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -326,11 +258,6 @@
             border-radius: 4px;
             cursor: pointer;
             margin-right: 5px;
-            transition: all 0.3s ease;
-        }
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
         }
         .btn-primary {
             background: #007bff;
@@ -340,24 +267,11 @@
             background: #28a745;
             color: white;
         }
-        .btn-danger {
-            background: #dc3545;
-            color: white;
-        }
-        .btn-info {
-            background: #17a2b8;
-            color: white;
-        }
         .message {
             padding: 12px 20px;
             margin: 15px 0;
             border-radius: 8px;
             display: none;
-            animation: fadeIn 0.5s ease;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
         }
         .success {
             background: #d4edda;
@@ -369,33 +283,8 @@
             color: #721c24;
             border-left: 4px solid #dc3545;
         }
-        .avatar-section {
-            margin-top: 30px;
-        }
-        .avatar-controls {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-            margin-top: 10px;
-        }
         .file-input-hidden {
             display: none;
-        }
-        .avatar-preview {
-            max-width: 200px;
-            max-height: 200px;
-            border-radius: 10px;
-            margin: 10px 0;
-            border: 2px solid #ddd;
-            display: none;
-        }
-        .avatar-id-display {
-            background: #e9ecef;
-            padding: 10px;
-            border-radius: 5px;
-            margin: 10px 0;
-            font-family: monospace;
-            word-break: break-all;
         }
     </style>
 </head>
@@ -421,10 +310,8 @@
                 <div class="user-details">
                     <h1>{{ user.name }}</h1>
                     <p>{{ user.email }}</p>
-                    <p>ID: {{ user.id }}</p>
-                    {% if user.avatar_id %}
-                        <p><small>Аватар: {{ user.avatar_id|truncatechars:30 }}</small></p>
-                    {% endif %}
+                    <p>Публичный ID: {{ user.pub }}</p>
+                    <p><small>Для ссылки на аватар используйте pub_id</small></p>
                 </div>
             </div>
             <a href="/logout/" class="logout-btn">Выйти</a>
@@ -432,12 +319,12 @@
 
         <div class="info-grid">
             <div class="info-card">
-                <h3>Публичный ID</h3>
+                <h3>Ваш публичный ID</h3>
                 <div class="value">{{ user.pub }}</div>
                 <button class="btn btn-primary" onclick="copyToClipboard('{{ user.pub }}')">
                     Скопировать
                 </button>
-                <button class="btn btn-info" onclick="copyAvatarLink()">
+                <button class="btn btn-success" onclick="copyAvatarLink()">
                     Скопировать ссылку на аватар
                 </button>
             </div>
@@ -445,92 +332,49 @@
             <div class="info-card">
                 <h3>Изменить имя</h3>
                 <input type="text" id="new-name" class="edit-input" value="{{ user.name }}" maxlength="50">
-                <div class="avatar-controls">
-                    <button class="btn btn-success" onclick="updateName()">Сохранить имя</button>
-                </div>
+                <button class="btn btn-success" onclick="updateName()">Сохранить имя</button>
             </div>
 
             <div class="info-card">
-                <h3>Дата регистрации</h3>
-                <div class="value">
-                    {% if user.created_at_formatted %}
-                        {{ user.created_at_formatted }}
-                    {% elif user.created_at %}
-                        {{ user.created_at }}
-                    {% else %}
-                        Неизвестно
-                    {% endif %}
-                </div>
-                <button class="btn btn-primary" onclick="refreshAvatar()">
-                    Обновить аватар
-                </button>
-            </div>
-        </div>
-
-        <div class="avatar-section">
-            <div class="info-card">
-                <h3>Управление аватаром</h3>
-                <p>Текущий ID аватара:</p>
-                <div id="avatar-id-display" class="avatar-id-display">
-                    {% if user.avatar_id %}
-                        {{ user.avatar_id }}
-                    {% else %}
-                        Не установлен
-                    {% endif %}
-                </div>
-                
-                <div class="avatar-controls">
-                    <button class="btn btn-primary" onclick="document.getElementById('avatar-input').click()">
-                        Выбрать изображение
-                    </button>
-                    <button class="btn btn-danger" onclick="resetAvatar()" id="reset-avatar-btn">
-                        Сбросить аватар
-                    </button>
-                </div>
-                
-                <div id="avatar-preview-container">
-                    <img id="avatar-preview" class="avatar-preview" alt="Предпросмотр">
-                </div>
-                
-                <p><small>Поддерживаемые форматы: JPG, PNG, GIF. Максимальный размер: 10MB</small></p>
+                <h3>Ссылка на аватар</h3>
+                <div class="value">http://q97708nr.beget.tech/avatar/get.php?pub_id={{ user.pub }}</div>
+                <p><small>Используйте эту ссылку для отображения аватара на других сайтах</small></p>
             </div>
         </div>
     </div>
 
     <script>
-        // Функция для отображения сообщений
-        function showMessage(text, isError = false) {
-            const messageDiv = document.getElementById('message');
-            messageDiv.textContent = text;
-            messageDiv.className = isError ? 'message error' : 'message success';
-            messageDiv.style.display = 'block';
+        // Обработчик загрузки файла
+        async function handleAvatarUpload(file) {
+            if (!file) return;
             
-            setTimeout(() => {
-                messageDiv.style.display = 'none';
-            }, 3000);
+            // Показываем предпросмотр
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const avatarElement = document.getElementById('user-avatar');
+                avatarElement.style.backgroundImage = `url(${e.target.result})`;
+                avatarElement.innerHTML = '';
+            };
+            reader.readAsDataURL(file);
+            
+            // Загружаем на сервер
+            await uploadAvatar(file);
         }
-
-        // Копирование текста в буфер обмена
+        
+        // Копирование в буфер обмена
         function copyToClipboard(text) {
             navigator.clipboard.writeText(text).then(() => {
                 showMessage('Скопировано: ' + text);
-            }).catch(err => {
-                console.error('Ошибка копирования:', err);
-                showMessage('Ошибка копирования', true);
             });
         }
-
+        
         // Копирование ссылки на аватар
         function copyAvatarLink() {
-            if (userData.avatar_id) {
-                const avatarUrl = `http://q97708nr.beget.tech/avatar/get.php?id=${encodeURIComponent(userData.avatar_id)}`;
-                copyToClipboard(avatarUrl);
-            } else {
-                showMessage('Аватар не установлен', true);
-            }
+            const link = `http://q97708nr.beget.tech/avatar/get.php?pub_id=${userData.pubId}`;
+            copyToClipboard(link);
         }
-
-        // Обновление имени пользователя
+        
+        // Обновление имени
         async function updateName() {
             const newName = document.getElementById('new-name').value.trim();
             
@@ -545,12 +389,10 @@
             }
             
             try {
-                const csrfToken = getCSRFToken();
                 const response = await fetch('/api/update-profile/', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'X-CSRFToken': csrfToken
                     },
                     body: JSON.stringify({ name: newName })
                 });
@@ -563,10 +405,7 @@
                     
                     // Обновляем отображение
                     document.querySelector('.user-details h1').textContent = newName;
-                    displayDefaultAvatar(); // Обновляем дефолтный аватар
-                    
-                    // Обновляем localStorage
-                    localStorage.setItem('user_name', newName);
+                    showDefaultAvatar(); // Обновляем дефолтный аватар
                 } else {
                     showMessage('Ошибка: ' + data.error, true);
                 }
@@ -574,86 +413,17 @@
                 showMessage('Ошибка сети: ' + error.message, true);
             }
         }
-
-        // Обработка загрузки аватара
-        async function handleAvatarUpload(file) {
-            if (!file) return;
+        
+        // Показать сообщение
+        function showMessage(text, isError = false) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.textContent = text;
+            messageDiv.className = isError ? 'message error' : 'message success';
+            messageDiv.style.display = 'block';
             
-            // Показываем предпросмотр
-            const preview = document.getElementById('avatar-preview');
-            const reader = new FileReader();
-            
-            reader.onload = function(e) {
-                preview.src = e.target.result;
-                preview.style.display = 'block';
-            };
-            
-            reader.readAsDataURL(file);
-            
-            // Загружаем аватар на сервер
-            const avatarId = await uploadAvatar(file);
-            
-            if (avatarId) {
-                // Обновляем отображение ID аватара
-                document.getElementById('avatar-id-display').textContent = avatarId;
-            }
-        }
-
-        // Сброс аватара
-        async function resetAvatar() {
-            if (!confirm('Вы уверены, что хотите сбросить аватар?')) {
-                return;
-            }
-            
-            try {
-                const csrfToken = getCSRFToken();
-                const response = await fetch('/api/update-profile/', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRFToken': csrfToken
-                    },
-                    body: JSON.stringify({ avatar: null })
-                });
-                
-                const data = await response.json();
-                
-                if (data.success) {
-                    showMessage('Аватар сброшен!');
-                    userData.avatar_id = null;
-                    document.getElementById('avatar-id-display').textContent = 'Не установлен';
-                    
-                    // Скрываем предпросмотр
-                    document.getElementById('avatar-preview').style.display = 'none';
-                    
-                    // Обновляем отображение аватара
-                    displayDefaultAvatar();
-                } else {
-                    showMessage('Ошибка: ' + data.error, true);
-                }
-            } catch (error) {
-                showMessage('Ошибка сети: ' + error.message, true);
-            }
-        }
-
-        // Обновление аватара
-        async function refreshAvatar() {
-            showMessage('Обновление аватара...', false);
-            await loadUserAvatar();
-        }
-
-        // Тестирование API
-        async function testApi() {
-            const resultDiv = document.getElementById('api-result');
-            resultDiv.innerHTML = 'Запрос отправляется...';
-            
-            try {
-                const response = await fetch('/api/user-info/');
-                const data = await response.json();
-                resultDiv.innerHTML = '<pre>' + JSON.stringify(data, null, 2) + '</pre>';
-            } catch (error) {
-                resultDiv.innerHTML = 'Ошибка: ' + error.message;
-            }
+            setTimeout(() => {
+                messageDiv.style.display = 'none';
+            }, 3000);
         }
     </script>
 </body>
