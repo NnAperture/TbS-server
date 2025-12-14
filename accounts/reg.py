@@ -345,7 +345,7 @@ def avatar(request):
                     if not user_data:
                         return get_default_avatar()
                     
-                    user = php_client.get_user_by_id(user_data["id"])
+                    user = php_client.get(user_data["id"])
                     avatar_id = user.get("avatar", "DEFAULT")
                 if not avatar_id or avatar_id == "DEFAULT":
                     return get_default_avatar()
@@ -391,7 +391,7 @@ def avatar(request):
                             'error': 'Authentication required'
                         }, status=401)
                     
-                    user = php_client.get_user_by_id(user_data["id"])
+                    user = php_client.get(user_data["id"])
                     return JsonResponse({
                         'avatar': user.get("avatar", "DEFAULT"),
                         'user_id': user_data["id"],
