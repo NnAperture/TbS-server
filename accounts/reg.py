@@ -335,76 +335,87 @@ def api_get_pub_data(request, pub_id):
 def avatar(request):
     if request.method == "GET":
         pub = request.GET.get("pub_id")
-        
-        # Если передан pub_id - общедоступный доступ
-        if pub:
+        if request.GET.get('format') == 'image':
             try:
-                user = php_client.get_user_by_pub_id(pub)
-                avatar_id = user.get("avatar", "DEFAULT")
-                
-                # Если запросили изображение напрямую (не JSON)
-                if request.GET.get('format') == 'image':
-                    if avatar_id == "DEFAULT":
+                if pub:
+                    user = php_client.get_user_by_pub_id(pub)
+                    avatar_id = user.get("avatar", "DEFAULT")
+                else:
+                    user_data = SessionManager.validate_request(request)
+                    if not user_data:
                         return get_default_avatar()
-                    else:
-                        return get_avatar_image(avatar_id)
-                
-                return JsonResponse({'avatar': avatar_id})
-                
+                    
+                    user = php_client.get_user_by_id(user_data["id"])
+                    avatar_id = user.get("avatar", "DEFAULT")
+                if not avatar_id or avatar_id == "DEFAULT":
+                    return get_default_avatar()
+                file_bytes = tg.get_file(avatar_id)
+                if not file_bytes:
+                    return get_default_avatar()
+                try:
+                    from PIL import Image
+                    from io import BytesIO
+                    image = Image.open(BytesIO(file_bytes))
+                    if image.mode != 'RGB':
+                        image = image.convert('RGB')
+                    image = image.resize((256, 256), Image.Resampling.LANCZOS)
+                    output = BytesIO()
+                    image.save(output, format='JPEG', quality=85, optimize=True)
+                    image_bytes = output.getvalue()
+                    output.close()
+                    from django.http import HttpResponse
+                    response = HttpResponse(image_bytes, content_type='image/jpeg')
+                    response['Cache-Control'] = 'public, max-age=3600'
+                    return response
+                    
+                except Exception as e:
+                    print(f"Image processing error: {e}")
+                    return get_default_avatar()
+                    
+            except Exception as e:
+                print(f"Avatar fetch error: {e}")
+                return get_default_avatar()
+        else:
+            try:
+                if pub:
+                    user = php_client.get_user_by_pub_id(pub)
+                    return JsonResponse({
+                        'avatar': user.get("avatar", "DEFAULT"),
+                        'pub_id': pub
+                    })
+                else:
+                    user_data = SessionManager.validate_request(request)
+                    if not user_data:
+                        return JsonResponse({
+                            'authenticated': False,
+                            'error': 'Authentication required'
+                        }, status=401)
+                    
+                    user = php_client.get_user_by_id(user_data["id"])
+                    return JsonResponse({
+                        'avatar': user.get("avatar", "DEFAULT"),
+                        'user_id': user_data["id"],
+                        'name': user.get("name", "")
+                    })
+                    
             except Exception as e:
                 return JsonResponse({
                     'error': f'Failed to fetch avatar: {str(e)}'
                 }, status=500)
-        
-        # Если не передан pub_id - проверяем авторизацию
+    elif request.method == "POST":
         user_data = SessionManager.validate_request(request)
         if not user_data:
             return JsonResponse({
                 'authenticated': False,
                 'error': 'Authentication required'
             }, status=401)
-        
-        try:
-            # Получаем аватар текущего пользователя
-            user = php_client.get_user_by_id(user_data["id"])
-            avatar_id = user.get("avatar", "DEFAULT")
-            
-            # Если запросили изображение
-            if request.GET.get('format') == 'image':
-                if avatar_id == "DEFAULT":
-                    return get_default_avatar()
-                else:
-                    return get_avatar_image(avatar_id)
-            
-            # Иначе возвращаем JSON с ID
-            return JsonResponse({
-                'avatar': avatar_id,
-                'user_id': user_data["id"],
-                'name': user_data.get("name", "")
-            })
-            
-        except Exception as e:
-            return JsonResponse({
-                'error': f'Failed to fetch user avatar: {str(e)}'
-            }, status=500)
 
-    # Обработка POST для загрузки аватара
-    user_data = SessionManager.validate_request(request)
-    if not user_data:
-        return JsonResponse({
-            'authenticated': False,
-            'error': 'Authentication required'
-        }, status=401)
-
-    if request.method == "POST":
-        # Обработка загрузки нового аватара
         if 'image' not in request.FILES:
             return JsonResponse({
                 'error': 'No image provided'
             }, status=400)
         
-        # Проверка размера файла
-        if request.FILES['image'].size > 10 * 1024 * 1024:  # 10MB
+        if request.FILES['image'].size > 10 * 1024 * 1024:
             return JsonResponse({
                 'error': 'File too large. Maximum size is 10MB'
             }, status=400)
@@ -431,22 +442,14 @@ def avatar(request):
             prepared = output.getvalue()
             output.close()
             image_file.close()
-
-            # Отправляем в Telegram и получаем ID
             avatar_id = tg.send_file(prepared)
-            
-            # Обновляем информацию пользователя
             php_client.update_user_info(user_data["id"], {"avatar": avatar_id})
             
-            # Проверяем, нужно ли вернуть изображение или JSON
-            if request.GET.get('format') == 'image':
-                return get_avatar_image(avatar_id)
-            else:
-                return JsonResponse({
-                    'success': True, 
-                    'avatar_id': avatar_id,
-                    'image_url': f'/avatar/?pub_id={user_data.get("pub", "")}&format=image'
-                })
+            return JsonResponse({
+                'success': True, 
+                'avatar_id': avatar_id,
+                'image_url': f'/avatar/?format=image'
+            })
             
         except ImportError as e:
             return JsonResponse({
@@ -462,114 +465,30 @@ def avatar(request):
     }, status=405)
 
 
-def get_avatar_image(avatar_id):
+def get_default_avatar():
     """
-    Получить изображение аватара из Telegram
+    Простая генерация дефолтного аватара
     """
+    from PIL import Image, ImageDraw
+    from io import BytesIO
+    from django.http import HttpResponse
+    
     try:
-        # Получаем файл из Telegram
-        file_bytes = tg.get_file(avatar_id)
+        image = Image.new('RGB', (256, 256), color=(74, 99, 123))
+        draw = ImageDraw.Draw(image)
+        draw.ellipse([50, 50, 206, 206], fill=(255, 255, 255))
+        draw.polygon([(128, 100), (100, 150), (100, 180), (156, 180), (156, 150)], fill=(74, 99, 123))
         
-        if not file_bytes:
-            return get_default_avatar()
-        
-        # Проверяем, является ли это изображением
-        from PIL import Image
-        from io import BytesIO
-        
-        # Пробуем открыть как изображение
-        image = Image.open(BytesIO(file_bytes))
-        
-        # Конвертируем в JPEG для унификации
         output = BytesIO()
-        
-        # Если изображение с прозрачностью, добавляем белый фон
-        if image.mode in ('RGBA', 'LA', 'P'):
-            background = Image.new('RGB', image.size, (255, 255, 255))
-            if image.mode == 'P':
-                image = image.convert('RGBA')
-            background.paste(image, mask=image.split()[-1] if image.mode == 'RGBA' else None)
-            image = background
-        elif image.mode != 'RGB':
-            image = image.convert('RGB')
-        
-        # Ресайз до 256x256
-        image = image.resize((256, 256), Image.Resampling.LANCZOS)
-        
-        # Сохраняем в JPEG
-        image.save(output, format='JPEG', quality=90, optimize=True)
+        image.save(output, format='JPEG', quality=85)
         image_bytes = output.getvalue()
         output.close()
         
-        # Возвращаем HTTP-ответ с изображением
-        from django.http import HttpResponse
         response = HttpResponse(image_bytes, content_type='image/jpeg')
-        response['Cache-Control'] = 'public, max-age=3600'  # Кэшируем на 1 час
-        response['Content-Disposition'] = 'inline'  # Показывать в браузере
+        response['Cache-Control'] = 'public, max-age=86400'
         return response
         
     except Exception as e:
-        # Если что-то пошло не так, возвращаем дефолтный аватар
-        return get_default_avatar()
-
-
-def get_default_avatar():
-    """
-    Генерация дефолтного аватара
-    """
-    from PIL import Image, ImageDraw, ImageFont
-    from io import BytesIO
-    import random
-    
-    # Создаем изображение 256x256
-    image = Image.new('RGB', (256, 256), color=(74, 99, 123))  # Синий фон
-    draw = ImageDraw.Draw(image)
-    
-    try:
-        # Пробуем использовать системный шрифт
-        import os
-        if os.name == 'nt':  # Windows
-            font = ImageFont.truetype("arial.ttf", 100)
-        else:  # Linux/Mac
-            font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", 100)
-    except:
-        # Если шрифт не найден, используем базовый
-        font = ImageFont.load_default()
-    
-    # Рисуем белую букву "U" (User)
-    draw.text((128, 128), "U", font=font, fill=(255, 255, 255), anchor="mm")
-    
-    # Сохраняем в JPEG
-    output = BytesIO()
-    image.save(output, format='JPEG', quality=90)
-    image_bytes = output.getvalue()
-    output.close()
-    
-    from django.http import HttpResponse
-    response = HttpResponse(image_bytes, content_type='image/jpeg')
-    response['Cache-Control'] = 'public, max-age=86400'  # Кэшируем на 24 часа
-    response['Content-Disposition'] = 'inline'
-    return response
-
-
-def proxy_avatar(request):
-    """
-    Прокси для получения аватара из Telegram с кэшированием
-    """
-    pub_id = request.GET.get('pub_id')
-    
-    if not pub_id:
-        return JsonResponse({'error': 'pub_id is required'}, status=400)
-    
-    try:
-        # Получаем информацию о пользователе
-        user = php_client.get_user_by_pub_id(pub_id)
-        avatar_id = user.get("avatar", "DEFAULT")
-        
-        if avatar_id == "DEFAULT":
-            return get_default_avatar()
-        else:
-            return get_avatar_image(avatar_id)
-            
-    except Exception as e:
-        return JsonResponse({'error': str(e)}, status=500)
+        response = HttpResponse(b'', content_type='image/jpeg')
+        response.status_code = 500
+        return response
