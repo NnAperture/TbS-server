@@ -26,16 +26,15 @@
         // Загрузка аватара по pub_id
         async function loadAvatar() {
             const avatarElement = document.getElementById('user-avatar');
-            
             if (!avatarElement) return;
             
             try {
-                // Формируем URL для Beget сервера
-                const avatarUrl = `http://q97708nr.beget.tech/avatar/get.php?pub_id=${encodeURIComponent(userData.pubId)}&t=${Date.now()}`;
+                // Для авторизованного пользователя - свой аватар
+                const avatarUrl = `/avatar/?format=image&t=${Date.now()}`;
                 
-                // Пробуем загрузить аватар
+                console.log('Loading user avatar:', avatarUrl);
+                
                 const img = new Image();
-                img.crossOrigin = 'anonymous';
                 
                 img.onload = function() {
                     avatarElement.innerHTML = '';
@@ -46,20 +45,14 @@
                 };
                 
                 img.onerror = function() {
+                    console.warn('Failed to load avatar, using default');
                     showDefaultAvatar();
                 };
                 
                 img.src = avatarUrl;
                 
-                // Таймаут на случай если загрузка зависнет
-                setTimeout(() => {
-                    if (!img.complete) {
-                        showDefaultAvatar();
-                    }
-                }, 3000);
-                
             } catch (error) {
-                console.error('Ошибка загрузки аватара:', error);
+                console.error('Error loading avatar:', error);
                 showDefaultAvatar();
             }
         }
@@ -620,16 +613,6 @@
                         Копировать ID
                     </button>
                 </div>
-                
-                <div class="info-item">
-                    <div class="info-label">Ссылка на аватар:</div>
-                    <div class="info-value" style="word-break: break-all;">
-                        http://q97708nr.beget.tech/avatar/get.php?pub_id={{ user.pub }}
-                    </div>
-                    <button class="copy-btn" onclick="copyAvatarLink()">
-                        Копировать ссылку
-                    </button>
-                </div>
             </div>
         </div>
     </div>
@@ -691,12 +674,6 @@
             }).catch(err => {
                 showMessage('Ошибка копирования', true);
             });
-        }
-        
-        // Копирование ссылки на аватар
-        function copyAvatarLink() {
-            const link = `http://q97708nr.beget.tech/avatar/get.php?pub_id=${userData.pubId}`;
-            copyToClipboard(link);
         }
         
         // Работа с модальным окном
