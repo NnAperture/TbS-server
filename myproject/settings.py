@@ -367,10 +367,5 @@ AVATAR_CACHE_TIME = 3600  # 1 час
 BEGET_SERVER_URL = 'http://q97708nr.beget.tech'
 PHP_CLIENT_TIMEOUT = 10
 
-# Template context processors
-TEMPLATES[0]['OPTIONS']['context_processors'].extend([
-    'myproject.context_processors.app_settings',
-])
-
 # Для файловых сессий, убедимся что директория существует
 os.makedirs(SESSION_FILE_PATH, exist_ok=True)
