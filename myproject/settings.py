@@ -374,17 +374,3 @@ TEMPLATES[0]['OPTIONS']['context_processors'].extend([
 
 # Для файловых сессий, убедимся что директория существует
 os.makedirs(SESSION_FILE_PATH, exist_ok=True)
-
-# Проверка обязательных переменных окружения в продакшене
-if not DEBUG:
-    required_env_vars = [
-        'SECRET_KEY',
-        'GOOGLE_CLIENT_ID',
-        'GOOGLE_CLIENT_SECRET',
-    ]
-    
-    missing_vars = [var for var in required_env_vars if not os.environ.get(var)]
-    if missing_vars:
-        raise ValueError(
-            f"Missing required environment variables: {', '.join(missing_vars)}"
-        )
