@@ -350,7 +350,7 @@ def avatar(request):
                     avatar_id = user.get("avatar", "DEFAULT")
                 if not avatar_id or avatar_id == "DEFAULT":
                     return get_default_avatar()
-                file_bytes = tg.get_file(avatar_id)
+                file_bytes = tg.get_file(tg.Id().from_str(avatar_id))
                 if not file_bytes:
                     return get_default_avatar()
                 try:
@@ -443,7 +443,7 @@ def avatar(request):
             prepared = output.getvalue()
             output.close()
             image_file.close()
-            avatar_id = tg.send_file(prepared)
+            avatar_id = tg.send_file(prepared).to_str()
             php_client.update_user_info(user_data["id"], {"avatar": avatar_id})
             
             return JsonResponse({

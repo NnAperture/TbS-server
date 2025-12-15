@@ -1,1 +1,13 @@
 INFO 2025-12-15 21:07:19,988 autoreload Watching for file changes with StatReloader
+INFO 2025-12-15 21:26:03,302 autoreload Watching for file changes with StatReloader
+INFO 2025-12-15 21:26:07,291 basehttp "GET / HTTP/1.1" 301 0
+INFO 2025-12-15 21:26:07,309 basehttp code 400, message Bad request version ('\x00\x12\x00\x10\x04\x03\x08\x04\x04\x01\x05\x03\x08\x05\x05\x01\x08\x06\x06\x01\x00\x12\x00\x00\x00')
+ERROR 2025-12-15 21:26:07,313 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-12-15 21:26:07,603 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-12-15 21:26:24,260 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-12-15 21:26:24,290 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-12-15 21:26:38,999 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-12-15 21:26:39,035 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2025-12-15 21:27:13,857 autoreload Watching for file changes with StatReloader
+ERROR 2025-12-15 21:27:20,127 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2025-12-15 21:27:20,157 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
