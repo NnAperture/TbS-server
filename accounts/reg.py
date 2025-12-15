@@ -337,26 +337,22 @@ def avatar(request):
     if request.method == "GET":
         pub = request.GET.get("pub_id")
         
-        # Если запросили изображение
         if request.GET.get('format') == 'image':
             try:
                 if pub:
                     user = php_client.get_user_by_pub_id(pub)
                     avatar_id = user.get("avatar", "DEFAULT")
                 else:
-                    # Если нет pub_id, пробуем авторизацию
                     user_data = SessionManager.validate_request(request)
                     if not user_data:
                         return get_default_avatar()
                     
-                    # Используем php_client.get() для получения по ID
                     user = php_client.get(user_data["id"])
                     avatar_id = user.get("avatar", "DEFAULT")
                 
                 if not avatar_id or avatar_id == "DEFAULT":
                     return get_default_avatar()
                 
-                # Получаем файл из Telegram
                 file_bytes = tg.get_file(tg.Id().from_str(avatar_id))
                 if not file_bytes:
                     return get_default_avatar()
@@ -388,7 +384,6 @@ def avatar(request):
                 print(f"Avatar fetch error: {e}")
                 return get_default_avatar()
         
-        # Если запросили JSON
         else:
             try:
                 if pub:
@@ -405,7 +400,6 @@ def avatar(request):
                             'error': 'Authentication required'
                         }, status=401)
                     
-                    # Используем php_client.get() для получения по ID
                     user = php_client.get(user_data["id"])
                     return JsonResponse({
                         'avatar': user.get("avatar", "DEFAULT"),
@@ -418,7 +412,6 @@ def avatar(request):
                     'error': f'Failed to fetch avatar: {str(e)}'
                 }, status=500)
     
-    # POST запрос - загрузка нового аватара
     elif request.method == "POST":
         user_data = SessionManager.validate_request(request)
         if not user_data:
@@ -460,10 +453,7 @@ def avatar(request):
             output.close()
             image_file.close()
             
-            # Отправляем в Telegram и получаем ID
             avatar_id = tg.send_file(prepared).to_str()
-            
-            # Сохраняем в базу
             php_client.update_user_info(user_data["id"], {"avatar": avatar_id})
             
             return JsonResponse({
@@ -494,16 +484,9 @@ def get_default_avatar():
         
         image = Image.new('RGB', (256, 256), color=(220, 220, 220))
         draw = ImageDraw.Draw(image)
-        
-        # Простой серый квадрат с буквой U
         draw.rectangle([0, 0, 255, 255], outline=(180, 180, 180))
-        
-        # Рисуем букву U (упрощенно)
         draw.ellipse([50, 50, 206, 206], fill=(200, 200, 200))
-        
-        # Текст "U" если нет шрифта
         try:
-            # Пробуем использовать шрифт
             from PIL import ImageFont
             try:
                 font = ImageFont.truetype("arial.ttf", 100)
@@ -511,7 +494,6 @@ def get_default_avatar():
                 font = ImageFont.load_default()
             draw.text((128, 128), "U", font=font, fill=(100, 100, 100), anchor="mm")
         except:
-            # Просто рисуем фигуру
             draw.polygon([(128, 80), (100, 140), (100, 180), (156, 180), (156, 140)], 
                          fill=(100, 100, 100))
         
@@ -526,7 +508,6 @@ def get_default_avatar():
         
     except Exception as e:
         print(f"Default avatar error: {e}")
-        # Минимальный fallback
         response = HttpResponse(b'', content_type='image/jpeg')
         response.status_code = 200
         return response

@@ -6,23 +6,19 @@
     <title>Панель управления - {{ user.name }}</title>
     
     <script>
-        // Данные пользователя
         const userData = {
             pubId: '{{ user.pub }}',
             name: '{{ user.name }}',
-            email: '{{ user.email }}'
+            email: '{{ user.email }}',
+            avatarUrl: ''
         };
         
         document.addEventListener('DOMContentLoaded', function() {
-            // Сохраняем в localStorage
             localStorage.setItem('pub_id', userData.pubId);
             localStorage.setItem('user_name', userData.name);
-            
-            // Загружаем аватар
             loadAvatar();
         });
         
-        // Получить CSRF токен из куки
         function getCSRFToken() {
             let cookieValue = null;
             if (document.cookie && document.cookie !== '') {
@@ -38,52 +34,37 @@
             return cookieValue;
         }
         
-        // Загрузка аватара по pub_id
         async function loadAvatar() {
             const avatarElement = document.getElementById('user-avatar');
             if (!avatarElement) return;
             
-            try {
-                // ВСЕГДА используем pub_id для загрузки аватара
-                const avatarUrl = `/avatar/?pub_id=${encodeURIComponent(userData.pubId)}&format=image&t=${Date.now()}`;
-                
-                console.log('Loading avatar:', avatarUrl);
-                
-                const img = new Image();
-                img.crossOrigin = 'anonymous';
-                
-                img.onload = function() {
-                    console.log('Avatar loaded successfully');
-                    avatarElement.innerHTML = '';
-                    avatarElement.style.backgroundImage = `url(${avatarUrl})`;
-                    avatarElement.style.backgroundSize = 'cover';
-                    avatarElement.style.backgroundPosition = 'center';
-                    avatarElement.classList.add('loaded');
-                };
-                
-                img.onerror = function(err) {
-                    console.warn('Avatar load failed:', err);
-                    console.log('Falling back to default avatar');
-                    showDefaultAvatar();
-                };
-                
-                img.src = avatarUrl;
-                
-                // Таймаут 5 секунд
-                setTimeout(() => {
-                    if (!img.complete) {
-                        console.warn('Avatar load timeout');
-                        showDefaultAvatar();
-                    }
-                }, 5000);
-                
-            } catch (error) {
-                console.error('Error in loadAvatar:', error);
+            const avatarUrl = `/avatar/?pub_id=${encodeURIComponent(userData.pubId)}&format=image&t=${Date.now()}`;
+            userData.avatarUrl = avatarUrl;
+            
+            const img = new Image();
+            img.crossOrigin = 'anonymous';
+            
+            img.onload = function() {
+                avatarElement.innerHTML = '';
+                avatarElement.style.backgroundImage = `url(${avatarUrl})`;
+                avatarElement.style.backgroundSize = 'cover';
+                avatarElement.style.backgroundPosition = 'center';
+                avatarElement.classList.add('loaded');
+            };
+            
+            img.onerror = function() {
                 showDefaultAvatar();
-            }
+            };
+            
+            img.src = avatarUrl;
+            
+            setTimeout(() => {
+                if (!img.complete) {
+                    showDefaultAvatar();
+                }
+            }, 5000);
         }
         
-        // Показать дефолтный аватар
         function showDefaultAvatar() {
             const avatarElement = document.getElementById('user-avatar');
             if (avatarElement) {
@@ -93,7 +74,6 @@
             }
         }
         
-        // Загрузка нового аватара
         async function uploadAvatar(file) {
             if (!file) {
                 showMessage('Выберите файл для загрузки', true);
@@ -116,10 +96,8 @@
                 const formData = new FormData();
                 formData.append('image', file);
                 
-                // Получаем CSRF токен
                 const csrfToken = getCSRFToken();
                 
-                // Отправляем на сервер с CSRF токеном
                 const response = await fetch('/avatar/', {
                     method: 'POST',
                     body: formData,
@@ -128,41 +106,434 @@
                     } : {}
                 });
                 
-                console.log('Upload response status:', response.status);
-                
                 const result = await response.json();
-                console.log('Upload result:', result);
                 
                 if (result.success) {
                     showMessage('Аватар успешно загружен!');
-                    
-                    // Даем серверу время обработать файл
-                    await new Promise(resolve => setTimeout(resolve, 1500));
-                    
-                    // Перезагружаем аватар
-                    await loadAvatar();
-                    
+                    setTimeout(() => {
+                        loadAvatar();
+                    }, 1500);
                     return true;
                 } else {
                     showMessage('Ошибка: ' + (result.error || 'Неизвестная ошибка'), true);
                     return false;
                 }
             } catch (error) {
-                console.error('Upload error:', error);
                 showMessage('Ошибка сети: ' + error.message, true);
                 return false;
             }
         }
     </script>
     
-    <!-- CSS стили остаются без изменений -->
     <style>
-        /* ... ваш CSS стили ... */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f7f9fc;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .dashboard-container {
+            width: 100%;
+            max-width: 800px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+        
+        .profile-header {
+            display: flex;
+            align-items: center;
+            padding: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            position: relative;
+        }
+        
+        .avatar-container {
+            position: relative;
+            margin-right: 24px;
+        }
+        
+        .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            font-weight: bold;
+            color: white;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+        
+        .avatar:hover {
+            transform: scale(1.05);
+        }
+        
+        .avatar.loaded {
+            background: none;
+        }
+        
+        .avatar-initial {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .avatar-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+        
+        .avatar.loaded .avatar-initial {
+            display: none;
+        }
+        
+        .avatar.loaded .avatar-image {
+            display: block;
+        }
+        
+        .avatar-upload-text {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 11px;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .avatar-container:hover .avatar-upload-text {
+            opacity: 1;
+        }
+        
+        .user-info {
+            flex: 1;
+        }
+        
+        .user-name {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .user-email {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 4px;
+        }
+        
+        .edit-name-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .edit-name-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-1px);
+        }
+        
+        .logout-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: white;
+            padding: 8px 24px;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            margin-left: auto;
+        }
+        
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-1px);
+        }
+        
+        .change-avatar-section {
+            padding: 0 30px 30px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .change-avatar-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .change-avatar-btn:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+        }
+        
+        .file-input-hidden {
+            display: none;
+        }
+        
+        .info-section {
+            padding: 30px;
+        }
+        
+        .info-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .info-grid {
+            display: grid;
+            gap: 20px;
+        }
+        
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        
+        .info-label {
+            font-size: 14px;
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .info-value {
+            font-size: 16px;
+            color: #333;
+            font-weight: 500;
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .copy-btn {
+            background: none;
+            border: 1px solid #ddd;
+            color: #666;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 13px;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: all 0.3s ease;
+        }
+        
+        .copy-btn:hover {
+            background: #f5f5f5;
+            border-color: #ccc;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 16px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        .modal-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        .modal-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-bottom: 20px;
+            transition: border-color 0.3s ease;
+        }
+        
+        .modal-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        .modal-actions {
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+        
+        .modal-btn {
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .modal-btn.cancel {
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            color: #666;
+        }
+        
+        .modal-btn.cancel:hover {
+            background: #e9e9e9;
+        }
+        
+        .modal-btn.save {
+            background: #667eea;
+            border: none;
+            color: white;
+        }
+        
+        .modal-btn.save:hover {
+            background: #5a67d8;
+        }
+        
+        .message {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 16px 24px;
+            border-radius: 12px;
+            background: white;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            display: none;
+            align-items: center;
+            gap: 12px;
+            z-index: 2000;
+            animation: slideIn 0.3s ease;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        .message.success {
+            border-left: 4px solid #4CAF50;
+        }
+        
+        .message.error {
+            border-left: 4px solid #f44336;
+        }
+        
+        .message-icon {
+            font-size: 20px;
+        }
+        
+        @media (max-width: 768px) {
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+            }
+            
+            .avatar-container {
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+            
+            .logout-btn {
+                margin-left: 0;
+                margin-top: 20px;
+            }
+            
+            .user-name {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .dashboard-container {
+                border-radius: 12px;
+            }
+            
+            .change-avatar-section,
+            .info-section {
+                padding: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .avatar {
+                width: 80px;
+                height: 80px;
+                font-size: 32px;
+            }
+            
+            .user-name {
+                font-size: 24px;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="dashboard-container">
-        <!-- Шапка профиля -->
         <div class="profile-header">
             <div class="avatar-container">
                 <div class="avatar" id="user-avatar" onclick="document.getElementById('avatar-input').click()">
@@ -195,7 +566,6 @@
             <a href="/logout/" class="logout-btn">Выйти</a>
         </div>
         
-        <!-- Кнопка смены аватара -->
         <div class="change-avatar-section">
             <button class="change-avatar-btn" onclick="document.getElementById('avatar-input').click()">
                 <span>📷</span>
@@ -206,7 +576,6 @@
             </p>
         </div>
         
-        <!-- Информация -->
         <div class="info-section">
             <h2 class="info-title">Информация</h2>
             <div class="info-grid">
@@ -233,11 +602,17 @@
                         Копировать ссылку на аватар
                     </button>
                 </div>
+                
+                <div class="info-item">
+                    <div class="info-label">Ссылка на аватар:</div>
+                    <div class="info-value" style="word-break: break-all; font-size: 14px;">
+                        https://tbs-server-s7vy.onrender.com/avatar/?pub_id={{ user.pub }}&format=image
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     
-    <!-- Модальное окно смены имени -->
     <div class="modal" id="edit-name-modal">
         <div class="modal-content">
             <h3 class="modal-title">Сменить имя</h3>
@@ -256,36 +631,18 @@
         </div>
     </div>
     
-    <!-- Сообщения -->
     <div class="message" id="message">
         <span class="message-icon" id="message-icon"></span>
         <span id="message-text"></span>
     </div>
 
     <script>
-        // Функция для копирования ссылки на аватар
-        function copyAvatarLink() {
-            const link = `https://tbs-server-s7vy.onrender.com/avatar/?pub_id=${userData.pubId}&format=image`;
-            copyToClipboard(link);
-        }
-        
-        // Копирование в буфер обмена
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                showMessage('Скопировано в буфер обмена');
-            }).catch(err => {
-                showMessage('Ошибка копирования', true);
-            });
-        }
-        
-        // Обработчик загрузки аватара
         async function handleAvatarUpload(file) {
             if (!file) return;
             
             const avatarElement = document.getElementById('user-avatar');
             if (!avatarElement) return;
             
-            // Показываем предпросмотр
             const reader = new FileReader();
             
             reader.onload = function(e) {
@@ -297,24 +654,33 @@
             };
             
             reader.onerror = function() {
-                console.error('Failed to read file');
                 showMessage('Ошибка чтения файла', true);
             };
             
             reader.readAsDataURL(file);
             
-            // Загружаем на сервер
             const success = await uploadAvatar(file);
             
             if (!success) {
-                // Если загрузка не удалась, возвращаем старый аватар
                 setTimeout(() => {
                     loadAvatar();
                 }, 1000);
             }
         }
         
-        // Работа с модальным окном
+        function copyAvatarLink() {
+            const link = `https://tbs-server-s7vy.onrender.com/avatar/?pub_id=${userData.pubId}&format=image`;
+            copyToClipboard(link);
+        }
+        
+        function copyToClipboard(text) {
+            navigator.clipboard.writeText(text).then(() => {
+                showMessage('Скопировано в буфер обмена');
+            }).catch(err => {
+                showMessage('Ошибка копирования', true);
+            });
+        }
+        
         function openEditNameModal() {
             const modal = document.getElementById('edit-name-modal');
             const input = document.getElementById('new-name-input');
@@ -328,7 +694,6 @@
             document.getElementById('edit-name-modal').style.display = 'none';
         }
         
-        // Обновление имени
         async function updateName() {
             const newName = document.getElementById('new-name-input').value.trim();
             
@@ -364,11 +729,9 @@
                     showMessage('Имя успешно обновлено!');
                     userData.name = newName;
                     
-                    // Обновляем отображение
                     document.getElementById('display-name').textContent = newName;
-                    showDefaultAvatar(); // Обновляем аватар (покажет первую букву)
+                    showDefaultAvatar();
                     
-                    // Закрываем модальное окно
                     closeEditNameModal();
                 } else {
                     showMessage('Ошибка: ' + data.error, true);
@@ -378,7 +741,6 @@
             }
         }
         
-        // Показать сообщение
         function showMessage(text, isError = false) {
             const messageDiv = document.getElementById('message');
             const messageIcon = document.getElementById('message-icon');
@@ -394,7 +756,6 @@
             }, 3000);
         }
         
-        // Закрытие модального окна по клику вне его
         document.addEventListener('click', function(event) {
             const modal = document.getElementById('edit-name-modal');
             if (event.target === modal) {
@@ -402,38 +763,26 @@
             }
         });
         
-        // Закрытие модального окна по Escape
         document.addEventListener('keydown', function(event) {
             if (event.key === 'Escape') {
                 closeEditNameModal();
             }
         });
         
-        // Отладочная функция для проверки
-        async function testAvatarEndpoint() {
-            console.log('Testing avatar endpoints...');
+        async function testAvatar() {
+            console.log('Testing avatar system...');
             
-            // Тест 1: Получение аватара по pub_id
             try {
-                const response1 = await fetch(`/avatar/?pub_id=${userData.pubId}&format=image`);
-                console.log('Avatar endpoint status:', response1.status, response1.statusText);
-                console.log('Content-Type:', response1.headers.get('content-type'));
+                const testUrl = `/avatar/?pub_id=${userData.pubId}`;
+                const response = await fetch(testUrl);
+                const data = await response.json();
+                console.log('Avatar data:', data);
             } catch (error) {
-                console.error('Avatar endpoint error:', error);
-            }
-            
-            // Тест 2: Получение информации в JSON
-            try {
-                const response2 = await fetch(`/avatar/?pub_id=${userData.pubId}`);
-                const data = await response2.json();
-                console.log('Avatar info:', data);
-            } catch (error) {
-                console.error('Avatar info error:', error);
+                console.error('Test error:', error);
             }
         }
         
-        // Запускаем тест при загрузке
-        setTimeout(testAvatarEndpoint, 1000);
+        setTimeout(testAvatar, 1000);
     </script>
 </body>
 </html>
