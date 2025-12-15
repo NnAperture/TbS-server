@@ -5,3 +5,4 @@ django-cors-headers
 PyMySQL
 dotenv
 Pillow
+dj_database_url

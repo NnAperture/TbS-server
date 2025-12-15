@@ -225,8 +225,8 @@ if ENVIRONMENT == 'production' or not DEBUG:
     # CSRF trusted origins for production
     CSRF_TRUSTED_ORIGINS = [
         'https://tbs-server-s7vy.onrender.com',
-        'https://k90908k8.beget.tech',
-        'https://q97708nr.beget.tech',
+        'http://k90908k8.beget.tech',
+        'http://q97708nr.beget.tech',
     ]
 else:
     # Настройки для разработки
@@ -240,10 +240,7 @@ else:
         'http://localhost:8000',
         'http://127.0.0.1:8000',
         'http://k90908k8.beget.tech',
-        'https://k90908k8.beget.tech',
         'http://q97708nr.beget.tech',
-        'https://q97708nr.beget.tech',
-        'http://tbs-server-s7vy.onrender.com',
         'https://tbs-server-s7vy.onrender.com',
     ]
 
