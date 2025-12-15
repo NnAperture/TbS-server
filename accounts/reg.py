@@ -336,35 +336,46 @@ def api_get_pub_data(request, pub_id):
 def avatar(request):
     if request.method == "GET":
         pub = request.GET.get("pub_id")
+        
+        # Если запросили изображение
         if request.GET.get('format') == 'image':
             try:
                 if pub:
                     user = php_client.get_user_by_pub_id(pub)
                     avatar_id = user.get("avatar", "DEFAULT")
                 else:
+                    # Если нет pub_id, пробуем авторизацию
                     user_data = SessionManager.validate_request(request)
                     if not user_data:
                         return get_default_avatar()
                     
+                    # Используем php_client.get() для получения по ID
                     user = php_client.get(user_data["id"])
                     avatar_id = user.get("avatar", "DEFAULT")
+                
                 if not avatar_id or avatar_id == "DEFAULT":
                     return get_default_avatar()
+                
+                # Получаем файл из Telegram
                 file_bytes = tg.get_file(tg.Id().from_str(avatar_id))
                 if not file_bytes:
                     return get_default_avatar()
+                
                 try:
                     from PIL import Image
                     from io import BytesIO
+                    
                     image = Image.open(BytesIO(file_bytes))
                     if image.mode != 'RGB':
                         image = image.convert('RGB')
+                    
                     image = image.resize((256, 256), Image.Resampling.LANCZOS)
+                    
                     output = BytesIO()
                     image.save(output, format='JPEG', quality=85, optimize=True)
                     image_bytes = output.getvalue()
                     output.close()
-                    from django.http import HttpResponse
+                    
                     response = HttpResponse(image_bytes, content_type='image/jpeg')
                     response['Cache-Control'] = 'public, max-age=3600'
                     return response
@@ -376,6 +387,8 @@ def avatar(request):
             except Exception as e:
                 print(f"Avatar fetch error: {e}")
                 return get_default_avatar()
+        
+        # Если запросили JSON
         else:
             try:
                 if pub:
@@ -392,6 +405,7 @@ def avatar(request):
                             'error': 'Authentication required'
                         }, status=401)
                     
+                    # Используем php_client.get() для получения по ID
                     user = php_client.get(user_data["id"])
                     return JsonResponse({
                         'avatar': user.get("avatar", "DEFAULT"),
@@ -403,6 +417,8 @@ def avatar(request):
                 return JsonResponse({
                     'error': f'Failed to fetch avatar: {str(e)}'
                 }, status=500)
+    
+    # POST запрос - загрузка нового аватара
     elif request.method == "POST":
         user_data = SessionManager.validate_request(request)
         if not user_data:
@@ -443,13 +459,17 @@ def avatar(request):
             prepared = output.getvalue()
             output.close()
             image_file.close()
+            
+            # Отправляем в Telegram и получаем ID
             avatar_id = tg.send_file(prepared).to_str()
+            
+            # Сохраняем в базу
             php_client.update_user_info(user_data["id"], {"avatar": avatar_id})
             
             return JsonResponse({
                 'success': True, 
                 'avatar_id': avatar_id,
-                'image_url': f'/avatar/?format=image'
+                'image_url': f'/avatar/?pub_id={user_data.get("pub", "")}&format=image'
             })
             
         except ImportError as e:
@@ -467,18 +487,33 @@ def avatar(request):
 
 
 def get_default_avatar():
-    """
-    Простая генерация дефолтного аватара
-    """
-    from PIL import Image, ImageDraw
-    from io import BytesIO
-    from django.http import HttpResponse
-    
+    """Генерация дефолтного аватара"""
     try:
-        image = Image.new('RGB', (256, 256), color=(74, 99, 123))
+        from PIL import Image, ImageDraw
+        from io import BytesIO
+        
+        image = Image.new('RGB', (256, 256), color=(220, 220, 220))
         draw = ImageDraw.Draw(image)
-        draw.ellipse([50, 50, 206, 206], fill=(255, 255, 255))
-        draw.polygon([(128, 100), (100, 150), (100, 180), (156, 180), (156, 150)], fill=(74, 99, 123))
+        
+        # Простой серый квадрат с буквой U
+        draw.rectangle([0, 0, 255, 255], outline=(180, 180, 180))
+        
+        # Рисуем букву U (упрощенно)
+        draw.ellipse([50, 50, 206, 206], fill=(200, 200, 200))
+        
+        # Текст "U" если нет шрифта
+        try:
+            # Пробуем использовать шрифт
+            from PIL import ImageFont
+            try:
+                font = ImageFont.truetype("arial.ttf", 100)
+            except:
+                font = ImageFont.load_default()
+            draw.text((128, 128), "U", font=font, fill=(100, 100, 100), anchor="mm")
+        except:
+            # Просто рисуем фигуру
+            draw.polygon([(128, 80), (100, 140), (100, 180), (156, 180), (156, 140)], 
+                         fill=(100, 100, 100))
         
         output = BytesIO()
         image.save(output, format='JPEG', quality=85)
@@ -490,6 +525,8 @@ def get_default_avatar():
         return response
         
     except Exception as e:
+        print(f"Default avatar error: {e}")
+        # Минимальный fallback
         response = HttpResponse(b'', content_type='image/jpeg')
-        response.status_code = 500
+        response.status_code = 200
         return response
