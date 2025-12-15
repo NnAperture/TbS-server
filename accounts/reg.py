@@ -332,6 +332,7 @@ def api_get_pub_data(request, pub_id):
             'error': 'Invalid pub_id format'
         }, status=400)
 
+@csrf_exempt
 def avatar(request):
     if request.method == "GET":
         pub = request.GET.get("pub_id")
