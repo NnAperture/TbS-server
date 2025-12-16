@@ -390,7 +390,7 @@ def avatar(request):
                     user = php_client.get_user_by_pub_id(pub)
                     if not user:
                         return JsonResponse({
-                            'error': f'User with pub_id={pub} not found',
+                            'error': f'User with pub_id={pub}, {type(pub)}; {pub.__repr__()} not found',
                             'avatar': 'DEFAULT'
                         }, status=404)
                     
