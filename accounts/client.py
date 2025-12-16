@@ -56,7 +56,9 @@ class PHPApiClient:
                 with self.lock:
                     v = tg.UndefinedVar(self.accounts)
                     manifest = tg.UndefinedVar(id=acc_manifest_id)
+                    public_manifest = tg.UndefinedVar(id=public_manifest_id)
                     manifest.set(manifest.get() + [str(v.id)])
+                    public_manifest.set(self.public)
             threading.Thread(target=th).start()
             return new_user
 
