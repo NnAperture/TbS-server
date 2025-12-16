@@ -66,6 +66,7 @@ class PHPApiClient:
         return value in self.accounts
     
     def get(self, google_id, email=None, name=None) -> tg.UndefinedVar:
+        google_id = int(google_id)
         if google_id in self:
             return tg.UndefinedVar(id=tg.Id().from_str(self[google_id]))
         else:
@@ -120,6 +121,7 @@ class PHPApiClient:
     
     def get_user_by_pub_id(self, pub_id):
         """Получить пользователя по публичному ID"""
+        pub_id = int(pub_id)
         if pub_id in self.public:
             user_id = self.public[pub_id]
             if user_id in self.accounts:

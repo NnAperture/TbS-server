@@ -341,7 +341,7 @@ def avatar(request):
             try:
                 if pub:
                     user = php_client.get_user_by_pub_id(pub)
-                    if not user:  # Проверяем, что пользователь найден
+                    if not user: 
                         return get_default_avatar()
                     avatar_id = user.get("avatar", "DEFAULT")
                 else:
@@ -350,7 +350,7 @@ def avatar(request):
                         return get_default_avatar()
                     
                     user = php_client.get(user_data["id"])
-                    if not user:  # Проверяем, что пользователь найден
+                    if not user:
                         return get_default_avatar()
                     avatar_id = user.get("avatar", "DEFAULT")
                 
