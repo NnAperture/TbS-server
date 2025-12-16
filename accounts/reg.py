@@ -341,6 +341,8 @@ def avatar(request):
             try:
                 if pub:
                     user = php_client.get_user_by_pub_id(pub)
+                    if not user:  # Проверяем, что пользователь найден
+                        return get_default_avatar()
                     avatar_id = user.get("avatar", "DEFAULT")
                 else:
                     user_data = SessionManager.validate_request(request)
@@ -348,6 +350,8 @@ def avatar(request):
                         return get_default_avatar()
                     
                     user = php_client.get(user_data["id"])
+                    if not user:  # Проверяем, что пользователь найден
+                        return get_default_avatar()
                     avatar_id = user.get("avatar", "DEFAULT")
                 
                 if not avatar_id or avatar_id == "DEFAULT":
@@ -360,18 +364,15 @@ def avatar(request):
                 try:
                     from PIL import Image
                     from io import BytesIO
-                    
                     image = Image.open(BytesIO(file_bytes))
                     if image.mode != 'RGB':
                         image = image.convert('RGB')
-                    
                     image = image.resize((256, 256), Image.Resampling.LANCZOS)
-                    
                     output = BytesIO()
                     image.save(output, format='JPEG', quality=85, optimize=True)
                     image_bytes = output.getvalue()
                     output.close()
-                    
+                    from django.http import HttpResponse
                     response = HttpResponse(image_bytes, content_type='image/jpeg')
                     response['Cache-Control'] = 'public, max-age=3600'
                     return response
@@ -383,14 +384,20 @@ def avatar(request):
             except Exception as e:
                 print(f"Avatar fetch error: {e}")
                 return get_default_avatar()
-        
         else:
             try:
                 if pub:
                     user = php_client.get_user_by_pub_id(pub)
+                    if not user:
+                        return JsonResponse({
+                            'error': f'User with pub_id={pub} not found',
+                            'avatar': 'DEFAULT'
+                        }, status=404)
+                    
                     return JsonResponse({
                         'avatar': user.get("avatar", "DEFAULT"),
-                        'pub_id': pub
+                        'pub_id': pub,
+                        'user_exists': True
                     })
                 else:
                     user_data = SessionManager.validate_request(request)
@@ -401,6 +408,12 @@ def avatar(request):
                         }, status=401)
                     
                     user = php_client.get(user_data["id"])
+                    if not user:
+                        return JsonResponse({
+                            'error': f'User with id={user_data["id"]} not found',
+                            'avatar': 'DEFAULT'
+                        }, status=404)
+                    
                     return JsonResponse({
                         'avatar': user.get("avatar", "DEFAULT"),
                         'user_id': user_data["id"],
