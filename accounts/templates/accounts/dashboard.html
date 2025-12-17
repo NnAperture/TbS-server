@@ -5,126 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Панель управления - {{ user.name }}</title>
     
-    <script>
-        const userData = {
-            pubId: '{{ user.pub }}',
-            name: '{{ user.name }}',
-            email: '{{ user.email }}',
-            avatarUrl: ''
-        };
-        
-        document.addEventListener('DOMContentLoaded', function() {
-            localStorage.setItem('pub_id', userData.pubId);
-            localStorage.setItem('user_name', userData.name);
-            loadAvatar();
-        });
-        
-        function getCSRFToken() {
-            let cookieValue = null;
-            if (document.cookie && document.cookie !== '') {
-                const cookies = document.cookie.split(';');
-                for (let i = 0; i < cookies.length; i++) {
-                    const cookie = cookies[i].trim();
-                    if (cookie.substring(0, 10) === 'csrftoken=') {
-                        cookieValue = decodeURIComponent(cookie.substring(10));
-                        break;
-                    }
-                }
-            }
-            return cookieValue;
-        }
-        
-        async function loadAvatar() {
-            const avatarElement = document.getElementById('user-avatar');
-            if (!avatarElement) return;
-            
-            const avatarUrl = `/avatar/?pub_id=${encodeURIComponent(userData.pubId)}&format=image&t=${Date.now()}`;
-            userData.avatarUrl = avatarUrl;
-            
-            const img = new Image();
-            img.crossOrigin = 'anonymous';
-            
-            img.onload = function() {
-                avatarElement.innerHTML = '';
-                avatarElement.style.backgroundImage = `url(${avatarUrl})`;
-                avatarElement.style.backgroundSize = 'cover';
-                avatarElement.style.backgroundPosition = 'center';
-                avatarElement.classList.add('loaded');
-            };
-            
-            img.onerror = function() {
-                showDefaultAvatar();
-            };
-            
-            img.src = avatarUrl;
-            
-            setTimeout(() => {
-                if (!img.complete) {
-                    showDefaultAvatar();
-                }
-            }, 5000);
-        }
-        
-        function showDefaultAvatar() {
-            const avatarElement = document.getElementById('user-avatar');
-            if (avatarElement) {
-                avatarElement.style.backgroundImage = '';
-                avatarElement.innerHTML = userData.name ? userData.name.charAt(0).toUpperCase() : '?';
-                avatarElement.classList.remove('loaded');
-            }
-        }
-        
-        async function uploadAvatar(file) {
-            if (!file) {
-                showMessage('Выберите файл для загрузки', true);
-                return false;
-            }
-            
-            if (file.size > 10 * 1024 * 1024) {
-                showMessage('Файл слишком большой. Максимальный размер: 10MB', true);
-                return false;
-            }
-            
-            if (!file.type.match('image.*')) {
-                showMessage('Выберите изображение (JPG, PNG, GIF)', true);
-                return false;
-            }
-            
-            try {
-                showMessage('Загрузка аватара...', false);
-                
-                const formData = new FormData();
-                formData.append('image', file);
-                
-                const csrfToken = getCSRFToken();
-                
-                const response = await fetch('/avatar/', {
-                    method: 'POST',
-                    body: formData,
-                    headers: csrfToken ? {
-                        'X-CSRFToken': csrfToken
-                    } : {}
-                });
-                
-                const result = await response.json();
-                
-                if (result.success) {
-                    showMessage('Аватар успешно загружен!');
-                    setTimeout(() => {
-                        loadAvatar();
-                    }, 1500);
-                    return true;
-                } else {
-                    showMessage('Ошибка: ' + (result.error || 'Неизвестная ошибка'), true);
-                    return false;
-                }
-            } catch (error) {
-                showMessage('Ошибка сети: ' + error.message, true);
-                return false;
-            }
-        }
-    </script>
-    
     <style>
         * {
             margin: 0;
@@ -134,49 +14,62 @@
         
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f7f9fc;
+            background-color: #000120;
             min-height: 100vh;
             display: flex;
-            align-items: center;
             justify-content: center;
+            align-items: center;
             padding: 20px;
         }
         
-        .dashboard-container {
+        .main {
+            color: white;
             width: 100%;
-            max-width: 800px;
-            background: white;
-            border-radius: 16px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
-            overflow: hidden;
+            max-width: 900px;
+            margin: 0 auto;
+            box-shadow: 
+                0px 10px 80px rgba(255, 255, 255, 0.1),
+                inset -10px -10px 15px #0030835b;
+            background-color: #001d505b;
+            border-radius: 30px;
+            padding: 30px;
+            border: solid white 2px;
         }
-        
+
         .profile-header {
             display: flex;
             align-items: center;
             padding: 30px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #0036944f;
+            box-shadow: 
+                10px 10px 10px rgba(255, 255, 255, 0.205),
+                inset -20px -20px 15px #00359138;
+            border: solid #eef4ff54 1px;
             color: white;
-            position: relative;
+            border-radius: 20px;
+            margin-bottom: 30px;
+            gap: 30px;
+            flex-wrap: wrap;
         }
         
         .avatar-container {
             position: relative;
-            margin-right: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
         }
         
         .avatar {
-            width: 100px;
-            height: 100px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             border: 4px solid rgba(255, 255, 255, 0.3);
             background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 40px;
+            font-size: 48px;
             font-weight: bold;
             color: white;
             overflow: hidden;
@@ -192,34 +85,9 @@
             background: none;
         }
         
-        .avatar-initial {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            height: 100%;
-        }
-        
-        .avatar-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: none;
-        }
-        
-        .avatar.loaded .avatar-initial {
-            display: none;
-        }
-        
-        .avatar.loaded .avatar-image {
-            display: block;
-        }
-        
         .avatar-upload-text {
             position: absolute;
             bottom: -25px;
-            left: 50%;
-            transform: translateX(-50%);
             background: rgba(0, 0, 0, 0.7);
             color: white;
             padding: 4px 8px;
@@ -234,23 +102,54 @@
             opacity: 1;
         }
         
+        .change-avatar-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #0036944f;
+            color: white;
+            box-shadow: 
+                5px 5px 10px rgba(255, 255, 255, 0.205),
+                inset -20px -20px 15px #00359138;
+            border: solid #eef4ff54 1px;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .change-avatar-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
+        }
+        
         .user-info {
             flex: 1;
+            min-width: 250px;
         }
         
         .user-name {
-            font-size: 28px;
+            font-size: 32px;
             font-weight: 600;
             margin-bottom: 8px;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 15px;
+            flex-wrap: wrap;
         }
         
         .user-email {
-            font-size: 16px;
+            font-size: 18px;
             opacity: 0.9;
             margin-bottom: 4px;
+        }
+        
+        .user-pub {
+            font-size: 14px;
+            opacity: 0.8;
+            margin-top: 5px;
         }
         
         .edit-name-btn {
@@ -273,14 +172,15 @@
             background: rgba(255, 255, 255, 0.2);
             border: 1px solid rgba(255, 255, 255, 0.4);
             color: white;
-            padding: 8px 24px;
+            padding: 10px 24px;
             border-radius: 20px;
-            font-size: 14px;
+            font-size: 16px;
             cursor: pointer;
             text-decoration: none;
-            display: inline-block;
             transition: all 0.3s ease;
+            display: inline-block;
             margin-left: auto;
+            align-self: flex-start;
         }
         
         .logout-btn:hover {
@@ -288,87 +188,68 @@
             transform: translateY(-1px);
         }
         
-        .change-avatar-section {
-            padding: 0 30px 30px;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .change-avatar-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: #4CAF50;
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 25px;
-            font-size: 16px;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .change-avatar-btn:hover {
-            background: #45a049;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
-        }
-        
-        .file-input-hidden {
-            display: none;
-        }
-        
         .info-section {
+            background: #0036944f;
+            box-shadow: 
+                10px 10px 10px rgba(255, 255, 255, 0.205),
+                inset -20px -20px 15px #00359138;
+            border: solid #eef4ff54 1px;
             padding: 30px;
+            border-radius: 20px;
         }
         
         .info-title {
-            font-size: 20px;
+            font-size: 24px;
             font-weight: 600;
-            margin-bottom: 20px;
-            color: #333;
+            margin-bottom: 25px;
+            color: white;
         }
         
         .info-grid {
             display: grid;
-            gap: 20px;
+            gap: 25px;
         }
         
         .info-item {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .info-label {
-            font-size: 14px;
-            color: #666;
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.8);
             font-weight: 500;
+            margin-bottom: 8px;
         }
         
         .info-value {
-            font-size: 16px;
-            color: #333;
+            font-size: 18px;
+            color: white;
             font-weight: 500;
-            padding: 8px 0;
-            border-bottom: 1px solid #f0f0f0;
+            margin-bottom: 10px;
+            word-break: break-all;
         }
         
         .copy-btn {
-            background: none;
-            border: 1px solid #ddd;
-            color: #666;
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-size: 13px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 14px;
             cursor: pointer;
-            margin-top: 8px;
+            margin-right: 10px;
+            margin-top: 5px;
             transition: all 0.3s ease;
         }
         
         .copy-btn:hover {
-            background: #f5f5f5;
-            border-color: #ccc;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-1px);
+        }
+        
+        .file-input-hidden {
+            display: none;
         }
         
         .modal {
@@ -378,35 +259,41 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.7);
             align-items: center;
             justify-content: center;
             z-index: 1000;
         }
         
         .modal-content {
-            background: white;
+            background: #0036944f;
+            box-shadow: 
+                10px 10px 10px rgba(255, 255, 255, 0.205),
+                inset -20px -20px 15px #00359138;
+            border: solid #eef4ff54 1px;
             padding: 30px;
-            border-radius: 16px;
+            border-radius: 20px;
             max-width: 500px;
             width: 90%;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            color: white;
         }
         
         .modal-title {
-            font-size: 20px;
+            font-size: 24px;
             font-weight: 600;
             margin-bottom: 20px;
-            color: #333;
+            color: white;
         }
         
         .modal-input {
             width: 100%;
             padding: 12px 16px;
-            border: 2px solid #e0e0e0;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
             border-radius: 8px;
             font-size: 16px;
             margin-bottom: 20px;
+            color: white;
             transition: border-color 0.3s ease;
         }
         
@@ -430,13 +317,13 @@
         }
         
         .modal-btn.cancel {
-            background: #f5f5f5;
-            border: 1px solid #ddd;
-            color: #666;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
         }
         
         .modal-btn.cancel:hover {
-            background: #e9e9e9;
+            background: rgba(255, 255, 255, 0.2);
         }
         
         .modal-btn.save {
@@ -455,13 +342,19 @@
             right: 20px;
             padding: 16px 24px;
             border-radius: 12px;
-            background: white;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            background: rgba(0, 0, 0, 0.8);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
             display: none;
             align-items: center;
             gap: 12px;
             z-index: 2000;
             animation: slideIn 0.3s ease;
+            color: white;
+            border-left: 4px solid #4CAF50;
+        }
+        
+        .message.error {
+            border-left-color: #f44336;
         }
         
         @keyframes slideIn {
@@ -475,72 +368,50 @@
             }
         }
         
-        .message.success {
-            border-left: 4px solid #4CAF50;
-        }
-        
-        .message.error {
-            border-left: 4px solid #f44336;
-        }
-        
-        .message-icon {
-            font-size: 20px;
-        }
-        
         @media (max-width: 768px) {
+            .main {
+                padding: 15px;
+                border-radius: 20px;
+            }
+            
             .profile-header {
-                flex-direction: column;
-                text-align: center;
                 padding: 20px;
+                gap: 20px;
             }
             
-            .avatar-container {
-                margin-right: 0;
-                margin-bottom: 20px;
-            }
-            
-            .logout-btn {
-                margin-left: 0;
-                margin-top: 20px;
-            }
-            
-            .user-name {
-                flex-direction: column;
-                gap: 8px;
-            }
-            
-            .dashboard-container {
-                border-radius: 12px;
-            }
-            
-            .change-avatar-section,
-            .info-section {
-                padding: 20px;
-            }
-        }
-        
-        @media (max-width: 480px) {
             .avatar {
-                width: 80px;
-                height: 80px;
-                font-size: 32px;
+                width: 100px;
+                height: 100px;
+                font-size: 40px;
             }
             
             .user-name {
                 font-size: 24px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .logout-btn {
+                margin-left: 0;
+                margin-top: 10px;
+                align-self: stretch;
+                text-align: center;
+            }
+            
+            .info-section {
+                padding: 20px;
             }
         }
     </style>
 </head>
 <body>
-    <div class="dashboard-container">
+    <div class="main">
+        <!-- Заголовок профиля -->
         <div class="profile-header">
             <div class="avatar-container">
                 <div class="avatar" id="user-avatar" onclick="document.getElementById('avatar-input').click()">
-                    <div class="avatar-initial">
-                        {{ user.name|first|upper }}
-                    </div>
-                    <img class="avatar-image" alt="Аватар">
+                    {{ user.name|first|upper }}
                     <div class="avatar-upload-text">
                         Нажмите для смены
                     </div>
@@ -548,6 +419,10 @@
                 <input type="file" id="avatar-input" class="file-input-hidden" 
                        accept="image/*" 
                        onchange="handleAvatarUpload(this.files[0])">
+                <button class="change-avatar-btn" onclick="document.getElementById('avatar-input').click()">
+                    <span>📷</span>
+                    Сменить аватар
+                </button>
             </div>
             
             <div class="user-info">
@@ -558,24 +433,13 @@
                     </button>
                 </div>
                 <div class="user-email">{{ user.email }}</div>
-                <div class="user-pub" style="font-size: 12px; opacity: 0.8;">
-                    ID: {{ user.pub }}
-                </div>
+                <div class="user-pub">ID: {{ user.pub }}</div>
             </div>
             
             <a href="/logout/" class="logout-btn">Выйти</a>
         </div>
         
-        <div class="change-avatar-section">
-            <button class="change-avatar-btn" onclick="document.getElementById('avatar-input').click()">
-                <span>📷</span>
-                Сменить аватар
-            </button>
-            <p style="margin-top: 10px; font-size: 13px; color: #666;">
-                Поддерживаются: JPG, PNG, GIF. Максимальный размер: 10MB
-            </p>
-        </div>
-        
+        <!-- Информационная секция -->
         <div class="info-section">
             <h2 class="info-title">Информация</h2>
             <div class="info-grid">
@@ -595,24 +459,12 @@
                 <div class="info-item">
                     <div class="info-label">Ваш публичный ID:</div>
                     <div class="info-value">{{ user.pub }}</div>
-                    <button class="copy-btn" onclick="copyToClipboard('{{ user.pub }}')">
-                        Копировать ID
-                    </button>
-                    <button class="copy-btn" onclick="copyAvatarLink()" style="margin-left: 5px;">
-                        Копировать ссылку на аватар
-                    </button>
-                </div>
-                
-                <div class="info-item">
-                    <div class="info-label">Ссылка на аватар:</div>
-                    <div class="info-value" style="word-break: break-all; font-size: 14px;">
-                        https://tbs-server-s7vy.onrender.com/avatar/?pub_id={{ user.pub }}&format=image
-                    </div>
                 </div>
             </div>
         </div>
     </div>
     
+    <!-- Модальное окно смены имени -->
     <div class="modal" id="edit-name-modal">
         <div class="modal-content">
             <h3 class="modal-title">Сменить имя</h3>
@@ -631,43 +483,144 @@
         </div>
     </div>
     
+    <!-- Сообщения -->
     <div class="message" id="message">
         <span class="message-icon" id="message-icon"></span>
         <span id="message-text"></span>
     </div>
 
     <script>
-        async function handleAvatarUpload(file) {
-            if (!file) return;
-            
+        const userData = {
+            pubId: '{{ user.pub }}',
+            name: '{{ user.name }}',
+            email: '{{ user.email }}',
+            avatarUrl: ''
+        };
+        
+        // Инициализация при загрузке
+        document.addEventListener('DOMContentLoaded', function() {
+            localStorage.setItem('pub_id', userData.pubId);
+            localStorage.setItem('user_name', userData.name);
+            loadAvatar();
+        });
+        
+        // Функции для работы с CSRF токеном
+        function getCSRFToken() {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, 10) === 'csrftoken=') {
+                        cookieValue = decodeURIComponent(cookie.substring(10));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        
+        // Загрузка аватара
+        async function loadAvatar() {
             const avatarElement = document.getElementById('user-avatar');
             if (!avatarElement) return;
             
+            const avatarUrl = `/avatar/?pub_id=${encodeURIComponent(userData.pubId)}&format=image&t=${Date.now()}`;
+            userData.avatarUrl = avatarUrl;
+            
+            const img = new Image();
+            img.crossOrigin = 'anonymous';
+            
+            img.onload = function() {
+                avatarElement.style.backgroundImage = `url(${avatarUrl})`;
+                avatarElement.style.backgroundSize = 'cover';
+                avatarElement.style.backgroundPosition = 'center';
+                avatarElement.classList.add('loaded');
+            };
+            
+            img.onerror = function() {
+                showDefaultAvatar();
+            };
+            
+            img.src = avatarUrl;
+            
+            setTimeout(() => {
+                if (!img.complete) {
+                    showDefaultAvatar();
+                }
+            }, 5000);
+        }
+        
+        function showDefaultAvatar() {
+            const avatarElement = document.getElementById('user-avatar');
+            if (avatarElement) {
+                avatarElement.style.backgroundImage = '';
+                avatarElement.classList.remove('loaded');
+            }
+        }
+        
+        // Загрузка нового аватара
+        async function handleAvatarUpload(file) {
+            if (!file) return;
+            
+            if (file.size > 10 * 1024 * 1024) {
+                showMessage('Файл слишком большой. Максимальный размер: 10MB', true);
+                return;
+            }
+            
+            if (!file.type.match('image.*')) {
+                showMessage('Выберите изображение (JPG, PNG, GIF)', true);
+                return;
+            }
+            
+            const avatarElement = document.getElementById('user-avatar');
             const reader = new FileReader();
             
             reader.onload = function(e) {
                 avatarElement.style.backgroundImage = `url(${e.target.result})`;
                 avatarElement.classList.add('loaded');
-                if (avatarElement.querySelector('.avatar-initial')) {
-                    avatarElement.querySelector('.avatar-initial').style.display = 'none';
-                }
-            };
-            
-            reader.onerror = function() {
-                showMessage('Ошибка чтения файла', true);
             };
             
             reader.readAsDataURL(file);
             
-            const success = await uploadAvatar(file);
-            
-            if (!success) {
-                setTimeout(() => {
+            await uploadAvatar(file);
+        }
+        
+        async function uploadAvatar(file) {
+            try {
+                showMessage('Загрузка аватара...', false);
+                
+                const formData = new FormData();
+                formData.append('image', file);
+                
+                const csrfToken = getCSRFToken();
+                
+                const response = await fetch('/avatar/', {
+                    method: 'POST',
+                    body: formData,
+                    headers: csrfToken ? {
+                        'X-CSRFToken': csrfToken
+                    } : {}
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    showMessage('Аватар успешно загружен!');
+                    return true;
+                } else {
+                    showMessage('Ошибка: ' + (result.error || 'Неизвестная ошибка'), true);
                     loadAvatar();
-                }, 1000);
+                    return false;
+                }
+            } catch (error) {
+                showMessage('Ошибка сети: ' + error.message, true);
+                loadAvatar();
+                return false;
             }
         }
         
+        // Копирование в буфер обмена
         function copyAvatarLink() {
             const link = `https://tbs-server-s7vy.onrender.com/avatar/?pub_id=${userData.pubId}&format=image`;
             copyToClipboard(link);
@@ -681,6 +634,7 @@
             });
         }
         
+        // Работа с модальным окном имени
         function openEditNameModal() {
             const modal = document.getElementById('edit-name-modal');
             const input = document.getElementById('new-name-input');
@@ -728,10 +682,8 @@
                 if (data.success) {
                     showMessage('Имя успешно обновлено!');
                     userData.name = newName;
-                    
                     document.getElementById('display-name').textContent = newName;
-                    showDefaultAvatar();
-                    
+                    document.getElementById('user-avatar').textContent = newName.charAt(0).toUpperCase();
                     closeEditNameModal();
                 } else {
                     showMessage('Ошибка: ' + data.error, true);
@@ -741,13 +693,14 @@
             }
         }
         
+        // Показать сообщение
         function showMessage(text, isError = false) {
             const messageDiv = document.getElementById('message');
             const messageIcon = document.getElementById('message-icon');
             const messageText = document.getElementById('message-text');
             
             messageText.textContent = text;
-            messageDiv.className = isError ? 'message error' : 'message success';
+            messageDiv.className = isError ? 'message error' : 'message';
             messageIcon.textContent = isError ? '❌' : '✅';
             messageDiv.style.display = 'flex';
             
@@ -756,6 +709,7 @@
             }, 3000);
         }
         
+        // Закрытие модального окна по клику вне его
         document.addEventListener('click', function(event) {
             const modal = document.getElementById('edit-name-modal');
             if (event.target === modal) {
@@ -763,26 +717,12 @@
             }
         });
         
+        // Закрытие модального окна по Escape
         document.addEventListener('keydown', function(event) {
             if (event.key === 'Escape') {
                 closeEditNameModal();
             }
         });
-        
-        async function testAvatar() {
-            console.log('Testing avatar system...');
-            
-            try {
-                const testUrl = `/avatar/?pub_id=${userData.pubId}`;
-                const response = await fetch(testUrl);
-                const data = await response.json();
-                console.log('Avatar data:', data);
-            } catch (error) {
-                console.error('Test error:', error);
-            }
-        }
-        
-        setTimeout(testAvatar, 1000);
     </script>
 </body>
 </html>

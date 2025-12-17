@@ -30,6 +30,7 @@ class PHPApiClient:
             self.sessions: dict = tg.UndefinedVar(id=sessions_manifest_id).get()
             self.public: dict = tg.UndefinedVar(id=public_manifest_id).get()
             self.telegram: dict = tg.UndefinedVar(id=telegram_manifest_id).get()
+            self.cache = {}
     
     def __getitem__(self, index):
         return self.accounts[index]
@@ -67,10 +68,15 @@ class PHPApiClient:
     
     def get(self, google_id, email=None, name=None) -> tg.UndefinedVar:
         google_id = int(google_id)
+        self.gc()
         if google_id in self:
-            return tg.UndefinedVar(id=tg.Id().from_str(self[google_id]))
+            return self.cache.setdefault(google_id, tg.UndefinedVar(id=tg.Id().from_str(self[google_id])))
         else:
             return self._create_user(google_id, email, name)
+    
+    def gc(self):
+        while(len(self.cache) > 50):
+            self.cache.pop(next(self.cache.__iter__()))
     
     def create_session(self, user_id):
         """Создает сессию в нашей системе (не Django)"""
@@ -103,10 +109,8 @@ class PHPApiClient:
     def validate_session(self, session_token):
         """Валидация сессии из нашей системы"""
         if session_token in self.sessions:
-            # Обновляем время последней активности
             self.sessions[session_token]["last_activity"] = time.time()
             
-            # Получаем данные пользователя
             user_id = self.sessions[session_token]["user_id"]
             if user_id in self.accounts:
                 user_var = tg.UndefinedVar(id=tg.Id().from_str(self[user_id]))
