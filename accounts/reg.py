@@ -57,6 +57,40 @@ def set_csrf_token(request):
     )
     return response
 
+def format_date(date_string):
+    """Форматирование даты для отображения"""
+    if not date_string:
+        return None
+    try:
+        # Пробуем разные форматы дат
+        import datetime
+        
+        if isinstance(date_string, (int, float)):
+            # Это timestamp
+            if date_string > 10000000000:
+                # Миллисекунды
+                date = datetime.datetime.fromtimestamp(date_string / 1000)
+            else:
+                # Секунды
+                date = datetime.datetime.fromtimestamp(date_string)
+        else:
+            # Это строка
+            date = datetime.datetime.fromisoformat(str(date_string).replace('Z', '+00:00'))
+        
+        # Форматируем по-русски
+        month_names = {
+            1: 'января', 2: 'февраля', 3: 'марта', 4: 'апреля',
+            5: 'мая', 6: 'июня', 7: 'июля', 8: 'августа',
+            9: 'сентября', 10: 'октября', 11: 'ноября', 12: 'декабря'
+        }
+        
+        return f"{date.day} {month_names[date.month]} {date.year} г."
+        
+    except Exception as e:
+        print(f"Date formatting error: {e}")
+        return str(date_string)
+
+# Обновим функцию dashboard
 @csrf_exempt
 def dashboard(request):
     """Панель управления с JWT для клиента"""
@@ -82,6 +116,7 @@ def dashboard(request):
                 'name': user_data.get('name'),
                 'email': user_data.get('email'),
                 'created_at': user_data.get('created_at'),
+                'created_at_formatted': format_date(user_data.get('created_at')),
             },
             'jwt_token': jwt_token,  # Передаем клиенту
             'frontend_domain': 'k90908k8.beget.tech'  # Домен фронтенда для CORS

@@ -741,208 +741,255 @@
             jwtToken: '{{ jwt_token }}'  // JWT от сервера
         };
         
-        const FRONTEND_DOMAIN = 'k90908k8.beget.tech';
-        const FRONTEND_ORIGIN = 'http://' + FRONTEND_DOMAIN;
-        
-        // Инициализация при загрузке
-        document.addEventListener('DOMContentLoaded', function() {
-            // Сохраняем JWT в localStorage клиента
-            if (userData2.jwtToken) {
-                saveJwtToLocalStorage(userData2.jwtToken);
-                
-                // Передаем JWT на фронтенд через iframe/postMessage
-                sendJwtToFrontend();
-            }
+        const FRONTEND_URL = 'http://k90908k8.beget.tech';
+    
+    // Инициализация при загрузке
+    document.addEventListener('DOMContentLoaded', function() {
+        // Сохраняем JWT в localStorage клиента
+        if (userData.jwtToken) {
+            saveJwtToClient();
             
-            loadAvatar();
-        });
-        
-        // Сохранение JWT в localStorage клиента
-        function saveJwtToLocalStorage(token) {
-            localStorage.setItem('dashboard_jwt', token);
-            localStorage.setItem('jwt_expires', Date.now() + (7 * 24 * 60 * 60 * 1000)); // 7 дней
-            
-            // Также сохраняем в sessionStorage для текущей сессии
-            sessionStorage.setItem('current_jwt', token);
-            
-            console.log('JWT сохранен в localStorage клиента');
+            // Показываем кнопку для отправки на фронтенд
+            addJwtTransferButton();
         }
         
-        // Отправка JWT на фронтенд-сервер
-        function sendJwtToFrontend() {
-            if (!userData2.jwtToken) return;
-            
-            // Создаем iframe для кросс-доменной передачи
-            const iframeId = 'jwt-transfer-iframe';
-            let iframe = document.getElementById(iframeId);
-            
-            if (!iframe) {
-                iframe = document.createElement('iframe');
-                iframe.id = iframeId;
-                iframe.style.display = 'none';
-                iframe.src = FRONTEND_ORIGIN + '/auth/receiver.html';
-                document.body.appendChild(iframe);
-            }
-            
-            // Ждем загрузки iframe
-            iframe.onload = function() {
-                // Отправляем JWT через postMessage
-                const message = {
-                    type: 'JWT_TOKEN',
-                    token: userData2.jwtToken,
-                    user_id: userData2.pubId,
-                    user_name: userData2.name,
-                    user_email: userData2.email,
-                    timestamp: Date.now()
-                };
-                
-                iframe.contentWindow.postMessage(message, FRONTEND_ORIGIN);
-                
-                // Также пробуем отправить через fetch (если CORS разрешен)
-                sendJwtViaFetch();
-            };
+        loadAvatar();
+    });
+    
+    // Сохраняем JWT у клиента
+    function saveJwtToClient() {
+        localStorage.setItem('dashboard_jwt', userData.jwtToken);
+        localStorage.setItem('jwt_user_id', userData.pubId);
+        localStorage.setItem('jwt_user_name', userData.name);
+        localStorage.setItem('jwt_expires', Date.now() + (7 * 24 * 60 * 60 * 1000));
+        
+        console.log('JWT сохранен у клиента');
+        console.log('User ID:', userData.pubId);
+        console.log('User Name:', userData.name);
+        
+        // Показываем уведомление
+        showMessage('Токен авторизации сохранен', false);
+    }
+    
+    // Добавляем кнопку для передачи JWT на фронтенд
+    function addJwtTransferButton() {
+        const profileHeader = document.querySelector('.profile-header');
+        if (!profileHeader) return;
+        
+        // Создаем контейнер для кнопок
+        const container = document.createElement('div');
+        container.style.cssText = `
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        `;
+        
+        // Кнопка для передачи JWT
+        const transferBtn = document.createElement('button');
+        transferBtn.innerHTML = '🚀 Передать токен на фронтенд';
+        transferBtn.title = 'Отправить JWT на k90908k8.beget.tech';
+        
+        transferBtn.style.cssText = `
+            background: rgba(0, 200, 83, 0.2);
+            border: 1px solid rgba(0, 200, 83, 0.4);
+            color: #00c853;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        `;
+        
+        transferBtn.onmouseover = function() {
+            this.style.background = 'rgba(0, 200, 83, 0.3)';
+            this.style.transform = 'translateY(-1px)';
+        };
+        
+        transferBtn.onmouseout = function() {
+            this.style.background = 'rgba(0, 200, 83, 0.2)';
+            this.style.transform = 'translateY(0)';
+        };
+        
+        transferBtn.onclick = function() {
+            transferJwtToFrontend();
+        };
+        
+        // Кнопка для копирования JWT
+        const copyBtn = document.createElement('button');
+        copyBtn.innerHTML = '📋 Скопировать токен';
+        copyBtn.title = 'Скопировать JWT в буфер обмена';
+        
+        copyBtn.style.cssText = `
+            background: rgba(255, 193, 7, 0.2);
+            border: 1px solid rgba(255, 193, 7, 0.4);
+            color: #ffc107;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        `;
+        
+        copyBtn.onmouseover = function() {
+            this.style.background = 'rgba(255, 193, 7, 0.3)';
+            this.style.transform = 'translateY(-1px)';
+        };
+        
+        copyBtn.onmouseout = function() {
+            this.style.background = 'rgba(255, 193, 7, 0.2)';
+            this.style.transform = 'translateY(0)';
+        };
+        
+        copyBtn.onclick = function() {
+            navigator.clipboard.writeText(userData.jwtToken).then(() => {
+                showMessage('Токен скопирован в буфер', false);
+            });
+        };
+        
+        // Кнопка для показа информации
+        const infoBtn = document.createElement('button');
+        infoBtn.innerHTML = 'ℹ️ Информация';
+        infoBtn.title = 'Показать информацию о токене';
+        
+        infoBtn.style.cssText = `
+            background: rgba(33, 150, 243, 0.2);
+            border: 1px solid rgba(33, 150, 243, 0.4);
+            color: #2196f3;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        `;
+        
+        infoBtn.onclick = function() {
+            showJwtInfo();
+        };
+        
+        container.appendChild(transferBtn);
+        container.appendChild(copyBtn);
+        container.appendChild(infoBtn);
+        
+        // Добавляем после user-info
+        const userInfo = profileHeader.querySelector('.user-info');
+        if (userInfo) {
+            userInfo.appendChild(container);
+        }
+    }
+    
+    // Передача JWT на фронтенд через URL
+    function transferJwtToFrontend() {
+        if (!userData.jwtToken) {
+            showMessage('Нет токена для передачи', true);
+            return;
         }
         
-        // Альтернативный способ через fetch (требует CORS)
-        async function sendJwtViaFetch() {
-            try {
-                const response = await fetch(FRONTEND_ORIGIN + '/api/set-jwt-cookie.php', {
-                    method: 'POST',
-                    mode: 'cors',
-                    credentials: 'include',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        token: userData2.jwtToken,
-                        user_id: userData2.pubId
-                    })
-                });
-                
-                if (response.ok) {
-                    console.log('JWT успешно установлен через fetch');
-                }
-            } catch (error) {
-                console.log('Fetch method failed, using postMessage');
-            }
+        // Кодируем данные для URL
+        const encodedJwt = encodeURIComponent(userData.jwtToken);
+        const encodedName = encodeURIComponent(userData.name);
+        
+        // Создаем URL для фронтенда
+        const frontendUrl = `${FRONTEND_URL}/auth/receive-jwt.php?jwt=${encodedJwt}&user_id=${userData.pubId}&user_name=${encodedName}`;
+        
+        // Открываем в новом окне
+        const newWindow = window.open(frontendUrl, '_blank', 'width=600,height=400');
+        
+        if (!newWindow) {
+            // Если всплывающее окно заблокировано, показываем ссылку
+            showMessage(
+                'Всплывающее окно заблокировано. ' +
+                '<a href="' + frontendUrl + '" target="_blank">Нажмите здесь</a> чтобы передать токен.',
+                false
+            );
+        } else {
+            showMessage('Токен передается на фронтенд...', false);
         }
-        
-        // Прослушивание ответов от фронтенда
-        window.addEventListener('message', function(event) {
-            // Проверяем origin
-            if (event.origin !== FRONTEND_ORIGIN) return;
-            
-            if (event.data.type === 'JWT_RECEIVED') {
-                console.log('Фронтенд подтвердил получение JWT');
-                showMessage('Авторизация синхронизирована', false);
+    }
+    
+    // Показать информацию о JWT
+    function showJwtInfo() {
+        try {
+            // Декодируем JWT
+            const parts = userData.jwtToken.split('.');
+            if (parts.length === 3) {
+                const payload = JSON.parse(atob(parts[1]));
+                const expires = new Date(payload.exp * 1000);
                 
-                // Сохраняем флаг успешной синхронизации
-                localStorage.setItem('jwt_synced', 'true');
-            }
-        });
-        
-        // Добавляем кнопку для копирования JWT (для отладки)
-        function addJwtControls() {
-            const profileHeader = document.querySelector('.profile-header');
-            if (!profileHeader) return;
-            
-            // Кнопка для копирования JWT
-            const copyJwtBtn = document.createElement('button');
-            copyJwtBtn.className = 'jwt-control-btn';
-            copyJwtBtn.innerHTML = '📋 Скопировать токен';
-            copyJwtBtn.title = 'Скопировать JWT токен для фронтенда';
-            
-            copyJwtBtn.style.cssText = `
-                background: rgba(255, 215, 0, 0.2);
-                border: 1px solid rgba(255, 215, 0, 0.4);
-                color: #ffd700;
-                padding: 6px 12px;
-                border-radius: 20px;
-                font-size: 13px;
-                cursor: pointer;
-                transition: all 0.3s ease;
-                margin-left: 10px;
-                margin-top: 5px;
-            `;
-            
-            copyJwtBtn.onclick = function() {
-                const token = localStorage.getItem('dashboard_jwt');
-                if (token) {
-                    navigator.clipboard.writeText(token).then(() => {
-                        showMessage('Токен скопирован в буфер', false);
-                    });
-                }
-            };
-            
-            // Кнопка для повторной синхронизации
-            const syncBtn = document.createElement('button');
-            syncBtn.className = 'jwt-control-btn';
-            syncBtn.innerHTML = '🔄 Синхронизировать';
-            syncBtn.title = 'Отправить JWT на фронтенд';
-            
-            syncBtn.style.cssText = `
-                background: rgba(0, 255, 0, 0.2);
-                border: 1px solid rgba(0, 255, 0, 0.4);
-                color: #00ff00;
-                padding: 6px 12px;
-                border-radius: 20px;
-                font-size: 13px;
-                cursor: pointer;
-                transition: all 0.3s ease;
-                margin-left: 10px;
-                margin-top: 5px;
-            `;
-            
-            syncBtn.onclick = function() {
-                sendJwtToFrontend();
-                showMessage('Синхронизация запущена', false);
-            };
-            
-            // Добавляем кнопки в контейнер
-            const controlsContainer = document.createElement('div');
-            controlsContainer.style.marginTop = '10px';
-            controlsContainer.appendChild(copyJwtBtn);
-            controlsContainer.appendChild(syncBtn);
-            
-            // Ищем место для вставки (после user-pub)
-            const userPub = profileHeader.querySelector('.user-pub');
-            if (userPub) {
-                userPub.parentNode.insertBefore(controlsContainer, userPub.nextSibling);
-            }
-        }
-        
-        // Инициализируем контролы после загрузки
-        setTimeout(addJwtControls, 1000);
-        
-        // Функция проверки JWT (может использоваться для AJAX запросов)
-        async function verifyJwtOnFrontend() {
-            const token = localStorage.getItem('dashboard_jwt');
-            if (!token) return false;
-            
-            try {
-                const response = await fetch(FRONTEND_ORIGIN + '/api/verify-token.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ token: token })
-                });
+                const info = `
+                    <strong>Информация о токене:</strong><br>
+                    User ID: ${payload.user_id || payload.pub_id}<br>
+                    Имя: ${payload.name}<br>
+                    Email: ${payload.email}<br>
+                    Выдан: ${new Date(payload.iat * 1000).toLocaleString()}<br>
+                    Истекает: ${expires.toLocaleString()}<br>
+                    <small style="color: #666;">Токен действителен 7 дней</small>
+                `;
                 
-                const data = await response.json();
-                return data.valid === true;
-            } catch (error) {
-                return false;
+                // Показываем в модальном окне
+                showModal('Информация о токене', info);
             }
+        } catch (e) {
+            showMessage('Ошибка чтения токена', true);
         }
+    }
+    
+    // Вспомогательная функция для показа модального окна
+    function showModal(title, content) {
+        // Создаем модальное окно
+        const modal = document.createElement('div');
+        modal.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+        `;
         
-        // Автоматическая проверка каждые 5 минут
-        setInterval(async () => {
-            const isValid = await verifyJwtOnFrontend();
-            if (!isValid) {
-                console.warn('JWT требуется обновление');
-                // Можно показать уведомление пользователю
+        const modalContent = document.createElement('div');
+        modalContent.style.cssText = `
+            background: #0036944f;
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 20px;
+            max-width: 500px;
+            width: 90%;
+            color: white;
+            box-shadow: 10px 10px 10px rgba(255, 255, 255, 0.205),
+                        inset -20px -20px 15px #00359138;
+            border: solid #eef4ff54 1px;
+        `;
+        
+        modalContent.innerHTML = `
+            <h3 style="margin-bottom: 20px; color: white;">${title}</h3>
+            <div style="margin-bottom: 20px;">${content}</div>
+            <button onclick="this.closest('.modal-container').remove()" 
+                    style="padding: 10px 20px; background: rgba(255, 255, 255, 0.2); 
+                           border: 1px solid rgba(255, 255, 255, 0.4); color: white; 
+                           border-radius: 10px; cursor: pointer;">
+                Закрыть
+            </button>
+        `;
+        
+        const container = document.createElement('div');
+        container.className = 'modal-container';
+        container.appendChild(modal);
+        modal.appendChild(modalContent);
+        
+        document.body.appendChild(container);
+        
+        // Закрытие по клику вне модального окна
+        modal.onclick = function(e) {
+            if (e.target === modal) {
+                container.remove();
             }
-        }, 5 * 60 * 1000);
+        };
+    }
     </script>
 </body>
 </html>
