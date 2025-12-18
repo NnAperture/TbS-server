@@ -90,10 +90,9 @@ def format_date(date_string):
         print(f"Date formatting error: {e}")
         return str(date_string)
 
-# Обновим функцию dashboard
 @csrf_exempt
 def dashboard(request):
-    """Панель управления с JWT для клиента"""
+    """Панель управления"""
     if not request.user.is_authenticated:
         return redirect('/oauth/google/')
     
@@ -106,9 +105,6 @@ def dashboard(request):
                 'error': 'User not found'
             }, status=404)
         
-        # Генерируем JWT для клиента
-        jwt_token = generate_jwt_token(user_data)
-        
         context = {
             'user': {
                 'id': user_data.get('id'),
@@ -117,9 +113,7 @@ def dashboard(request):
                 'email': user_data.get('email'),
                 'created_at': user_data.get('created_at'),
                 'created_at_formatted': format_date(user_data.get('created_at')),
-            },
-            'jwt_token': jwt_token,  # Передаем клиенту
-            'frontend_domain': 'k90908k8.beget.tech'  # Домен фронтенда для CORS
+            }
         }
         
         return render(request, 'dashboard.html', context)
