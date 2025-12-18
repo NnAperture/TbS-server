@@ -4,8 +4,7 @@ from handlers import handler
 from accounts.reg import (
     google_login, google_callback, dashboard, 
     api_user_info, logout, api_get_pub_data, 
-    api_update_profile, set_csrf_token, avatar,
-    api_verify_jwt, api_refresh_jwt
+    api_update_profile, set_csrf_token, avatar
 )
 
 urlpatterns = [
