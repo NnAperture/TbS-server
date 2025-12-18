@@ -4,6 +4,8 @@ from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt, csrf_protect
 from django.middleware.csrf import get_token, rotate_token
 from django.conf import settings
+import jwt
+import datetime
 from django.urls import reverse
 import requests
 import json
@@ -55,45 +57,76 @@ def set_csrf_token(request):
     )
     return response
 
-@ensure_csrf_cookie
+@csrf_exempt
 def dashboard(request):
-    """Основной дашборд пользователя - УПРОЩЕННЫЙ"""
-    user_data = SessionManager.validate_request(request)
-    
-    if not user_data:
+    """Панель управления с JWT для клиента"""
+    if not request.user.is_authenticated:
         return redirect('/oauth/google/')
     
-    # Получаем данные пользователя
-    user_id = user_data['id']
-    if user_id in php_client.accounts:
-        user_var = tg.UndefinedVar(id=tg.Id().from_str(php_client[user_id]))
-        full_user_data = user_var.get()
-    else:
-        full_user_data = user_data
+    try:
+        user_data = php_client.get_user_by_email(request.user.email)
+        
+        if not user_data:
+            return JsonResponse({
+                'success': False,
+                'error': 'User not found'
+            }, status=404)
+        
+        # Генерируем JWT для клиента
+        jwt_token = generate_jwt_token(user_data)
+        
+        context = {
+            'user': {
+                'id': user_data.get('id'),
+                'pub': user_data.get('pub'),
+                'name': user_data.get('name'),
+                'email': user_data.get('email'),
+                'created_at': user_data.get('created_at'),
+            },
+            'jwt_token': jwt_token,  # Передаем клиенту
+            'frontend_domain': 'k90908k8.beget.tech'  # Домен фронтенда для CORS
+        }
+        
+        return render(request, 'dashboard.html', context)
+        
+    except Exception as e:
+        print(f"Error in dashboard: {e}")
+        return JsonResponse({
+            'success': False,
+            'error': 'Internal server error'
+        }, status=500)
+
+def generate_jwt_token(user_data):
+    """Генерация JWT токена"""
+    payload = {
+        'user_id': user_data.get('id'),
+        'pub_id': user_data.get('pub'),
+        'name': user_data.get('name'),
+        'email': user_data.get('email'),
+        'exp': datetime.datetime.utcnow() + datetime.timedelta(days=7),  # 7 дней
+        'iat': datetime.datetime.utcnow()
+    }
     
-    # Форматируем дату
-    import datetime
-    if 'created_at' in full_user_data:
-        created_at = datetime.datetime.fromtimestamp(full_user_data['created_at'])
-        full_user_data['created_at_formatted'] = created_at.strftime('%d.%m.%Y %H:%M')
-    
-    # Устанавливаем CSRF cookie явно
-    response = render(request, 'accounts/dashboard.html', {
-        'user': full_user_data,
-        'pub_id': user_data.get('pub_id'),
-    })
-    
-    # Явно устанавливаем CSRF cookie
-    response.set_cookie(
-        'csrftoken',
-        get_token(request),
-        max_age=31449600,
-        secure=False,  # False для разработки
-        httponly=False,
-        samesite='Lax'
+    token = jwt.encode(
+        payload, 
+        settings.JWT_SECRET_KEY, 
+        algorithm=settings.JWT_ALGORITHM
     )
-    
-    return response
+    return token
+
+def verify_jwt_token(token):
+    """Верификация JWT токена"""
+    try:
+        payload = jwt.decode(
+            token, 
+            settings.JWT_SECRET_KEY, 
+            algorithms=[settings.JWT_ALGORITHM]
+        )
+        return payload
+    except jwt.ExpiredSignatureError:
+        return None
+    except jwt.InvalidTokenError:
+        return None
 
 def api_update_profile(request):
     user_data = SessionManager.validate_request(request)
@@ -524,3 +557,103 @@ def get_default_avatar():
         response = HttpResponse(b'', content_type='image/jpeg')
         response.status_code = 200
         return response
+
+
+@csrf_exempt
+def api_verify_jwt(request):
+    """API для верификации JWT токена"""
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            token = data.get('token')
+            
+            if not token:
+                return JsonResponse({
+                    'success': False,
+                    'error': 'Token is required'
+                }, status=400)
+            
+            payload = verify_jwt_token(token)
+            
+            if payload:
+                return JsonResponse({
+                    'success': True,
+                    'data': payload
+                })
+            else:
+                return JsonResponse({
+                    'success': False,
+                    'error': 'Invalid or expired token'
+                }, status=401)
+                
+        except json.JSONDecodeError:
+            return JsonResponse({
+                'success': False,
+                'error': 'Invalid JSON'
+            }, status=400)
+        except Exception as e:
+            return JsonResponse({
+                'success': False,
+                'error': str(e)
+            }, status=500)
+    
+    return JsonResponse({
+        'success': False,
+        'error': 'Method not allowed'
+    }, status=405)
+
+# Добавляем API для получения нового токена (refresh)
+@csrf_exempt
+def api_refresh_jwt(request):
+    """API для обновления JWT токена"""
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            token = data.get('token')
+            
+            if not token:
+                return JsonResponse({
+                    'success': False,
+                    'error': 'Token is required'
+                }, status=400)
+            
+            payload = verify_jwt_token(token)
+            
+            if payload:
+                # Генерируем новый токен с теми же данными
+                new_payload = {
+                    'user_id': payload.get('user_id'),
+                    'pub_id': payload.get('pub_id'),
+                    'name': payload.get('name'),
+                    'email': payload.get('email'),
+                    'exp': datetime.datetime.utcnow() + datetime.timedelta(days=7),
+                    'iat': datetime.datetime.utcnow()
+                }
+                
+                new_token = jwt.encode(
+                    new_payload,
+                    settings.JWT_SECRET_KEY,
+                    algorithm=settings.JWT_ALGORITHM
+                )
+                
+                return JsonResponse({
+                    'success': True,
+                    'token': new_token,
+                    'expires_in': 7 * 24 * 60 * 60  # 7 дней в секундах
+                })
+            else:
+                return JsonResponse({
+                    'success': False,
+                    'error': 'Invalid or expired token'
+                }, status=401)
+                
+        except Exception as e:
+            return JsonResponse({
+                'success': False,
+                'error': str(e)
+            }, status=500)
+    
+    return JsonResponse({
+        'success': False,
+        'error': 'Method not allowed'
+    }, status=405)

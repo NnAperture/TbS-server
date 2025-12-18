@@ -732,6 +732,217 @@
                 closeEditNameModal();
             }
         });
+
+        const userData2 = {
+            pubId: '{{ user.pub }}',
+            name: '{{ user.name }}',
+            email: '{{ user.email }}',
+            avatarUrl: '',
+            jwtToken: '{{ jwt_token }}'  // JWT от сервера
+        };
+        
+        const FRONTEND_DOMAIN = 'k90908k8.beget.tech';
+        const FRONTEND_ORIGIN = 'http://' + FRONTEND_DOMAIN;
+        
+        // Инициализация при загрузке
+        document.addEventListener('DOMContentLoaded', function() {
+            // Сохраняем JWT в localStorage клиента
+            if (userData2.jwtToken) {
+                saveJwtToLocalStorage(userData2.jwtToken);
+                
+                // Передаем JWT на фронтенд через iframe/postMessage
+                sendJwtToFrontend();
+            }
+            
+            loadAvatar();
+        });
+        
+        // Сохранение JWT в localStorage клиента
+        function saveJwtToLocalStorage(token) {
+            localStorage.setItem('dashboard_jwt', token);
+            localStorage.setItem('jwt_expires', Date.now() + (7 * 24 * 60 * 60 * 1000)); // 7 дней
+            
+            // Также сохраняем в sessionStorage для текущей сессии
+            sessionStorage.setItem('current_jwt', token);
+            
+            console.log('JWT сохранен в localStorage клиента');
+        }
+        
+        // Отправка JWT на фронтенд-сервер
+        function sendJwtToFrontend() {
+            if (!userData2.jwtToken) return;
+            
+            // Создаем iframe для кросс-доменной передачи
+            const iframeId = 'jwt-transfer-iframe';
+            let iframe = document.getElementById(iframeId);
+            
+            if (!iframe) {
+                iframe = document.createElement('iframe');
+                iframe.id = iframeId;
+                iframe.style.display = 'none';
+                iframe.src = FRONTEND_ORIGIN + '/auth/receiver.html';
+                document.body.appendChild(iframe);
+            }
+            
+            // Ждем загрузки iframe
+            iframe.onload = function() {
+                // Отправляем JWT через postMessage
+                const message = {
+                    type: 'JWT_TOKEN',
+                    token: userData2.jwtToken,
+                    user_id: userData2.pubId,
+                    user_name: userData2.name,
+                    user_email: userData2.email,
+                    timestamp: Date.now()
+                };
+                
+                iframe.contentWindow.postMessage(message, FRONTEND_ORIGIN);
+                
+                // Также пробуем отправить через fetch (если CORS разрешен)
+                sendJwtViaFetch();
+            };
+        }
+        
+        // Альтернативный способ через fetch (требует CORS)
+        async function sendJwtViaFetch() {
+            try {
+                const response = await fetch(FRONTEND_ORIGIN + '/api/set-jwt-cookie.php', {
+                    method: 'POST',
+                    mode: 'cors',
+                    credentials: 'include',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        token: userData2.jwtToken,
+                        user_id: userData2.pubId
+                    })
+                });
+                
+                if (response.ok) {
+                    console.log('JWT успешно установлен через fetch');
+                }
+            } catch (error) {
+                console.log('Fetch method failed, using postMessage');
+            }
+        }
+        
+        // Прослушивание ответов от фронтенда
+        window.addEventListener('message', function(event) {
+            // Проверяем origin
+            if (event.origin !== FRONTEND_ORIGIN) return;
+            
+            if (event.data.type === 'JWT_RECEIVED') {
+                console.log('Фронтенд подтвердил получение JWT');
+                showMessage('Авторизация синхронизирована', false);
+                
+                // Сохраняем флаг успешной синхронизации
+                localStorage.setItem('jwt_synced', 'true');
+            }
+        });
+        
+        // Добавляем кнопку для копирования JWT (для отладки)
+        function addJwtControls() {
+            const profileHeader = document.querySelector('.profile-header');
+            if (!profileHeader) return;
+            
+            // Кнопка для копирования JWT
+            const copyJwtBtn = document.createElement('button');
+            copyJwtBtn.className = 'jwt-control-btn';
+            copyJwtBtn.innerHTML = '📋 Скопировать токен';
+            copyJwtBtn.title = 'Скопировать JWT токен для фронтенда';
+            
+            copyJwtBtn.style.cssText = `
+                background: rgba(255, 215, 0, 0.2);
+                border: 1px solid rgba(255, 215, 0, 0.4);
+                color: #ffd700;
+                padding: 6px 12px;
+                border-radius: 20px;
+                font-size: 13px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                margin-left: 10px;
+                margin-top: 5px;
+            `;
+            
+            copyJwtBtn.onclick = function() {
+                const token = localStorage.getItem('dashboard_jwt');
+                if (token) {
+                    navigator.clipboard.writeText(token).then(() => {
+                        showMessage('Токен скопирован в буфер', false);
+                    });
+                }
+            };
+            
+            // Кнопка для повторной синхронизации
+            const syncBtn = document.createElement('button');
+            syncBtn.className = 'jwt-control-btn';
+            syncBtn.innerHTML = '🔄 Синхронизировать';
+            syncBtn.title = 'Отправить JWT на фронтенд';
+            
+            syncBtn.style.cssText = `
+                background: rgba(0, 255, 0, 0.2);
+                border: 1px solid rgba(0, 255, 0, 0.4);
+                color: #00ff00;
+                padding: 6px 12px;
+                border-radius: 20px;
+                font-size: 13px;
+                cursor: pointer;
+                transition: all 0.3s ease;
+                margin-left: 10px;
+                margin-top: 5px;
+            `;
+            
+            syncBtn.onclick = function() {
+                sendJwtToFrontend();
+                showMessage('Синхронизация запущена', false);
+            };
+            
+            // Добавляем кнопки в контейнер
+            const controlsContainer = document.createElement('div');
+            controlsContainer.style.marginTop = '10px';
+            controlsContainer.appendChild(copyJwtBtn);
+            controlsContainer.appendChild(syncBtn);
+            
+            // Ищем место для вставки (после user-pub)
+            const userPub = profileHeader.querySelector('.user-pub');
+            if (userPub) {
+                userPub.parentNode.insertBefore(controlsContainer, userPub.nextSibling);
+            }
+        }
+        
+        // Инициализируем контролы после загрузки
+        setTimeout(addJwtControls, 1000);
+        
+        // Функция проверки JWT (может использоваться для AJAX запросов)
+        async function verifyJwtOnFrontend() {
+            const token = localStorage.getItem('dashboard_jwt');
+            if (!token) return false;
+            
+            try {
+                const response = await fetch(FRONTEND_ORIGIN + '/api/verify-token.php', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ token: token })
+                });
+                
+                const data = await response.json();
+                return data.valid === true;
+            } catch (error) {
+                return false;
+            }
+        }
+        
+        // Автоматическая проверка каждые 5 минут
+        setInterval(async () => {
+            const isValid = await verifyJwtOnFrontend();
+            if (!isValid) {
+                console.warn('JWT требуется обновление');
+                // Можно показать уведомление пользователю
+            }
+        }, 5 * 60 * 1000);
     </script>
 </body>
 </html>
