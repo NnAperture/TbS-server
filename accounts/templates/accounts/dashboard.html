@@ -515,7 +515,7 @@
             .info-section {
                 padding: 20px;
             }
-            
+
             .floating-link {
                 width: calc(100% - 40px);
                 max-width: 400px;
@@ -945,7 +945,7 @@
             const toggleLabel = document.getElementById('toggle-label');
             
             if (!toggle) return;
-            toggle.checked = userData.userData.showMail == "true";
+            toggle.checked = userData.showMail == "true";
             updateEmailVisibility();
             
             toggle.addEventListener('change', async function() {
