@@ -28,7 +28,7 @@ tmp = {
     "google_id": None,
     "created_at": None,
     "bio":"Нет описания",
-    "show_mail":"false",
+    "show_mail":False,
 }
 
 class PHPApiClient:
@@ -123,8 +123,7 @@ class PHPApiClient:
             
             user_id = self.sessions[session_token]["user_id"]
             if user_id in self.accounts:
-                user_var = tg.UndefinedVar(id=tg.Id().from_str(self[user_id]))
-                user_data = user_var.get()
+                user_data = self.get(user_id)
                 
                 return {
                     "success": True,
