@@ -76,6 +76,7 @@ def dashboard(request):
     response = render(request, 'accounts/dashboard.html', {
         'user': full_user_data,
         'pub_id': user_data.get('pub_id'),
+        'bio':user_data.get('bio'),
     })
 
     response.set_cookie(
