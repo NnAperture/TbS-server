@@ -121,6 +121,10 @@ def api_update_profile(request):
             bio = data['bio'].strip()
             if len(bio) <= 200:
                 validated_data['bio'] = bio
+        
+        if 'show_mail' in data:
+            bio = data['show_mail'].strip()
+            validated_data['show_mail'] = bio
 
         if validated_data:
             success = php_client.update_user_info(user_id, validated_data)
