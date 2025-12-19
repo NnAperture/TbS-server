@@ -73,6 +73,7 @@ def dashboard(request):
         created_at = datetime.datetime.fromtimestamp(full_user_data['created_at'])
         full_user_data['created_at_formatted'] = created_at.strftime('%d.%m.%Y %H:%M')
 
+    print(user_data)
     response = render(request, 'accounts/dashboard.html', {
         'user': full_user_data,
         'pub_id': user_data.get('pub_id'),
