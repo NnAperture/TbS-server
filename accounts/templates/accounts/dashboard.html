@@ -581,7 +581,7 @@
             name: '{{ user.name }}',
             email: '{{ user.email }}',
             bio: '{{ user.bio|default:"Нет описания" }}',
-            showMail: '{{ user.show_mail|default:true|lower }}',
+            showMail: '{{ user.show_mail|default:"true"|lower }}',
             avatarUrl: ''
         };
         let originalBio = '';
