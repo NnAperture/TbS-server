@@ -455,7 +455,7 @@
                 id="bio" 
                 class="info-value info-section" 
                 style="padding: 20px; min-height: 100px; resize: vertical;"
-            >{{ userData.bio }}</textarea>
+            >{{ user.bio }}</textarea>
             <button class="edit-name-btn" id="bio_button" onclick="updateBio()" disabled>Сохранить описание</button>
 
             <div class="info-grid">
@@ -512,7 +512,7 @@
 
             avatarUrl: ''
         };
-        let originalBio = userData.bio;
+        let originalBio = '';
         console.log(userData);
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -803,18 +803,23 @@
 
             bioButton.disabled = true;
 
+            if (bioInput.value.trim() === '' && userData.bio && userData.bio !== "Нет описания") {
+                bioInput.value = userData.bio;
+            }
+            
             originalBio = bioInput.value.trim();
-
+            console.log('originalBio установлен:', originalBio);
+            
             function checkBioChanges() {
                 const currentBio = bioInput.value.trim();
-
                 bioButton.disabled = currentBio === originalBio || currentBio === '';
+                console.log('checkBioChanges:', {currentBio, originalBio, disabled: bioButton.disabled});
             }
-
+            
             bioInput.addEventListener('input', checkBioChanges);
             bioInput.addEventListener('change', checkBioChanges);
             bioInput.addEventListener('keyup', checkBioChanges);
-
+            
             checkBioChanges();
         }
     </script>
