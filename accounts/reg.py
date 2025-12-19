@@ -308,6 +308,9 @@ def api_get_pub_data(request, pub_id):
         public_data = {
             'pub_id': user_data.get('pub'),
             'name': user_data.get('name'),
+            'email': user_data.get('created_at'),
+            'show_mail': user_data.get('show_mail'),
+            'bio': user_data.get('bio'),
             'created_at': user_data.get('created_at'),
         }
 
