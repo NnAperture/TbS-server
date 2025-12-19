@@ -307,9 +307,9 @@ def api_get_pub_data(request, pub_id):
         public_data = {
             'pub_id': user_data.get('pub'),
             'name': user_data.get('name'),
-            'email': user_data.get('created_at'),
-            'show_mail': user_data.get('show_mail'),
-            'bio': user_data.get('bio'),
+            'email': user_data.get('email'),
+            'show_mail': user_data.get('show_mail', True),
+            'bio': user_data.get('bio', 'Нет описания'),
             'created_at': user_data.get('created_at'),
         }
 
@@ -323,6 +323,11 @@ def api_get_pub_data(request, pub_id):
             'success': False,
             'error': 'Invalid pub_id format'
         }, status=400)
+    except Exception as e:
+        return JsonResponse({
+            'success': False,
+            'error': str(e)
+        }, status=500)
 
 @csrf_exempt
 def avatar(request):
