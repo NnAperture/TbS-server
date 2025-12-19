@@ -73,7 +73,6 @@ def dashboard(request):
         created_at = datetime.datetime.fromtimestamp(full_user_data['created_at'])
         full_user_data['created_at_formatted'] = created_at.strftime('%d.%m.%Y %H:%M')
 
-    print(user_data, user_data.get('show_mail'))
     response = render(request, 'accounts/dashboard.html', {
         'user': full_user_data,
         'pub_id': user_data.get('pub_id'),
@@ -131,7 +130,8 @@ def api_update_profile(request):
             if success:
                 return JsonResponse({
                     'success': True,
-                    'message': 'Profile updated successfully'
+                    'message': 'Profile updated successfully',
+                    'faf':(user_data, user_data.get('show_mail'))
                 })
             else:
                 return JsonResponse({
