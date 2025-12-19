@@ -116,12 +116,10 @@ def api_update_profile(request):
             name = data['name'].strip()
             if name and 1 <= len(name) <= 50:
                 validated_data['name'] = name
-
         if 'bio' in data:
             bio = data['bio'].strip()
             if len(bio) <= 200:
                 validated_data['bio'] = bio
-        
         if 'show_mail' in data:
             bio = data['show_mail'].strip()
             validated_data['show_mail'] = bio
