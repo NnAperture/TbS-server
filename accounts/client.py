@@ -147,7 +147,8 @@ class PHPApiClient:
         if user_id in self.accounts:
             user_var = tg.UndefinedVar(id=tg.Id().from_str(self[user_id]))
             user_data = self.get(user_id)
-            user_var.set(user_data | kwargs)
+            user_data |= kwargs
+            user_var.set(user_data)
             return True
         return False
     
