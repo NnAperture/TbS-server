@@ -10,7 +10,7 @@ import logging
 import urllib.parse
 import secrets
 import tgcloud as tg
-from .client import php_client
+from .client import client
 
 logger = logging.getLogger(__name__)
 
@@ -27,7 +27,7 @@ class SessionManager:
         if not session_token:
             return None
 
-        session_data = php_client.validate_session(session_token)
+        session_data = client.validate_session(session_token)
         if not session_data.get('success'):
             return None
 
@@ -62,8 +62,8 @@ def dashboard(request):
         return redirect('/oauth/google/')
 
     user_id = user_data['id']
-    if user_id in php_client.accounts:
-        user_var = tg.UndefinedVar(id=tg.Id().from_str(php_client[user_id]))
+    if user_id in client.accounts:
+        user_var = tg.UndefinedVar(id=tg.Id().from_str(client[user_id]))
         full_user_data = user_var.get()
     else:
         full_user_data = user_data
@@ -77,6 +77,7 @@ def dashboard(request):
         'user': full_user_data,
         'pub_id': user_data.get('pub_id'),
         'bio':user_data.get('bio'),
+        'show_mail':user_data.get('show_mail'),
     })
 
     response.set_cookie(
@@ -125,7 +126,7 @@ def api_update_profile(request):
             validated_data['show_mail'] = bio
 
         if validated_data:
-            success = php_client.update_user_info(user_id, validated_data)
+            success = client.update_user_info(user_id, validated_data)
 
             if success:
                 return JsonResponse({
@@ -220,10 +221,10 @@ def google_callback(request):
         email = user_info.get('email')
         name = user_info.get('name')
 
-        user_var = php_client.get(google_id=google_id, email=email, name=name)
+        user_var = client.get(google_id=google_id, email=email, name=name)
         user_data = user_var.get()
 
-        session_token = php_client.create_session(user_data['id'])
+        session_token = client.create_session(user_data['id'])
 
         response = redirect('/dashboard/')
 
@@ -283,7 +284,7 @@ def logout(request):
     session_token = SessionManager.get_session_token(request)
 
     if session_token:
-        php_client.delete_session(session_token)
+        client.delete_session(session_token)
 
     response = redirect('/')
     response.delete_cookie('session_token')
@@ -296,7 +297,7 @@ def logout(request):
 def api_get_pub_data(request, pub_id):
     """API для получения публичных данных пользователя по pub_id"""
     try:
-        user_data = php_client.get_user_by_pub_id(int(pub_id))
+        user_data = client.get_user_by_pub_id(int(pub_id))
 
         if not user_data:
             return JsonResponse({
@@ -329,7 +330,7 @@ def avatar(request):
         if request.GET.get('format') == 'image':
             try:
                 if pub:
-                    user = php_client.get_user_by_pub_id(pub)
+                    user = client.get_user_by_pub_id(pub)
                     if not user: 
                         return get_default_avatar()
                     avatar_id = user.get("avatar", "DEFAULT")
@@ -338,7 +339,7 @@ def avatar(request):
                     if not user_data:
                         return get_default_avatar()
 
-                    user = php_client.get(user_data["id"])
+                    user = client.get(user_data["id"])
                     if not user:
                         return get_default_avatar()
                     avatar_id = user.get("avatar", "DEFAULT")
@@ -376,7 +377,7 @@ def avatar(request):
         else:
             try:
                 if pub:
-                    user = php_client.get_user_by_pub_id(int(pub))
+                    user = client.get_user_by_pub_id(int(pub))
                     if not user:
                         return JsonResponse({
                             'error': f'User with pub_id={pub.__repr__()} not found',
@@ -396,7 +397,7 @@ def avatar(request):
                             'error': 'Authentication required'
                         }, status=401)
 
-                    user = php_client.get(user_data["id"])
+                    user = client.get(user_data["id"])
                     if not user:
                         return JsonResponse({
                             'error': f'User with id={user_data["id"]} not found',
@@ -456,7 +457,7 @@ def avatar(request):
             image_file.close()
 
             avatar_id = tg.send_file(prepared).to_str()
-            php_client.update_user_info(user_data["id"], {"avatar": avatar_id})
+            client.update_user_info(user_data["id"], {"avatar": avatar_id})
 
             return JsonResponse({
                 'success': True, 

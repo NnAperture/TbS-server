@@ -914,7 +914,7 @@
             
             function updateEmailVisibility() {
                 if (emailContainer) {
-                    if (userData.showMail) {
+                    if (userData.showMail == "true") {
                         emailContainer.classList.remove('hidden');
                         toggleLabel.textContent = 'Показать email';
                     } else {

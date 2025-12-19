@@ -161,4 +161,4 @@ class PHPApiClient:
         return False
 
 
-php_client = PHPApiClient()
+client = PHPApiClient()
