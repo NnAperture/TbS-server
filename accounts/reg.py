@@ -305,7 +305,7 @@ def api_get_pub_data(request, pub_id):
         public_data = {
             'pub_id': user_data.get('pub'),
             'name': user_data.get('name'),
-            'email': user_data.get('email'),
+            'email': (user_data.get('email') if (user_data.get('show_mail', True)) else ""),
             'show_mail': user_data.get('show_mail', True),
             'bio': user_data.get('bio', 'Нет описания'),
             'created_at': user_data.get('created_at'),
