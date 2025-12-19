@@ -903,26 +903,28 @@
             
             if (!toggle) return;
             
-            toggle.checked = userData.showMail;
-            updateEmailVisibility();
-            
-            toggle.addEventListener('change', async function() {
-                userData.showMail = this.checked;
+            setTimeout(() => {
+                toggle.checked = userData.showMail;
                 updateEmailVisibility();
-                await saveEmailVisibility();
-            });
-            
-            function updateEmailVisibility() {
-                if (emailContainer) {
-                    if (userData.showMail == "true") {
-                        emailContainer.classList.remove('hidden');
-                        toggleLabel.textContent = 'Показать email';
-                    } else {
-                        emailContainer.classList.add('hidden');
-                        toggleLabel.textContent = 'Скрыть email';
+                
+                toggle.addEventListener('change', async function() {
+                    userData.showMail = this.checked;
+                    updateEmailVisibility();
+                    await saveEmailVisibility();
+                });
+                
+                function updateEmailVisibility() {
+                    if (emailContainer) {
+                        if (userData.showMail == "true") {
+                            emailContainer.classList.remove('hidden');
+                            toggleLabel.textContent = 'Показать email';
+                        } else {
+                            emailContainer.classList.add('hidden');
+                            toggleLabel.textContent = 'Скрыть email';
+                        }
                     }
                 }
-            }
+            }, 20);
         }
         
         async function saveEmailVisibility() {
