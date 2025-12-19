@@ -122,7 +122,7 @@ def api_update_profile(request):
             if len(bio) <= 200:
                 validated_data['bio'] = bio
         if 'show_mail' in data:
-            validated_data['show_mail'] = bio
+            validated_data['show_mail'] = data['show_mail']
 
         if validated_data:
             success = client.update_user_info(user_id, validated_data)
