@@ -146,7 +146,7 @@ class PHPApiClient:
         """Обновить информацию о пользователе"""
         if user_id in self.accounts:
             user_var = tg.UndefinedVar(id=tg.Id().from_str(self[user_id]))
-            user_data = user_var.get()
+            user_data = self.get(user_id)
             user_var.set(user_data | kwargs)
             return True
         return False
