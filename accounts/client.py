@@ -28,6 +28,7 @@ tmp = {
     "google_id": None,
     "created_at": None,
     "bio":"Нет описания",
+    "show_mail":"false",
 }
 
 class PHPApiClient:

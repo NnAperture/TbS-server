@@ -367,6 +367,76 @@
             border-left-color: #f44336;
         }
 
+        .email-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 10px;
+            transition: opacity 0.3s ease;
+        }
+        
+        .email-container.hidden {
+            opacity: 0.5;
+        }
+        
+        .email-label {
+            font-size: 18px;
+            color: white;
+            font-weight: 500;
+        }
+        
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 26px;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 20px;
+            width: 20px;
+            left: 3px;
+            bottom: 2px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .slider {
+            background-color: #667eea;
+        }
+        
+        input:checked + .slider:before {
+            transform: translateX(24px);
+        }
+        
+        .toggle-label {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.8);
+            margin-left: 10px;
+        }
+
         @keyframes slideIn {
             from {
                 transform: translateX(100%);
@@ -441,7 +511,14 @@
                         Сменить имя
                     </button>
                 </div>
-                <div class="user-email">{{ user.email }}</div>
+                <div class="email-container" id="email-container">
+                    <div class="email-label">{{ user.email }}</div>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="show-email-toggle" checked>
+                        <span class="slider"></span>
+                    </label>
+                    <span class="toggle-label" id="toggle-label">Показать email</span>
+                </div>
                 <div class="user-pub">ID: {{ user.pub }}</div>
             </div>
 
@@ -454,7 +531,7 @@
             <textarea 
                 id="bio" 
                 class="info-value info-section" 
-                style="padding: 20px; min-height: 100px; resize: vertical;"
+                style="padding: 20px; min-height: 100px; resize: vertical; width: 100%;"
             >{{ user.bio }}</textarea>
             <button class="edit-name-btn" id="bio_button" onclick="updateBio()" disabled>Сохранить описание</button>
 
@@ -470,11 +547,6 @@
                             Неизвестно
                         {% endif %}
                     </div>
-                </div>
-
-                <div class="info-item">
-                    <div class="info-label">Ваш публичный ID:</div>
-                    <div class="info-value">{{ user.pub }}</div>
                 </div>
             </div>
         </div>
@@ -508,8 +580,8 @@
             pubId: '{{ user.pub }}',
             name: '{{ user.name }}',
             email: '{{ user.email }}',
-            bio: '{{ user.bio|default:"Нет описания" }}', 
-
+            bio: '{{ user.bio|default:"Нет описания" }}',
+            showMail: '{{ user.show_mail|default:true|lower }}',
             avatarUrl: ''
         };
         let originalBio = '';
@@ -519,6 +591,7 @@
             localStorage.setItem('pub_id', userData.pubId);
             localStorage.setItem('user_name', userData.name);
             initBioLogic();
+            initEmailToggle();
             loadAvatar();
         });
 
@@ -821,6 +894,58 @@
             bioInput.addEventListener('keyup', checkBioChanges);
             
             checkBioChanges();
+        }
+
+        function initEmailToggle() {
+            const toggle = document.getElementById('show-email-toggle');
+            const emailContainer = document.getElementById('email-container');
+            const toggleLabel = document.getElementById('toggle-label');
+            
+            if (!toggle) return;
+            
+            toggle.checked = userData.showMail;
+            updateEmailVisibility();
+            
+            toggle.addEventListener('change', async function() {
+                userData.showMail = this.checked;
+                updateEmailVisibility();
+                await saveEmailVisibility();
+            });
+            
+            function updateEmailVisibility() {
+                if (emailContainer) {
+                    if (userData.showMail) {
+                        emailContainer.classList.remove('hidden');
+                        toggleLabel.textContent = 'Показать email';
+                    } else {
+                        emailContainer.classList.add('hidden');
+                        toggleLabel.textContent = 'Скрыть email';
+                    }
+                }
+            }
+        }
+        
+        async function saveEmailVisibility() {
+            try {
+                const csrfToken = getCSRFToken();
+                
+                const response = await fetch('/api/update-profile/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrfToken
+                    },
+                    body: JSON.stringify({ show_mail: userData.showMail })
+                });
+                
+                const data = await response.json();
+                
+                if (!data.success) {
+                    console.error('Ошибка сохранения настроек email:', data.error);
+                }
+            } catch (error) {
+                console.error('Ошибка сети при сохранении настроек email:', error);
+            }
         }
     </script>
 </body>
