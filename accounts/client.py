@@ -20,6 +20,15 @@ telegram_manifest_id = tg.Id().from_str("0|2|4012")
 pub_id_v = tg.Int(id=pub_id_id)
 
 logger = logging.getLogger(__name__)
+tmp = {
+    "id": None,
+    "email": None,
+    "name": None,
+    "pub": None,
+    "google_id": None,
+    "created_at": None,
+    "bio":"Нет описания",
+}
 
 class PHPApiClient:
     def __init__(self):
@@ -40,7 +49,7 @@ class PHPApiClient:
         with self.lock:
             pub_id = pub_id_v.get()
             pub_id_v += 1
-            user_data = {
+            user_data = tmp | {
                 "id": id,
                 "email": email,
                 "name": name,
@@ -70,7 +79,7 @@ class PHPApiClient:
         google_id = int(google_id)
         self.gc()
         if google_id in self:
-            return self.cache.setdefault(google_id, tg.UndefinedVar(id=tg.Id().from_str(self[google_id])))
+            return self.cache.setdefault(google_id, tmp | tg.UndefinedVar(id=tg.Id().from_str(self[google_id])).get())
         else:
             return self._create_user(google_id, email, name)
     

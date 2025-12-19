@@ -421,7 +421,6 @@
         <div class="profile-header">
             <div class="avatar-container">
                 <div class="avatar" id="user-avatar" onclick="document.getElementById('avatar-input').click()">
-                    {{ user.name|first|upper }}
                     <div class="avatar-upload-text">
                         Нажмите для смены
                     </div>
@@ -449,9 +448,9 @@
             <a href="/logout/" class="logout-btn">Выйти</a>
         </div>
         
-        <!-- Информационная секция -->
         <div class="info-section">
             <h2 class="info-title">Информация</h2>
+            <input id="bio" placeholder="{{ userData.bio }}" class="info-value info-section" style="padding: 20px;" ></input>
             <div class="info-grid">
                 <div class="info-item">
                     <div class="info-label">Дата создания аккаунта</div>
@@ -503,6 +502,7 @@
             pubId: '{{ user.pub }}',
             name: '{{ user.name }}',
             email: '{{ user.email }}',
+            bio: '{{ user.bio }}',
             avatarUrl: ''
         };
         
@@ -693,6 +693,49 @@
                     userData.name = newName;
                     document.getElementById('display-name').textContent = newName;
                     document.getElementById('user-avatar').textContent = newName.charAt(0).toUpperCase();
+                    closeEditNameModal();
+                } else {
+                    showMessage('Ошибка: ' + data.error, true);
+                }
+            } catch (error) {
+                showMessage('Ошибка сети: ' + error.message, true);
+            }
+        }
+
+        async function updateBio() {
+            const newBio = document.getElementById('bio').value.trim();
+            
+            if (!newBio) {
+                newBio = "Нет описания";
+            }
+            
+            if (newBio.length > 200) {
+                showMessage('Имя слишком длинное (макс. 50 символов)', true);
+                return;
+            }
+            
+            if (newBio === userData.bio) {
+                closeEditNameModal();
+                return;
+            }
+            
+            try {
+                const csrfToken = getCSRFToken();
+                const response = await fetch('/api/update-profile/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrfToken
+                    },
+                    body: JSON.stringify({ bio: newBio })
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    showMessage('Имя успешно обновлено!');
+                    userData.name = newBio;
+                    document.getElementById('display-bio').textContent = newBio;
                     closeEditNameModal();
                 } else {
                     showMessage('Ошибка: ' + data.error, true);

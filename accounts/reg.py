@@ -88,7 +88,7 @@ def dashboard(request):
         'csrftoken',
         get_token(request),
         max_age=31449600,
-        secure=False,  # False для разработки
+        secure=True,  # False для разработки
         httponly=False,
         samesite='Lax'
     )
@@ -524,3 +524,4 @@ def get_default_avatar():
         response = HttpResponse(b'', content_type='image/jpeg')
         response.status_code = 200
         return response
+
