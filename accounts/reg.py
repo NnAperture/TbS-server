@@ -218,8 +218,7 @@ def google_callback(request):
         email = user_info.get('email')
         name = user_info.get('name')
 
-        user_var = client.get(google_id=google_id, email=email, name=name)
-        user_data = user_var.get()
+        user_data = client.get(google_id=google_id, email=email, name=name)
 
         session_token = client.create_session(user_data['id'])
 
