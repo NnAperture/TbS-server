@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Панель управления - {{ user.name }}</title>
-    
+
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
             background-color: #000120;
@@ -21,7 +21,7 @@
             align-items: center;
             padding: 20px;
         }
-        
+
         .main {
             color: rgba(4, 0, 255, 0.363);
             width: 100%;
@@ -56,7 +56,7 @@
         .profile-header:hover {
             background: #0144b84f;
         }
-        
+
         .avatar-container {
             position: relative;
             display: flex;
@@ -64,7 +64,7 @@
             align-items: center;
             gap: 15px;
         }
-        
+
         .avatar {
             width: 120px;
             height: 120px;
@@ -81,15 +81,15 @@
             cursor: pointer;
             transition: transform 0.3s ease;
         }
-        
+
         .avatar:hover {
             transform: scale(1.05);
         }
-        
+
         .avatar.loaded {
             background: none;
         }
-        
+
         .avatar-upload-text {
             position: absolute;
             bottom: -25px;
@@ -102,11 +102,11 @@
             opacity: 0;
             transition: opacity 0.3s ease;
         }
-        
+
         .avatar-container:hover .avatar-upload-text {
             opacity: 1;
         }
-        
+
         .change-avatar-btn {
             display: inline-flex;
             align-items: center;
@@ -124,17 +124,17 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        
+
         .change-avatar-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
         }
-        
+
         .user-info {
             flex: 1;
             min-width: 250px;
         }
-        
+
         .user-name {
             font-size: 32px;
             font-weight: 600;
@@ -144,19 +144,19 @@
             gap: 15px;
             flex-wrap: wrap;
         }
-        
+
         .user-email {
             font-size: 18px;
             opacity: 0.9;
             margin-bottom: 4px;
         }
-        
+
         .user-pub {
             font-size: 14px;
             opacity: 0.8;
             margin-top: 5px;
         }
-        
+
         .edit-name-btn {
             background: rgba(255, 255, 255, 0.2);
             border: 1px solid rgba(255, 255, 255, 0.4);
@@ -167,12 +167,12 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        
+
         .edit-name-btn:hover {
             background: rgba(255, 255, 255, 0.3);
             transform: translateY(-1px);
         }
-        
+
         .logout-btn {
             background: rgba(255, 255, 255, 0.2);
             border: 1px solid rgba(255, 255, 255, 0.4);
@@ -187,12 +187,12 @@
             margin-left: auto;
             align-self: flex-start;
         }
-        
+
         .logout-btn:hover {
             background: rgba(255, 255, 255, 0.3);
             transform: translateY(-1px);
         }
-        
+
         .info-section {
             background: #0036944f;
             box-shadow: 
@@ -207,31 +207,31 @@
         .info-section:hover {
             background: #0144b84f;
         }
-        
+
         .info-title {
             font-size: 24px;
             font-weight: 600;
             margin-bottom: 25px;
             color: white;
         }
-        
+
         .info-grid {
             display: grid;
             gap: 25px;
         }
-        
+
         .info-item {
             padding-bottom: 15px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
-        
+
         .info-label {
             font-size: 16px;
             color: rgba(255, 255, 255, 0.8);
             font-weight: 500;
             margin-bottom: 8px;
         }
-        
+
         .info-value {
             font-size: 18px;
             color: white;
@@ -239,7 +239,7 @@
             margin-bottom: 10px;
             word-break: break-all;
         }
-        
+
         .copy-btn {
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.3);
@@ -252,16 +252,16 @@
             margin-top: 5px;
             transition: all 0.3s ease;
         }
-        
+
         .copy-btn:hover {
             background: rgba(255, 255, 255, 0.2);
             transform: translateY(-1px);
         }
-        
+
         .file-input-hidden {
             display: none;
         }
-        
+
         .modal {
             display: none;
             position: fixed;
@@ -274,7 +274,7 @@
             justify-content: center;
             z-index: 1000;
         }
-        
+
         .modal-content {
             background: #0036944f;
             box-shadow: 
@@ -287,14 +287,14 @@
             width: 90%;
             color: white;
         }
-        
+
         .modal-title {
             font-size: 24px;
             font-weight: 600;
             margin-bottom: 20px;
             color: white;
         }
-        
+
         .modal-input {
             width: 100%;
             padding: 12px 16px;
@@ -306,18 +306,18 @@
             color: white;
             transition: border-color 0.3s ease;
         }
-        
+
         .modal-input:focus {
             outline: none;
             border-color: #667eea;
         }
-        
+
         .modal-actions {
             display: flex;
             gap: 12px;
             justify-content: flex-end;
         }
-        
+
         .modal-btn {
             padding: 10px 24px;
             border-radius: 8px;
@@ -325,27 +325,27 @@
             cursor: pointer;
             transition: all 0.3s ease;
         }
-        
+
         .modal-btn.cancel {
             background: rgba(255, 255, 255, 0.1);
             border: 1px solid rgba(255, 255, 255, 0.3);
             color: white;
         }
-        
+
         .modal-btn.cancel:hover {
             background: rgba(255, 255, 255, 0.2);
         }
-        
+
         .modal-btn.save {
             background: #667eea;
             border: none;
             color: white;
         }
-        
+
         .modal-btn.save:hover {
             background: #5a67d8;
         }
-        
+
         .message {
             position: fixed;
             top: 20px;
@@ -362,11 +362,11 @@
             color: white;
             border-left: 4px solid #4CAF50;
         }
-        
+
         .message.error {
             border-left-color: #f44336;
         }
-        
+
         @keyframes slideIn {
             from {
                 transform: translateX(100%);
@@ -377,38 +377,38 @@
                 opacity: 1;
             }
         }
-        
+
         @media (max-width: 768px) {
             .main {
                 padding: 15px;
                 border-radius: 20px;
             }
-            
+
             .profile-header {
                 padding: 20px;
                 gap: 20px;
             }
-            
+
             .avatar {
                 width: 100px;
                 height: 100px;
                 font-size: 40px;
             }
-            
+
             .user-name {
                 font-size: 24px;
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 10px;
             }
-            
+
             .logout-btn {
                 margin-left: 0;
                 margin-top: 10px;
                 align-self: stretch;
                 text-align: center;
             }
-            
+
             .info-section {
                 padding: 20px;
             }
@@ -417,7 +417,7 @@
 </head>
 <body>
     <div class="main">
-        <!-- Заголовок профиля -->
+
         <div class="profile-header">
             <div class="avatar-container">
                 <div class="avatar" id="user-avatar" onclick="document.getElementById('avatar-input').click()">
@@ -433,7 +433,7 @@
                     Сменить аватар
                 </button>
             </div>
-            
+
             <div class="user-info">
                 <div class="user-name">
                     <span id="display-name">{{ user.name }}</span>
@@ -444,13 +444,20 @@
                 <div class="user-email">{{ user.email }}</div>
                 <div class="user-pub">ID: {{ user.pub }}</div>
             </div>
-            
+
             <a href="/logout/" class="logout-btn">Выйти</a>
         </div>
-        
+
         <div class="info-section">
             <h2 class="info-title">Информация</h2>
-            <input id="bio" placeholder="{{ userData.bio }}" class="info-value info-section" style="padding: 20px;" ></input>
+
+            <textarea 
+                id="bio" 
+                class="info-value info-section" 
+                style="padding: 20px; min-height: 100px; resize: vertical;"
+            >{{ userData.bio }}</textarea>
+            <button class="edit-name-btn" id="bio_button" onclick="updateBio()" disabled>
+
             <div class="info-grid">
                 <div class="info-item">
                     <div class="info-label">Дата создания аккаунта</div>
@@ -464,7 +471,7 @@
                         {% endif %}
                     </div>
                 </div>
-                
+
                 <div class="info-item">
                     <div class="info-label">Ваш публичный ID:</div>
                     <div class="info-value">{{ user.pub }}</div>
@@ -472,7 +479,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="modal" id="edit-name-modal">
         <div class="modal-content">
             <h3 class="modal-title">Сменить имя</h3>
@@ -490,8 +497,7 @@
             </div>
         </div>
     </div>
-    
-    <!-- Сообщения -->
+
     <div class="message" id="message">
         <span class="message-icon" id="message-icon"></span>
         <span id="message-text"></span>
@@ -502,18 +508,19 @@
             pubId: '{{ user.pub }}',
             name: '{{ user.name }}',
             email: '{{ user.email }}',
-            bio: '{{ user.bio }}',
+            bio: '{{ user.bio|default("Нет описания") }}', 
+
             avatarUrl: ''
         };
-        
-        // Инициализация при загрузке
+        let originalBio = userData.bio;
+
         document.addEventListener('DOMContentLoaded', function() {
             localStorage.setItem('pub_id', userData.pubId);
             localStorage.setItem('user_name', userData.name);
+            initBioLogic();
             loadAvatar();
         });
-        
-        // Функции для работы с CSRF токеном
+
         function getCSRFToken() {
             let cookieValue = null;
             if (document.cookie && document.cookie !== '') {
@@ -528,38 +535,37 @@
             }
             return cookieValue;
         }
-        
-        // Загрузка аватара
+
         async function loadAvatar() {
             const avatarElement = document.getElementById('user-avatar');
             if (!avatarElement) return;
-            
+
             const avatarUrl = `/avatar/?pub_id=${encodeURIComponent(userData.pubId)}&format=image&t=${Date.now()}`;
             userData.avatarUrl = avatarUrl;
-            
+
             const img = new Image();
             img.crossOrigin = 'anonymous';
-            
+
             img.onload = function() {
                 avatarElement.style.backgroundImage = `url(${avatarUrl})`;
                 avatarElement.style.backgroundSize = 'cover';
                 avatarElement.style.backgroundPosition = 'center';
                 avatarElement.classList.add('loaded');
             };
-            
+
             img.onerror = function() {
                 showDefaultAvatar();
             };
-            
+
             img.src = avatarUrl;
-            
+
             setTimeout(() => {
                 if (!img.complete) {
                     showDefaultAvatar();
                 }
             }, 5000);
         }
-        
+
         function showDefaultAvatar() {
             const avatarElement = document.getElementById('user-avatar');
             if (avatarElement) {
@@ -567,43 +573,42 @@
                 avatarElement.classList.remove('loaded');
             }
         }
-        
-        // Загрузка нового аватара
+
         async function handleAvatarUpload(file) {
             if (!file) return;
-            
+
             if (file.size > 10 * 1024 * 1024) {
                 showMessage('Файл слишком большой. Максимальный размер: 10MB', true);
                 return;
             }
-            
+
             if (!file.type.match('image.*')) {
                 showMessage('Выберите изображение (JPG, PNG, GIF)', true);
                 return;
             }
-            
+
             const avatarElement = document.getElementById('user-avatar');
             const reader = new FileReader();
-            
+
             reader.onload = function(e) {
                 avatarElement.style.backgroundImage = `url(${e.target.result})`;
                 avatarElement.classList.add('loaded');
             };
-            
+
             reader.readAsDataURL(file);
-            
+
             await uploadAvatar(file);
         }
-        
+
         async function uploadAvatar(file) {
             try {
                 showMessage('Загрузка аватара...', false);
-                
+
                 const formData = new FormData();
                 formData.append('image', file);
-                
+
                 const csrfToken = getCSRFToken();
-                
+
                 const response = await fetch('/avatar/', {
                     method: 'POST',
                     body: formData,
@@ -611,9 +616,9 @@
                         'X-CSRFToken': csrfToken
                     } : {}
                 });
-                
+
                 const result = await response.json();
-                
+
                 if (result.success) {
                     showMessage('Аватар успешно загружен!');
                     return true;
@@ -628,13 +633,12 @@
                 return false;
             }
         }
-        
-        // Копирование в буфер обмена
+
         function copyAvatarLink() {
             const link = `https://tbs-server-s7vy.onrender.com/avatar/?pub_id=${userData.pubId}&format=image`;
             copyToClipboard(link);
         }
-        
+
         function copyToClipboard(text) {
             navigator.clipboard.writeText(text).then(() => {
                 showMessage('Скопировано в буфер обмена');
@@ -642,39 +646,38 @@
                 showMessage('Ошибка копирования', true);
             });
         }
-        
-        // Работа с модальным окном имени
+
         function openEditNameModal() {
             const modal = document.getElementById('edit-name-modal');
             const input = document.getElementById('new-name-input');
-            
+
             input.value = userData.name;
             modal.style.display = 'flex';
             input.focus();
         }
-        
+
         function closeEditNameModal() {
             document.getElementById('edit-name-modal').style.display = 'none';
         }
-        
+
         async function updateName() {
             const newName = document.getElementById('new-name-input').value.trim();
-            
+
             if (!newName) {
                 showMessage('Имя не может быть пустым', true);
                 return;
             }
-            
+
             if (newName.length > 50) {
                 showMessage('Имя слишком длинное (макс. 50 символов)', true);
                 return;
             }
-            
+
             if (newName === userData.name) {
                 closeEditNameModal();
                 return;
             }
-            
+
             try {
                 const csrfToken = getCSRFToken();
                 const response = await fetch('/api/update-profile/', {
@@ -685,9 +688,9 @@
                     },
                     body: JSON.stringify({ name: newName })
                 });
-                
+
                 const data = await response.json();
-                
+
                 if (data.success) {
                     showMessage('Имя успешно обновлено!');
                     userData.name = newName;
@@ -703,24 +706,30 @@
         }
 
         async function updateBio() {
-            const newBio = document.getElementById('bio').value.trim();
-            
+            const bioInput = document.getElementById('bio');
+            const bioButton = document.getElementById('bio_button');
+
+            let newBio = bioInput.value.trim();
+
             if (!newBio) {
                 newBio = "Нет описания";
+                bioInput.value = newBio;
             }
-            
+
             if (newBio.length > 200) {
-                showMessage('Имя слишком длинное (макс. 50 символов)', true);
+                showMessage('Описание слишком длинное (максимум 200 символов)', true);
                 return;
             }
-            
-            if (newBio === userData.bio) {
-                closeEditNameModal();
+
+            if (newBio === originalBio) {
+                bioButton.disabled = true;
                 return;
             }
-            
+
             try {
                 const csrfToken = getCSRFToken();
+                showMessage('Обновление описания...', false);
+
                 const response = await fetch('/api/update-profile/', {
                     method: 'POST',
                     headers: {
@@ -729,52 +738,84 @@
                     },
                     body: JSON.stringify({ bio: newBio })
                 });
-                
+
                 const data = await response.json();
-                
+
                 if (data.success) {
-                    showMessage('Имя успешно обновлено!');
-                    userData.name = newBio;
-                    document.getElementById('display-bio').textContent = newBio;
-                    closeEditNameModal();
+                    showMessage('Описание успешно обновлено!');
+                    userData.bio = newBio;
+                    originalBio = newBio; 
+
+                    const displayBioElement = document.getElementById('display-bio');
+                    if (displayBioElement) {
+                        displayBioElement.textContent = newBio;
+                    }
+
+                    if (bioButton) {
+                        bioButton.disabled = true;
+                    }
                 } else {
-                    showMessage('Ошибка: ' + data.error, true);
+                    showMessage('Ошибка: ' + (data.error || 'Неизвестная ошибка'), true);
+
+                    bioInput.value = originalBio;
                 }
             } catch (error) {
                 showMessage('Ошибка сети: ' + error.message, true);
+
+                bioInput.value = originalBio;
             }
         }
-        
-        // Показать сообщение
+
         function showMessage(text, isError = false) {
             const messageDiv = document.getElementById('message');
             const messageIcon = document.getElementById('message-icon');
             const messageText = document.getElementById('message-text');
-            
+
             messageText.textContent = text;
             messageDiv.className = isError ? 'message error' : 'message';
             messageIcon.textContent = isError ? '❌' : '✅';
             messageDiv.style.display = 'flex';
-            
+
             setTimeout(() => {
                 messageDiv.style.display = 'none';
             }, 3000);
         }
-        
-        // Закрытие модального окна по клику вне его
+
         document.addEventListener('click', function(event) {
             const modal = document.getElementById('edit-name-modal');
             if (event.target === modal) {
                 closeEditNameModal();
             }
         });
-        
-        // Закрытие модального окна по Escape
+
         document.addEventListener('keydown', function(event) {
             if (event.key === 'Escape') {
                 closeEditNameModal();
             }
         });
+
+        function initBioLogic() {
+            const bioInput = document.getElementById('bio');
+            const bioButton = document.getElementById('bio_button');
+
+            if (!bioInput || !bioButton) return;
+
+            bioButton.disabled = true;
+
+            originalBio = bioInput.value.trim();
+
+            function checkBioChanges() {
+                const currentBio = bioInput.value.trim();
+
+                bioButton.disabled = currentBio === originalBio || currentBio === '';
+            }
+
+            bioInput.addEventListener('input', checkBioChanges);
+            bioInput.addEventListener('change', checkBioChanges);
+            bioInput.addEventListener('keyup', checkBioChanges);
+
+            checkBioChanges();
+        }
     </script>
 </body>
 </html>
