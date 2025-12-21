@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import JsonResponse, HttpResponse
+from django.http import HttpResponseBadRequest, JsonResponse, HttpResponse
 from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt, csrf_protect
 from django.middleware.csrf import get_token, rotate_token
 from django.conf import settings
@@ -529,3 +529,21 @@ def get_default_avatar():
         response.status_code = 200
         return response
 
+def wake(request):
+    return HttpResponse("OK", status=200)
+
+ALLOWED_REDIRECT_HOSTS = {
+    "k90908k8.beget.tech",
+    "tbs-server-s7vy.onrender.com",
+}
+
+def smart_redirect(request):
+    to = request.GET.get("to")
+    if not to:
+        return HttpResponseBadRequest("Missing ?to=")
+
+    parsed = urllib.parse.urlparse(to)
+    if parsed.netloc and parsed.netloc not in ALLOWED_REDIRECT_HOSTS:
+        return HttpResponseBadRequest("Host not allowed")
+
+    return redirect(to)
