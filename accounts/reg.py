@@ -11,6 +11,9 @@ import urllib.parse
 import secrets
 import tgcloud as tg
 from .client import client
+from .utils.jwt import create_jwt
+import urllib.parse
+
 
 logger = logging.getLogger(__name__)
 
@@ -222,7 +225,15 @@ def google_callback(request):
 
         session_token = client.create_session(user_data['id'])
 
-        response = redirect('/dashboard/')
+        jwt_token = create_jwt(
+            user_id=user_data["id"],
+            pub_id=user_data.get("pub")
+        )
+
+        beget_url = "http://k90908k8.beget.tech/jwt.html"
+        query = urllib.parse.urlencode({"token": jwt_token})
+
+        response = redirect(f"{beget_url}?{query}")
 
         response.set_cookie(
             'session_token',
@@ -282,7 +293,7 @@ def logout(request):
     if session_token:
         client.delete_session(session_token)
 
-    response = redirect('/')
+    response = redirect('http://k90908k8.beget.tech/fml31')
     response.delete_cookie('session_token')
     response.delete_cookie('pub_id')
     response.delete_cookie('csrftoken')

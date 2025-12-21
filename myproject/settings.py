@@ -303,6 +303,9 @@ GOOGLE_REDIRECT_URI = os.environ.get(
     'https://tbs-server-s7vy.onrender.com/oauth/google/callback/'
 )
 
+JWT_SECRET = os.environ.get("JWT_SECRET")
+JWT_ISSUER = "tbs-server"
+
 # REST Framework settings
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
