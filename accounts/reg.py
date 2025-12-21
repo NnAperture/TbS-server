@@ -293,7 +293,7 @@ def logout(request):
     if session_token:
         client.delete_session(session_token)
 
-    response = redirect('http://k90908k8.beget.tech/fml31')
+    response = redirect('http://k90908k8.beget.tech/fml31/?logout=1')
     response.delete_cookie('session_token')
     response.delete_cookie('pub_id')
     response.delete_cookie('csrftoken')
