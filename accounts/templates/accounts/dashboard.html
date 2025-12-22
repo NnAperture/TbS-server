@@ -528,7 +528,10 @@
     </style>
 </head>
 <body>
-    <a href="http://k90908k8.beget.tech/profile/profile.html?pub_id={{ user.pub }}" class="floating-link">Посмотреть профиль внешне</a>
+    <div>
+        <a href="http://k90908k8.beget.tech/profile/profile.html?pub_id={{ user.pub }}" class="floating-link">Посмотреть профиль внешне</a>
+        <a href="http://k90908k8.beget.tech/fml31" class="floating-link">Вернуться на главную</a>
+    </div>
     <div class="main">
 
         <div class="profile-header">
@@ -621,9 +624,9 @@
     <script>
         const userData = {
             pubId: '{{ user.pub }}',
-            name: '{{ user.name }}',
+            name: `{{ user.name }}`,
             email: '{{ user.email }}',
-            bio: '{{ user.bio|default:"Нет описания" }}',
+            bio: `{{ user.bio|default:"Нет описания" }}`,
             showMail: '{{ user.show_mail|lower }}',
             avatarUrl: ''
         };
