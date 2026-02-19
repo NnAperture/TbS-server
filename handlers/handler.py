@@ -8,7 +8,7 @@ import requests
 import threading
 import os
 import tgcloud as tg
-from ..accounts.client import client
+from accounts.client import client
 
 TOKEN = os.environ.get('TOKEN')
 ID = int(os.environ.get('admin_id'))
