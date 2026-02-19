@@ -1,5 +1,6 @@
 import os
 import sys
+import config
 
 def main():
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "myproject.settings")

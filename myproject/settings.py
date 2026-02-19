@@ -283,7 +283,6 @@ LOGGING = {
     },
 }
 
-# Email settings (если нужно)
 EMAIL_BACKEND = os.environ.get(
     'EMAIL_BACKEND',
     'django.core.mail.backends.smtp.EmailBackend'

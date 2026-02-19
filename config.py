@@ -2,7 +2,7 @@ import tgcloud
 
 
 tgcloud.config({
- "cache_size":50,
+ "cache_limit":50,
  "trashgroup":-1002066546289,
  "tokens": [
   "7030278698:AAG2ofn_VvWVnLujhtDee6FSbQNDJl5_P2s",
