@@ -29,6 +29,7 @@ tmp = {
     "created_at": None,
     "bio":"Нет описания",
     "show_mail":False,
+    "rewards":[]
 }
 
 class PHPApiClient:

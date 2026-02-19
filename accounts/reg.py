@@ -319,6 +319,7 @@ def api_get_pub_data(request, pub_id):
             'show_mail': user_data.get('show_mail', True),
             'bio': user_data.get('bio', 'Нет описания'),
             'created_at': user_data.get('created_at'),
+            'rewards': user_data.get('rewards', [])
         }
 
         return JsonResponse({

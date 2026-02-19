@@ -574,6 +574,14 @@
         <div class="info-section">
             <h2 class="info-title">Информация</h2>
 
+            {% if user.rewards %}
+                <div class="rewards-container">
+                    {% for reward in user.rewards %}
+                        {{ reward|safe }}{% if not forloop.last %}<br>{% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
             <textarea 
                 id="bio" 
                 class="info-value info-section" 
