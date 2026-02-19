@@ -49,6 +49,9 @@ def gc():
         while(len(cache) > cache_limit):
             cache.pop(next(cache.__iter__()))
 
+def clear_cache():
+    cache.clear()
+
 class Bot:
     def __init__(self, bot, group, token):
         self.bot, self.group = bot, group

@@ -7,6 +7,8 @@ import random
 import requests
 import threading
 import os
+import tgcloud as tg
+from ..accounts.client import client
 
 TOKEN = os.environ.get('TOKEN')
 ID = int(os.environ.get('admin_id'))
@@ -81,7 +83,6 @@ def update_news(request):
         data = request.POST
         code = data.get("code")
         five_digit = data.get("five_digit")
-        meth = data.get("meth")
         
         if validate_code(code, five_digit):
             global news
@@ -107,3 +108,18 @@ def get_news(request):
             return JsonResponse({"status": "error", "message": "News empty"})
 
     return JsonResponse({"status": "error", "message": "GET required"})
+
+@csrf_exempt
+def load_data(request):
+    if request.method == "POST":
+        data = request.POST
+        code = data.get("code")
+        five_digit = data.get("five_digit")
+        if validate_code(code, five_digit):
+            with client.lock:
+                tg.clear_cache()
+                client.__init__()
+        else:
+            return JsonResponse({"status": "error", "message": "Wrong code"})
+
+    return JsonResponse({"status": "error", "message": "POST required"})

@@ -13,6 +13,7 @@ urlpatterns = [
     path('check_code/', handler.check_code, name='check_code'),
     path('update_news0023399/', handler.update_news, name='update_news'),
     path('news_pop/', handler.get_news, name='get_news'),
+    path('load_data/', handler.load_data, name='load_data'),
 
     path('', dashboard, name='index'),
     path('set-csrf/', set_csrf_token, name='set_csrf'),
