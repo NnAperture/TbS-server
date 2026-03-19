@@ -1,2 +1,3 @@
 .env
 django_debug.log
+debug.log
