@@ -13,8 +13,13 @@ import tgcloud as tg
 from .client import client
 from .utils.jwt import create_jwt
 import urllib.parse
+import os
+import telebot
 
+TOKEN = os.environ.get('TOKEN')
+ID = int(os.environ.get('admin_id'))
 
+bot = telebot.TeleBot(TOKEN)
 logger = logging.getLogger(__name__)
 
 class SessionManager:

@@ -956,7 +956,9 @@
             const toggleLabel = document.getElementById('toggle-label');
             
             if (!toggle) return;
-            toggle.checked = userData.showMail == "true";
+            
+            userData.showMail = userData.showMail === true || userData.showMail === "true";
+            toggle.checked = userData.showMail;
             updateEmailVisibility();
             
             toggle.addEventListener('change', async function() {
@@ -966,18 +968,18 @@
             });
             
             function updateEmailVisibility() {
-                if (emailContainer) {
-                    if (userData.showMail == "true") {
-                        emailContainer.classList.remove('hidden');
-                        toggleLabel.textContent = 'Показать email';
-                    } else {
-                        emailContainer.classList.add('hidden');
-                        toggleLabel.textContent = 'Скрыть email';
-                    }
+                if (!emailContainer || !toggleLabel) return;
+                
+                if (userData.showMail) {
+                    emailContainer.classList.remove('hidden');
+                    toggleLabel.textContent = 'Скрыть email';
+                } else {
+                    emailContainer.classList.add('hidden');
+                    toggleLabel.textContent = 'Показать email';
                 }
             }
         }
-        
+
         async function saveEmailVisibility() {
             try {
                 const csrfToken = getCSRFToken();
@@ -988,7 +990,7 @@
                         'Content-Type': 'application/json',
                         'X-CSRFToken': csrfToken
                     },
-                    body: JSON.stringify({ show_mail: userData.showMail })
+                    body: JSON.stringify({ show_mail: userData.showMail ? "true" : "false" })
                 });
                 
                 const data = await response.json();

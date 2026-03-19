@@ -11,3 +11,206 @@ ERROR 2025-12-15 21:26:39,035 basehttp You're accessing the development server o
 INFO 2025-12-15 21:27:13,857 autoreload Watching for file changes with StatReloader
 ERROR 2025-12-15 21:27:20,127 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
 ERROR 2025-12-15 21:27:20,157 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2026-03-19 09:14:26,690 autoreload Watching for file changes with StatReloader
+INFO 2026-03-19 09:14:59,291 autoreload Watching for file changes with StatReloader
+INFO 2026-03-19 09:15:08,429 basehttp "GET / HTTP/1.1" 301 0
+ERROR 2026-03-19 09:15:08,730 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-03-19 09:15:08,747 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-03-19 09:15:16,630 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-03-19 09:15:16,654 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2026-03-19 09:15:25,659 basehttp code 400, message Bad request version ('\x00\x12\x00\x10\x04\x03\x08\x04\x04\x01\x05\x03\x08\x05\x05\x01\x08\x06\x06\x01\x00\x12\x00\x00\x00')
+ERROR 2026-03-19 09:15:25,659 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-03-19 09:15:25,791 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2026-03-19 09:15:33,706 basehttp "GET / HTTP/1.1" 301 0
+INFO 2026-03-19 09:15:34,023 basehttp code 400, message Bad request version ('\x87¶\x19\x18')
+ERROR 2026-03-19 09:15:34,024 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-03-19 09:15:34,298 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-03-19 09:15:34,384 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-03-19 09:15:34,663 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-03-19 09:16:49,700 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-03-19 09:16:49,727 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2026-03-19 09:16:49,943 basehttp code 400, message Bad request version ('U')
+ERROR 2026-03-19 09:16:49,943 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-03-19 09:16:50,068 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-03-19 09:16:50,049 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-03-19 09:16:50,264 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-03-19 09:16:53,072 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-03-19 09:16:53,328 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-03-19 09:16:53,406 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-03-19 09:16:53,686 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2026-03-19 09:17:12,675 basehttp "GET / HTTP/1.1" 301 0
+ERROR 2026-03-19 09:17:26,070 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2026-03-19 09:17:26,305 basehttp code 400, message Bad request version ('\x00\x02\x01\x00\x00\x1b\x00\x03\x02\x00\x02\x00-\x00\x02\x01\x01\x00\x12\x00\x00\x00+\x00\x07\x06JJ\x03\x04\x03\x03\x00\x17\x00\x00\x00')
+ERROR 2026-03-19 09:17:26,306 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-03-19 09:17:26,403 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-03-19 09:17:26,625 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-03-19 09:18:07,242 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-03-19 09:18:07,508 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-03-19 09:18:07,604 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-03-19 09:18:07,849 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2026-03-19 09:18:38,566 basehttp "GET / HTTP/1.1" 301 0
+INFO 2026-03-19 09:19:18,488 basehttp "GET / HTTP/1.1" 301 0
+INFO 2026-03-19 09:20:03,158 basehttp "GET /dashboard/ HTTP/1.1" 301 0
+INFO 2026-03-19 09:20:11,307 basehttp "GET /wake/ HTTP/1.1" 301 0
+INFO 2026-03-19 09:20:20,930 basehttp "GET /logout/ HTTP/1.1" 301 0
+INFO 2026-03-19 09:20:32,710 basehttp "GET /dashboard HTTP/1.1" 301 0
+ERROR 2026-03-19 09:20:33,052 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-03-19 09:20:33,435 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-03-19 09:20:33,461 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-03-19 09:20:33,796 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-03-19 09:20:40,729 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2026-03-19 09:20:40,967 basehttp code 400, message Bad request version ('\x00\x12\x00\x10\x04\x03\x08\x04\x04\x01\x05\x03\x08\x05\x05\x01\x08\x06\x06\x01\x00')
+ERROR 2026-03-19 09:20:40,967 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2026-03-19 09:20:41,044 basehttp code 400, message Bad request version ('localhost\x00-\x00\x02\x01\x01\x00\x05\x00\x05\x01\x00\x00\x00\x00\x00+\x00\x07\x06')
+ERROR 2026-03-19 09:20:41,045 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-03-19 09:20:41,294 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-03-19 09:23:07,819 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-03-19 09:23:07,833 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2026-03-19 09:23:08,076 basehttp code 400, message Bad request version ('\x8a|!')
+ERROR 2026-03-19 09:23:08,077 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2026-03-19 09:23:08,152 basehttp code 400, message Bad request version ('\x00\x02\x01\x00\x00\x17\x00\x00\x00')
+ERROR 2026-03-19 09:23:08,152 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2026-03-19 09:23:08,153 basehttp code 400, message Bad request version ('#o-')
+ERROR 2026-03-19 09:23:08,153 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-03-19 09:23:08,437 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2026-03-19 09:24:07,232 basehttp "GET /dashboard HTTP/1.1" 301 0
+ERROR 2026-03-19 09:24:07,554 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-03-19 09:24:07,833 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2026-03-19 09:24:07,869 basehttp code 400, message Bad request version ('\x00\x02\x01\x00\x00')
+ERROR 2026-03-19 09:24:07,869 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-03-19 09:24:08,149 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2026-03-19 09:24:43,775 basehttp code 400, message Bad request version ('\x02h2\x08http/1.1\x00\x1b\x00\x03\x02\x00\x02\x00#\x00\x00\x00')
+ERROR 2026-03-19 09:24:43,776 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-03-19 09:24:43,817 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-03-19 09:24:44,028 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-03-19 09:24:44,095 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-03-19 09:24:44,185 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2026-03-19 09:24:44,334 basehttp code 400, message Bad request version ('\x11')
+ERROR 2026-03-19 09:24:44,337 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-03-19 09:24:48,163 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-03-19 09:24:48,424 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-03-19 09:24:48,536 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-03-19 09:24:48,745 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2026-03-19 09:26:15,671 basehttp "GET / HTTP/1.1" 301 0
+INFO 2026-03-19 09:26:57,869 autoreload E:\projects\1A.TbS-server\myproject\settings.py changed, reloading.
+INFO 2026-03-19 09:27:06,535 autoreload Watching for file changes with StatReloader
+ERROR 2026-03-19 09:27:18,779 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-03-19 09:27:19,027 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-03-19 09:27:19,103 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-03-19 09:27:19,357 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2026-03-19 09:27:38,142 autoreload E:\projects\1A.TbS-server\myproject\settings.py changed, reloading.
+INFO 2026-03-19 09:27:41,658 autoreload Watching for file changes with StatReloader
+INFO 2026-03-19 09:28:14,311 autoreload Watching for file changes with StatReloader
+ERROR 2026-03-19 09:28:32,360 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-03-19 09:28:32,377 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2026-03-19 09:29:22,190 autoreload Watching for file changes with StatReloader
+INFO 2026-03-19 09:29:43,319 basehttp code 400, message Bad request version ('\x8d')
+ERROR 2026-03-19 09:29:43,325 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-03-19 09:29:43,372 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2026-03-19 09:30:11,575 autoreload Watching for file changes with StatReloader
+ERROR 2026-03-19 09:30:30,116 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-03-19 09:30:30,139 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2026-03-19 09:32:03,521 autoreload Watching for file changes with StatReloader
+ERROR 2026-03-19 09:32:35,740 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-03-19 09:32:36,150 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2026-03-19 09:33:49,688 autoreload Watching for file changes with StatReloader
+ERROR 2026-03-19 09:34:01,543 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+ERROR 2026-03-19 09:34:01,569 basehttp You're accessing the development server over HTTPS, but it only supports HTTP.
+INFO 2026-03-19 09:34:45,496 basehttp "GET / HTTP/1.1" 302 0
+INFO 2026-03-19 09:34:45,513 basehttp "GET /oauth/google/ HTTP/1.1" 302 0
+INFO 2026-03-19 09:34:55,319 basehttp "GET / HTTP/1.1" 302 0
+INFO 2026-03-19 09:34:55,367 basehttp "GET /oauth/google/ HTTP/1.1" 302 0
+INFO 2026-03-19 09:35:40,176 basehttp "GET / HTTP/1.1" 302 0
+INFO 2026-03-19 09:35:40,201 basehttp "GET /oauth/google/ HTTP/1.1" 302 0
+INFO 2026-03-19 09:35:51,461 basehttp "GET /wake HTTP/1.1" 301 0
+INFO 2026-03-19 09:35:51,473 basehttp "GET /wake/ HTTP/1.1" 200 2
+WARNING 2026-03-19 09:35:51,794 log Not Found: /favicon.ico
+WARNING 2026-03-19 09:35:51,795 basehttp "GET /favicon.ico HTTP/1.1" 404 5112
+WARNING 2026-03-19 09:35:54,667 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-03-19 09:35:54,672 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5223
+INFO 2026-03-19 09:36:28,812 basehttp "GET /wake/ HTTP/1.1" 200 2
+WARNING 2026-03-19 09:36:29,223 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-03-19 09:36:29,225 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5223
+INFO 2026-03-19 09:36:32,363 basehttp "GET / HTTP/1.1" 302 0
+INFO 2026-03-19 09:36:32,397 basehttp "GET /oauth/google/ HTTP/1.1" 302 0
+INFO 2026-03-19 09:36:39,547 basehttp "GET /wake/ HTTP/1.1" 200 2
+WARNING 2026-03-19 09:36:39,984 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-03-19 09:36:39,986 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5223
+INFO 2026-03-19 09:36:45,661 basehttp "GET / HTTP/1.1" 302 0
+INFO 2026-03-19 09:36:45,692 basehttp "GET /oauth/google/ HTTP/1.1" 302 0
+INFO 2026-03-19 09:36:53,858 basehttp "GET /dashboard/ HTTP/1.1" 302 0
+INFO 2026-03-19 09:36:53,882 basehttp "GET /oauth/google/ HTTP/1.1" 302 0
+WARNING 2026-03-19 09:36:57,087 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-03-19 09:36:57,088 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5223
+WARNING 2026-03-19 09:36:57,308 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-03-19 09:36:57,310 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5223
+INFO 2026-03-19 09:37:49,557 basehttp "GET /wake/ HTTP/1.1" 200 2
+WARNING 2026-03-19 09:37:49,965 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-03-19 09:37:49,966 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5223
+INFO 2026-03-19 09:38:10,458 autoreload Watching for file changes with StatReloader
+INFO 2026-03-19 09:38:41,633 basehttp "GET / HTTP/1.1" 200 31228
+WARNING 2026-03-19 09:38:42,185 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-03-19 09:38:42,187 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5223
+INFO 2026-03-19 09:38:45,359 basehttp "GET /avatar/?pub_id=3&format=image&t=1773895121720 HTTP/1.1" 200 20324
+INFO 2026-03-19 09:38:47,713 basehttp "GET /avatar/?pub_id=3&format=image&t=1773895121720 HTTP/1.1" 200 20324
+INFO 2026-03-19 09:41:54,695 autoreload Watching for file changes with StatReloader
+INFO 2026-03-19 09:42:20,177 basehttp "POST /api/update-profile/ HTTP/1.1" 200 418
+INFO 2026-03-19 09:42:23,130 basehttp "GET / HTTP/1.1" 200 31228
+INFO 2026-03-19 09:42:29,269 basehttp "GET /avatar/?pub_id=3&format=image&t=1773895343215 HTTP/1.1" 200 20324
+INFO 2026-03-19 09:42:37,261 basehttp "GET /avatar/?pub_id=3&format=image&t=1773895343215 HTTP/1.1" 200 20324
+INFO 2026-03-19 09:42:48,161 basehttp "POST /api/update-profile/ HTTP/1.1" 200 418
+INFO 2026-03-19 09:42:49,495 basehttp "GET / HTTP/1.1" 200 31212
+INFO 2026-03-19 09:42:51,601 basehttp "POST /api/update-profile/ HTTP/1.1" 200 420
+INFO 2026-03-19 09:42:52,214 basehttp "GET / HTTP/1.1" 200 31213
+INFO 2026-03-19 09:42:53,520 basehttp "POST /api/update-profile/ HTTP/1.1" 200 418
+INFO 2026-03-19 09:42:56,271 basehttp - Broken pipe from ('127.0.0.1', 51006)
+INFO 2026-03-19 09:42:57,548 basehttp "GET /avatar/?pub_id=3&format=image&t=1773895372252 HTTP/1.1" 200 20324
+INFO 2026-03-19 09:43:05,635 basehttp "GET /avatar/?pub_id=3&format=image&t=1773895372252 HTTP/1.1" 200 20324
+INFO 2026-03-19 09:43:43,513 basehttp "GET / HTTP/1.1" 200 31212
+INFO 2026-03-19 09:43:48,117 basehttp "POST /api/update-profile/ HTTP/1.1" 200 420
+INFO 2026-03-19 09:43:49,064 basehttp "GET / HTTP/1.1" 200 31213
+INFO 2026-03-19 09:43:50,091 basehttp "POST /api/update-profile/ HTTP/1.1" 200 418
+INFO 2026-03-19 09:43:50,283 basehttp - Broken pipe from ('127.0.0.1', 50806)
+INFO 2026-03-19 09:43:50,988 basehttp "GET / HTTP/1.1" 200 31212
+INFO 2026-03-19 09:43:58,958 basehttp "GET /avatar/?pub_id=3&format=image&t=1773895431027 HTTP/1.1" 200 20324
+INFO 2026-03-19 09:44:05,038 basehttp "GET /avatar/?pub_id=3&format=image&t=1773895431027 HTTP/1.1" 200 20324
+INFO 2026-03-19 09:44:05,931 basehttp - Broken pipe from ('127.0.0.1', 64920)
+INFO 2026-03-19 09:44:30,709 basehttp "GET / HTTP/1.1" 200 31227
+INFO 2026-03-19 09:44:32,626 basehttp "POST /api/update-profile/ HTTP/1.1" 200 420
+INFO 2026-03-19 09:44:33,862 basehttp "POST /api/update-profile/ HTTP/1.1" 200 418
+INFO 2026-03-19 09:44:35,692 basehttp "POST /api/update-profile/ HTTP/1.1" 200 420
+INFO 2026-03-19 09:44:35,819 basehttp "GET /avatar/?pub_id=3&format=image&t=1773895470758 HTTP/1.1" 200 20324
+INFO 2026-03-19 09:44:36,294 basehttp "POST /api/update-profile/ HTTP/1.1" 200 418
+INFO 2026-03-19 09:44:37,859 basehttp "GET /avatar/?pub_id=3&format=image&t=1773895470758 HTTP/1.1" 200 20324
+INFO 2026-03-19 09:44:39,449 basehttp "POST /api/update-profile/ HTTP/1.1" 200 420
+INFO 2026-03-19 09:44:40,396 basehttp "POST /api/update-profile/ HTTP/1.1" 200 418
+INFO 2026-03-19 09:44:57,948 autoreload Watching for file changes with StatReloader
+INFO 2026-03-19 09:45:22,810 basehttp "GET / HTTP/1.1" 200 31226
+INFO 2026-03-19 09:45:29,586 basehttp "GET /avatar/?pub_id=3&format=image&t=1773895522847 HTTP/1.1" 200 20324
+INFO 2026-03-19 09:45:32,126 basehttp "POST /api/update-profile/ HTTP/1.1" 200 418
+INFO 2026-03-19 09:45:34,466 basehttp "POST /api/update-profile/ HTTP/1.1" 200 420
+INFO 2026-03-19 09:45:41,654 basehttp "GET /avatar/?pub_id=3&format=image&t=1773895522847 HTTP/1.1" 200 20324
+INFO 2026-03-19 09:45:46,223 basehttp "POST /api/update-profile/ HTTP/1.1" 200 418
+INFO 2026-03-19 09:45:47,207 basehttp "POST /api/update-profile/ HTTP/1.1" 200 420
+INFO 2026-03-19 09:45:56,408 basehttp "GET / HTTP/1.1" 200 31226
+INFO 2026-03-19 09:45:57,892 basehttp "POST /api/update-profile/ HTTP/1.1" 200 418
+INFO 2026-03-19 09:46:02,871 basehttp "GET /avatar/?pub_id=3&format=image&t=1773895556444 HTTP/1.1" 200 20324
+INFO 2026-03-19 09:46:09,334 basehttp "GET /avatar/?pub_id=3&format=image&t=1773895556444 HTTP/1.1" 200 20324
+INFO 2026-03-19 09:47:55,570 basehttp "GET / HTTP/1.1" 200 31410
+INFO 2026-03-19 09:47:56,780 basehttp "POST /api/update-profile/ HTTP/1.1" 200 420
+INFO 2026-03-19 09:47:57,883 basehttp "POST /api/update-profile/ HTTP/1.1" 200 418
+INFO 2026-03-19 09:48:02,136 basehttp "POST /api/update-profile/ HTTP/1.1" 200 420
+INFO 2026-03-19 09:48:02,850 basehttp "POST /api/update-profile/ HTTP/1.1" 200 418
+INFO 2026-03-19 09:48:07,189 basehttp "GET /avatar/?pub_id=3&format=image&t=1773895675624 HTTP/1.1" 200 20324
+INFO 2026-03-19 09:48:09,109 basehttp "GET /avatar/?pub_id=3&format=image&t=1773895675624 HTTP/1.1" 200 20324
+INFO 2026-03-19 09:49:14,254 basehttp "GET / HTTP/1.1" 200 31193
+INFO 2026-03-19 09:49:19,710 basehttp "GET /avatar/?pub_id=3&format=image&t=1773895754291 HTTP/1.1" 200 20324
+INFO 2026-03-19 09:49:33,965 basehttp "GET /avatar/?pub_id=3&format=image&t=1773895754291 HTTP/1.1" 200 20324
+INFO 2026-03-19 09:50:04,127 basehttp "GET / HTTP/1.1" 200 31431
+WARNING 2026-03-19 09:50:06,119 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-03-19 09:50:06,133 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5223
+INFO 2026-03-19 09:50:11,016 basehttp "POST /api/update-profile/ HTTP/1.1" 200 420
+INFO 2026-03-19 09:50:13,740 basehttp "POST /api/update-profile/ HTTP/1.1" 200 418
+INFO 2026-03-19 09:50:14,234 basehttp "GET /avatar/?pub_id=3&format=image&t=1773895804173 HTTP/1.1" 200 20324
+INFO 2026-03-19 09:50:33,167 basehttp "GET /avatar/?pub_id=3&format=image&t=1773895804173 HTTP/1.1" 200 20324
+INFO 2026-03-19 09:51:24,226 autoreload Watching for file changes with StatReloader
