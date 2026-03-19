@@ -214,3 +214,29 @@ INFO 2026-03-19 09:50:13,740 basehttp "POST /api/update-profile/ HTTP/1.1" 200 4
 INFO 2026-03-19 09:50:14,234 basehttp "GET /avatar/?pub_id=3&format=image&t=1773895804173 HTTP/1.1" 200 20324
 INFO 2026-03-19 09:50:33,167 basehttp "GET /avatar/?pub_id=3&format=image&t=1773895804173 HTTP/1.1" 200 20324
 INFO 2026-03-19 09:51:24,226 autoreload Watching for file changes with StatReloader
+INFO 2026-03-19 09:52:02,571 basehttp - Broken pipe from ('127.0.0.1', 52470)
+INFO 2026-03-19 09:52:14,594 basehttp "GET / HTTP/1.1" 200 31533
+WARNING 2026-03-19 09:52:16,863 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-03-19 09:52:16,865 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5223
+INFO 2026-03-19 09:52:18,491 basehttp "POST /api/update-profile/ HTTP/1.1" 200 420
+INFO 2026-03-19 09:52:19,577 basehttp - Broken pipe from ('127.0.0.1', 56591)
+INFO 2026-03-19 09:52:20,846 basehttp "POST /api/update-profile/ HTTP/1.1" 200 418
+INFO 2026-03-19 09:52:23,212 basehttp "POST /api/update-profile/ HTTP/1.1" 200 420
+INFO 2026-03-19 09:52:53,396 basehttp "GET /avatar/?pub_id=3&format=image&t=1773895934691 HTTP/1.1" 200 20324
+INFO 2026-03-19 09:53:00,125 basehttp "GET / HTTP/1.1" 200 31203
+WARNING 2026-03-19 09:53:00,453 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-03-19 09:53:00,455 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5223
+INFO 2026-03-19 09:53:01,984 basehttp "POST /api/update-profile/ HTTP/1.1" 200 422
+INFO 2026-03-19 09:53:02,954 basehttp "POST /api/update-profile/ HTTP/1.1" 200 424
+INFO 2026-03-19 09:53:03,766 basehttp "POST /api/update-profile/ HTTP/1.1" 200 422
+INFO 2026-03-19 09:53:04,342 basehttp "POST /api/update-profile/ HTTP/1.1" 200 424
+INFO 2026-03-19 09:53:16,266 basehttp "GET /avatar/?pub_id=3&format=image&t=1773895980207 HTTP/1.1" 200 4570
+INFO 2026-03-19 09:53:28,696 basehttp - Broken pipe from ('127.0.0.1', 59801)
+INFO 2026-03-19 09:53:48,339 basehttp "GET /avatar/?pub_id=3&format=image&t=1773895980207 HTTP/1.1" 200 20324
+INFO 2026-03-19 09:53:52,842 basehttp "GET / HTTP/1.1" 200 31303
+INFO 2026-03-19 09:53:53,701 basehttp "POST /api/update-profile/ HTTP/1.1" 200 422
+INFO 2026-03-19 09:53:54,415 basehttp "POST /api/update-profile/ HTTP/1.1" 200 424
+INFO 2026-03-19 09:53:55,377 basehttp "POST /api/update-profile/ HTTP/1.1" 200 422
+INFO 2026-03-19 09:53:55,999 basehttp "POST /api/update-profile/ HTTP/1.1" 200 424
+INFO 2026-03-19 09:53:56,505 basehttp "GET /avatar/?pub_id=3&format=image&t=1773896032910 HTTP/1.1" 200 20324
+INFO 2026-03-19 09:54:02,996 basehttp "GET /avatar/?pub_id=3&format=image&t=1773896032910 HTTP/1.1" 200 20324
