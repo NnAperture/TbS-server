@@ -240,3 +240,9 @@ INFO 2026-03-19 09:53:55,377 basehttp "POST /api/update-profile/ HTTP/1.1" 200 4
 INFO 2026-03-19 09:53:55,999 basehttp "POST /api/update-profile/ HTTP/1.1" 200 424
 INFO 2026-03-19 09:53:56,505 basehttp "GET /avatar/?pub_id=3&format=image&t=1773896032910 HTTP/1.1" 200 20324
 INFO 2026-03-19 09:54:02,996 basehttp "GET /avatar/?pub_id=3&format=image&t=1773896032910 HTTP/1.1" 200 20324
+INFO 2026-03-25 06:35:30,488 autoreload Watching for file changes with StatReloader
+INFO 2026-03-25 06:35:48,170 autoreload E:\projects\1A.TbS-server\accounts\client.py changed, reloading.
+INFO 2026-03-25 06:35:56,391 autoreload Watching for file changes with StatReloader
+INFO 2026-03-25 06:36:44,014 autoreload Watching for file changes with StatReloader
+INFO 2026-03-25 06:36:52,054 autoreload E:\projects\1A.TbS-server\accounts\client.py changed, reloading.
+INFO 2026-03-25 06:37:14,154 autoreload Watching for file changes with StatReloader

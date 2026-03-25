@@ -8,7 +8,6 @@ import tgcloud as tg
 import config
 import threading
 import secrets
-from ..handlers.handler import bot, ID
 
 LIFE_TIME = 3600 * 24 * 100
 
@@ -48,6 +47,7 @@ class PHPApiClient:
         return self.accounts[index]
 
     def _create_user(self, id, email, name):
+        from handlers.handler import bot, ID
         bot.send_message(ID, f"New account created: {name} ({email}) - {id}")
         global pub_id_v
         with self.lock:
