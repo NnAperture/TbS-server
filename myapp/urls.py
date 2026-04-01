@@ -7,6 +7,9 @@ from accounts.reg import (
     api_update_profile, set_csrf_token, avatar,
     wake, smart_redirect
 )
+from accounts.avito import (
+    create_product_view
+)
 
 urlpatterns = [
     path('admin_check/', handler.admin_check, name='admin_check'),
@@ -27,4 +30,7 @@ urlpatterns = [
     path('avatar/', avatar, name='avatar'),
     path("wake/", wake),
     path("redirect/", smart_redirect),
+
+    #Avito
+    path("secmark/create/", create_product_view),
 ]

@@ -15,5 +15,5 @@ RUN pip install -r requirements.txt
 
 COPY . .
 
-CMD ["gunicorn", "myproject.wsgi:application", "--bind", "0.0.0.0:8000", "--timeout", "60"]
+CMD ["gunicorn", "myproject.wsgi:application", "--bind", "0.0.0.0:8000", "--workers", "2", "--threads", "8", "--timeout", "60"]
 
