@@ -29,6 +29,10 @@ class Packager:
     
     def set_obj(self, obj):
         self._obj.set(obj)
+    
+    @property
+    def id(self):
+        return self._obj.id
 
 def add_product(id, pack_id):
     av_id = client.get(id)["avito"]
