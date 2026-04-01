@@ -51,7 +51,7 @@ def create_product(id, properties):
     prod.special = properties.get("special", None)
 
     pack_id = Packager(prod).id
-    threading.Thread(target=add_product, args=(id, pack_id))
+    threading.Thread(target=add_product, args=(id, pack_id)).start()
 
     return pack_id
 
