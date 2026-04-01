@@ -73,7 +73,7 @@ def create_product_view(request):
             
             return JsonResponse({
                 'status': 'success',
-                'pack_id': pack_id
+                'pack_id': pack_id.to_str()
             })
         except Exception as e:
             return JsonResponse({
