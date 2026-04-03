@@ -8,7 +8,8 @@ from accounts.reg import (
     wake, smart_redirect
 )
 from accounts.avito import (
-    create_product_view
+    create_product_view, avito_dashboard, create_product_page,
+    
 )
 
 urlpatterns = [
@@ -33,4 +34,6 @@ urlpatterns = [
 
     #Avito
     path("secmark/create/", create_product_view),
+    path("secmark/create_page/", create_product_page),
+    path("secmark/dashboard/", avito_dashboard),
 ]

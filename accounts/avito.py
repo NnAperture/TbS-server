@@ -16,13 +16,15 @@ class Product:
     def __init__(self):
         self.icon = None
         self.name = None 
+        self.price = None
         self.description = None
         self.author = None
         self.special = {}
+        self.id = 0
 
 class Packager:
-    def __init__(self, obj=Product()):
-        self._obj = tg.UndefinedVar(obj)
+    def __init__(self, obj=None, id=None):
+        self._obj = tg.UndefinedVar(obj, id=id).cache()
     
     def get_obj(self):
         return self._obj.get()
@@ -39,6 +41,7 @@ def add_product(id, pack_id):
     if(av_id == None):
         client.update_user_info({"avito":
                                  tg.UndefinedVar([pack_id])})
+        return
     obj = tg.UndefinedVar(id=av_id)
     obj.set(obj.get() + [pack_id])
 
@@ -46,6 +49,7 @@ def create_product(id, properties):
     prod = Product()
     prod.author = id
     prod.name = properties.get("name", None)
+    prod.price = properties.get("price", None)
     prod.icon = properties.get("icon", None)
     prod.description = properties.get("description", None)
     prod.special = properties.get("special", None)
@@ -85,3 +89,62 @@ def create_product_view(request):
             'status': 'error',
             'message': 'Method not allowed'
         }, status=405)
+
+def get_avito(id):
+    avito = tg.UndefinedVar(id=client.get(id)["avito"]).get()
+    if(avito == None): avito = []
+    return [Packager(id) for id in avito]
+
+@csrf_exempt
+def avito_dashboard(request):
+    user_data = SessionManager.validate_request(request)
+
+    if not user_data:
+        return redirect('/oauth/google/')
+    
+    user_id = user_data['id']
+
+    avito = list(map(lambda x:x.get_obj, get_avito(user_id)))
+    response = render(request, 'avito/dashboard.html', {
+        'avito': avito,
+        'name': client.get(user_id)["name"]
+    })
+
+    response.set_cookie(
+        'csrftoken',
+        get_token(request),
+        max_age=31449600,
+        secure=True,  
+
+        httponly=False,
+        samesite='Lax'
+    )
+
+    return response
+
+@csrf_exempt
+def create_product_page(request):
+    user_data = SessionManager.validate_request(request)
+
+    if not user_data:
+        return redirect('/oauth/google/')
+    
+    user_id = user_data['id']
+
+    response = render(request, 'avito/edit_page.html', {
+        'name': client.get(user_id)["name"],
+        'product': None,
+        'id':None
+    })
+
+    response.set_cookie(
+        'csrftoken',
+        get_token(request),
+        max_age=31449600,
+        secure=True,  
+
+        httponly=False,
+        samesite='Lax'
+    )
+
+    return response

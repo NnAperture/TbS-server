@@ -109,6 +109,10 @@ class Bytes:
 
     def __str__(self):
         return str(bytes(self))
+    
+    def cache(self):
+        threading.Thread(target=self.get).start()
+        return self
 
 
 
@@ -447,6 +451,10 @@ class LinkedBytes:
         t.start()
         return self
 
+    def cache(self):
+        threading.Thread(target=self.get).start()
+        return self
+
 
 class SimpleBytes:
     def __init__(self, value=None, id=None, init_symbol="c"):
@@ -475,3 +483,7 @@ class SimpleBytes:
 
     def __repr__(self):
         return str(bytes(self))
+    
+    def cache(self):
+        threading.Thread(target=self.get).start()
+        return self

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>SOMEL - Secondary Market personal list</title>
+    </head>
+    <body>
+        <style>
+            body {
+                background: #001f3f;
+                color: white;
+                font-family: courier, sans-serif;
+            }
+
+            .product-card {
+                margin-bottom: 20px;
+                padding: 15px;
+                background: #0036944f;
+                border: solid #eef4ff54 1px;
+                border-radius: 20px;
+            }
+            h1 {
+                margin-bottom: 20px;
+                padding: 15px;
+                background: #0036944f;
+                border: solid #eef4ff54 1px;
+                border-radius: 20px;
+                color: white;
+                margin: 0 20% 0 20%;
+                text-align: center;
+                margin-top: 20px;
+            }
+            .name {
+                text-align: center;
+                font-size: x-large;
+            }
+            .mainlist {
+                margin-bottom: 20px;
+                padding: 15px;
+                background: #0036944f;
+                border: solid #eef4ff54 1px;
+                border-radius: 20px;
+                color: white;
+                text-align: center;
+                margin-top: 20px;
+                box-shadow: 
+                    5px 5px 10px rgba(255, 255, 255, 0.205),
+                    inset -20px -20px 15px #00359138;
+            }
+        </style>
+
+        <div id="products-container" data-products="{{ avito|safe }}">
+        </div>
+
+        <div>
+            <h1>Secondary market Dashboard</h1>
+            <p class="name">{{ name }} product list</p>
+            <div id="mainlist" class="mainlist"></div>
+        </div>
+
+        <script>
+            const productsData = JSON.parse(document.getElementById('products-container').dataset.products);
+            console.log(productsData);
+            if(productsData.length === 0) {
+                document.getElementById('mainlist').innerHTML = 'У вас нет товаров!';
+            } else {
+
+            }
+        </script>
+    </body>
+</html>

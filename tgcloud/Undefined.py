@@ -28,3 +28,7 @@ class UndefinedVar:
 
     def __repr__(self):
         return f"u{self}"
+    
+    def cache(self):
+        threading.Thread(target=self.get).start()
+        return self

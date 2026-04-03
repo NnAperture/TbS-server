@@ -246,3 +246,136 @@ INFO 2026-03-25 06:35:56,391 autoreload Watching for file changes with StatReloa
 INFO 2026-03-25 06:36:44,014 autoreload Watching for file changes with StatReloader
 INFO 2026-03-25 06:36:52,054 autoreload E:\projects\1A.TbS-server\accounts\client.py changed, reloading.
 INFO 2026-03-25 06:37:14,154 autoreload Watching for file changes with StatReloader
+INFO 2026-04-03 22:00:40,547 autoreload Watching for file changes with StatReloader
+INFO 2026-04-03 22:01:18,095 autoreload Watching for file changes with StatReloader
+INFO 2026-04-03 22:02:03,825 autoreload Watching for file changes with StatReloader
+INFO 2026-04-03 22:02:50,328 basehttp "GET / HTTP/1.1" 200 31471
+INFO 2026-04-03 22:02:51,219 basehttp "GET /avatar/?pub_id=3&format=image&t=1775235770455 HTTP/1.1" 200 20324
+INFO 2026-04-03 22:02:51,778 basehttp "GET /avatar/?pub_id=3&format=image&t=1775235770455 HTTP/1.1" 200 20324
+WARNING 2026-04-03 22:02:51,811 log Not Found: /favicon.ico
+WARNING 2026-04-03 22:02:51,813 basehttp "GET /favicon.ico HTTP/1.1" 404 5439
+INFO 2026-04-03 22:03:13,032 basehttp "GET / HTTP/1.1" 200 31813
+INFO 2026-04-03 22:03:13,921 basehttp "GET / HTTP/1.1" 200 31813
+INFO 2026-04-03 22:03:14,333 basehttp - Broken pipe from ('127.0.0.1', 51150)
+INFO 2026-04-03 22:03:14,478 basehttp "GET /avatar/?pub_id=3&format=image&t=1775235793958 HTTP/1.1" 200 20324
+INFO 2026-04-03 22:03:14,917 basehttp "GET /avatar/?pub_id=3&format=image&t=1775235793958 HTTP/1.1" 200 20324
+INFO 2026-04-03 22:03:23,614 basehttp "GET / HTTP/1.1" 200 31839
+INFO 2026-04-03 22:03:24,193 basehttp "GET /avatar/?pub_id=3&format=image&t=1775235803654 HTTP/1.1" 200 20324
+INFO 2026-04-03 22:03:24,269 basehttp "GET / HTTP/1.1" 200 31839
+INFO 2026-04-03 22:03:24,615 basehttp - Broken pipe from ('127.0.0.1', 64812)
+INFO 2026-04-03 22:03:25,762 basehttp "GET /avatar/?pub_id=3&format=image&t=1775235804301 HTTP/1.1" 200 20324
+INFO 2026-04-03 22:03:26,166 basehttp "GET /avatar/?pub_id=3&format=image&t=1775235804301 HTTP/1.1" 200 20324
+INFO 2026-04-03 22:03:37,369 basehttp "GET / HTTP/1.1" 200 31839
+INFO 2026-04-03 22:03:38,061 basehttp "GET /avatar/?pub_id=3&format=image&t=1775235817409 HTTP/1.1" 200 20324
+INFO 2026-04-03 22:03:38,420 basehttp "POST /api/update-profile/ HTTP/1.1" 200 495
+INFO 2026-04-03 22:03:38,525 basehttp "GET /avatar/?pub_id=3&format=image&t=1775235817409 HTTP/1.1" 200 20324
+INFO 2026-04-03 22:03:39,160 basehttp "POST /api/update-profile/ HTTP/1.1" 200 493
+INFO 2026-04-03 22:03:39,722 basehttp "GET / HTTP/1.1" 200 31839
+INFO 2026-04-03 22:03:40,290 basehttp "GET /avatar/?pub_id=3&format=image&t=1775235819754 HTTP/1.1" 200 20324
+INFO 2026-04-03 22:03:40,480 basehttp "POST /api/update-profile/ HTTP/1.1" 200 495
+INFO 2026-04-03 22:03:40,691 basehttp "GET /avatar/?pub_id=3&format=image&t=1775235819754 HTTP/1.1" 200 20324
+INFO 2026-04-03 22:03:40,814 basehttp "GET / HTTP/1.1" 200 31840
+INFO 2026-04-03 22:03:41,266 basehttp "GET /avatar/?pub_id=3&format=image&t=1775235820851 HTTP/1.1" 200 20324
+INFO 2026-04-03 22:03:41,564 basehttp "POST /api/update-profile/ HTTP/1.1" 200 493
+INFO 2026-04-03 22:03:41,693 basehttp "GET /avatar/?pub_id=3&format=image&t=1775235820851 HTTP/1.1" 200 20324
+INFO 2026-04-03 22:03:42,248 basehttp "GET / HTTP/1.1" 200 31839
+INFO 2026-04-03 22:03:42,791 basehttp "GET /avatar/?pub_id=3&format=image&t=1775235822287 HTTP/1.1" 200 20324
+INFO 2026-04-03 22:03:43,278 basehttp "GET /avatar/?pub_id=3&format=image&t=1775235822287 HTTP/1.1" 200 20324
+INFO 2026-04-03 22:03:52,000 basehttp "GET / HTTP/1.1" 200 31840
+INFO 2026-04-03 22:03:52,623 basehttp "GET /avatar/?pub_id=3&format=image&t=1775235832035 HTTP/1.1" 200 20324
+INFO 2026-04-03 22:03:53,018 basehttp "GET /avatar/?pub_id=3&format=image&t=1775235832035 HTTP/1.1" 200 20324
+INFO 2026-04-03 22:04:00,014 basehttp "GET / HTTP/1.1" 200 31665
+INFO 2026-04-03 22:04:00,660 basehttp "GET /avatar/?pub_id=3&format=image&t=1775235840060 HTTP/1.1" 200 20324
+INFO 2026-04-03 22:04:01,555 basehttp "GET /avatar/?pub_id=3&format=image&t=1775235840060 HTTP/1.1" 200 20324
+INFO 2026-04-03 22:04:08,423 basehttp "GET / HTTP/1.1" 200 31840
+INFO 2026-04-03 22:04:09,326 basehttp "GET /avatar/?pub_id=3&format=image&t=1775235848457 HTTP/1.1" 200 20324
+INFO 2026-04-03 22:04:09,761 basehttp "GET /avatar/?pub_id=3&format=image&t=1775235848457 HTTP/1.1" 200 20324
+INFO 2026-04-03 22:04:12,892 basehttp "GET / HTTP/1.1" 200 31706
+INFO 2026-04-03 22:04:13,514 basehttp "GET /avatar/?pub_id=3&format=image&t=1775235852929 HTTP/1.1" 200 20324
+INFO 2026-04-03 22:04:14,042 basehttp "GET /avatar/?pub_id=3&format=image&t=1775235852929 HTTP/1.1" 200 20324
+ERROR 2026-04-03 22:04:33,367 log Internal Server Error: /secmark/dashboard/
+Traceback (most recent call last):
+  File "e:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "e:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "e:\projects\1A.TbS-server\venv\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "E:\projects\1A.TbS-server\accounts\avito.py", line 107, in avito_dashboard
+    'avito': list(map(lambda x:x.get_obj, get_avito(user_id))),
+                                          ~~~~~~~~~^^^^^^^^^
+  File "E:\projects\1A.TbS-server\accounts\avito.py", line 95, in get_avito
+    return [Packager(id) for id in avito]
+                                   ^^^^^
+TypeError: 'NoneType' object is not iterable
+ERROR 2026-04-03 22:04:33,376 basehttp "GET /secmark/dashboard/ HTTP/1.1" 500 82590
+INFO 2026-04-03 22:04:49,214 autoreload E:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-03 22:04:53,518 autoreload Watching for file changes with StatReloader
+ERROR 2026-04-03 22:04:58,424 log Internal Server Error: /secmark/dashboard/
+Traceback (most recent call last):
+  File "e:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "e:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "e:\projects\1A.TbS-server\venv\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "E:\projects\1A.TbS-server\accounts\avito.py", line 107, in avito_dashboard
+    'avito': list(map(lambda x:x.get_obj, get_avito(user_id))),
+                                          ~~~~~~~~~^^^^^^^^^
+  File "E:\projects\1A.TbS-server\accounts\avito.py", line 94, in get_avito
+    avito = tg.UndefinedVar(id=client.get(id)["avito"]).get([])
+TypeError: UndefinedVar.get() takes 1 positional argument but 2 were given
+ERROR 2026-04-03 22:04:58,433 basehttp "GET /secmark/dashboard/ HTTP/1.1" 500 82718
+INFO 2026-04-03 22:05:09,821 autoreload E:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-03 22:05:14,159 autoreload Watching for file changes with StatReloader
+INFO 2026-04-03 22:05:19,489 autoreload E:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-03 22:05:24,954 autoreload Watching for file changes with StatReloader
+INFO 2026-04-03 22:05:29,517 autoreload E:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-03 22:05:32,736 autoreload Watching for file changes with StatReloader
+INFO 2026-04-03 22:05:38,513 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 486
+INFO 2026-04-03 22:05:47,736 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 486
+WARNING 2026-04-03 22:05:49,052 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-03 22:05:49,055 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5550
+INFO 2026-04-03 22:06:14,973 autoreload E:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-03 22:06:23,140 autoreload Watching for file changes with StatReloader
+INFO 2026-04-03 22:06:32,549 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 486
+WARNING 2026-04-03 22:06:32,964 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-03 22:06:32,965 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5550
+INFO 2026-04-03 22:06:39,690 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 486
+WARNING 2026-04-03 22:06:40,061 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-03 22:06:40,062 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5550
+INFO 2026-04-03 22:06:47,564 autoreload E:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-03 22:06:52,456 autoreload Watching for file changes with StatReloader
+INFO 2026-04-03 22:06:59,425 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 486
+WARNING 2026-04-03 22:06:59,794 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-03 22:06:59,795 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5550
+INFO 2026-04-03 22:08:11,103 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 488
+WARNING 2026-04-03 22:08:11,419 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-03 22:08:11,420 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5550
+INFO 2026-04-03 22:08:17,943 autoreload E:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-03 22:08:21,616 autoreload Watching for file changes with StatReloader
+INFO 2026-04-03 22:10:08,076 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 902
+WARNING 2026-04-03 22:10:08,426 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-03 22:10:08,428 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5550
+INFO 2026-04-03 22:10:23,758 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 969
+INFO 2026-04-03 22:14:02,334 autoreload E:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-03 22:14:06,315 autoreload Watching for file changes with StatReloader
+INFO 2026-04-03 22:15:14,818 basehttp "GET / HTTP/1.1" 200 31706
+INFO 2026-04-03 22:15:15,472 basehttp "GET /avatar/?pub_id=3&format=image&t=1775236514916 HTTP/1.1" 200 20324
+INFO 2026-04-03 22:15:15,876 basehttp "GET /avatar/?pub_id=3&format=image&t=1775236514916 HTTP/1.1" 200 20324
+WARNING 2026-04-03 22:15:32,541 log Not Found: /accounts/templates/avito/dashboard.html
+WARNING 2026-04-03 22:15:32,542 basehttp "GET /accounts/templates/avito/dashboard.html HTTP/1.1" 404 5523
+INFO 2026-04-03 22:16:27,565 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 1366
+INFO 2026-04-03 22:20:31,284 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 1472
+INFO 2026-04-03 22:20:34,633 basehttp - Broken pipe from ('127.0.0.1', 58052)
+INFO 2026-04-03 22:20:38,497 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 1485
+INFO 2026-04-03 22:22:30,335 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 1726
+INFO 2026-04-03 22:22:46,296 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 2095
+INFO 2026-04-03 22:22:50,382 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 2058
+INFO 2026-04-03 22:23:51,076 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 2202
+INFO 2026-04-03 22:23:53,939 autoreload E:\projects\1A.TbS-server\myapp\urls.py changed, reloading.
+INFO 2026-04-03 22:23:57,875 autoreload Watching for file changes with StatReloader
+INFO 2026-04-03 22:24:03,156 autoreload E:\projects\1A.TbS-server\myapp\urls.py changed, reloading.
+INFO 2026-04-03 22:24:08,435 autoreload Watching for file changes with StatReloader
+INFO 2026-04-03 22:24:27,914 autoreload E:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-03 22:24:31,595 autoreload Watching for file changes with StatReloader
