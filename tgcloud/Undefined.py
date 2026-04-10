@@ -27,7 +27,7 @@ class UndefinedVar:
         return str(self.get())
 
     def __repr__(self):
-        return f"u{self}"
+        return f"u{self.get()}" 
     
     def cache(self):
         threading.Thread(target=self.get).start()

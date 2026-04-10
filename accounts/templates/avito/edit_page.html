@@ -1,11 +1,476 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>SOMEL secmark creation</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #001f3f;
+            color: white;
+            font-family: 'Courier New', Courier, monospace;
+            margin: 0;
+            padding: 20px;
+        }
+
+        button {
+            background-color: #005cb8;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #004499;
+            padding: 10px 25px;
+            transform: scale(1.02);
+        }
+
+        .container {
+            background-color: #00326496;
+            backdrop-filter: blur(2px);
+            margin: 5% auto;
+            max-width: 800px;
+            border: solid 1px rgba(255, 255, 255, 0.425);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        input, textarea, select {
+            background-color: #0052a596;
+            border: solid 1px rgba(255, 255, 255, 0.425);
+            border-radius: 20px;
+            padding: 10px 15px;
+            color: white;
+            font-family: inherit;
+            font-size: 14px;
+            width: 100%;
+            transition: 0.2s;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #00a8ff;
+            background-color: #0066b3;
+            box-shadow: 0 0 8px rgba(0, 168, 255, 0.3);
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .tags-container {
+            text-align: left;
+            margin-top: 5px;
+        }
+
+        .tags-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+            padding: 15px;
+            background-color: rgba(0, 50, 100, 0.5);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .tag-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background-color: #0052a5;
+            padding: 8px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: 0.2s;
+            user-select: none;
+        }
+
+        .tag-item:hover {
+            background-color: #0066cc;
+            transform: scale(1.02);
+        }
+
+        .tag-item.selected {
+            background-color: #00a8ff;
+            box-shadow: 0 0 10px rgba(0, 168, 255, 0.5);
+        }
+
+        .tag-item input {
+            width: auto;
+            margin: 0;
+            transform: scale(1.2);
+            cursor: pointer;
+            accent-color: #00a8ff;
+        }
+
+        .tag-item label {
+            cursor: pointer;
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            font-size: 14px;
+            color: #e0e0e0;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 25px;
+        }
+
+        .action-buttons button {
+            min-width: 120px;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+        }
+
+        .selected-tags-display {
+            margin-top: 10px;
+            padding: 8px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 12px;
+            font-size: 12px;
+            color: #aaa;
+        }
+
+        hr {
+            border-color: rgba(255, 255, 255, 0.2);
+            margin: 20px 0;
+        }
+
+        #type {
+            font-weight: bold;
+            color: #00a8ff;
+        }
+    </style>
 </head>
 <body>
-    
+    <div id="init_buttons" class="container">
+        <p>Создание продукта</p>
+        <button onclick="Product()" style="font-size: x-large;">Создать товар</button>
+        <button onclick="Service()" style="font-size: x-large;">Разместить услугу</button>
+        <button onclick="Vacancy()" style="font-size: x-large;">Разместить вакансию</button>
+    </div>
+
+    <div id="creation" class="container" style="display: none;">
+        <h2 id="form-title">Создание продукта</h2>
+        <p>Тип продукта: <span id="type"></span></p>
+        
+        <div class="form-group">
+            <label for="product-name">Название</label>
+            <input type="text" id="product-name" placeholder="Введите название" required>
+        </div>
+
+        <div class="form-group">
+            <label for="product-price">Цена</label>
+            <input type="text" id="product-price" placeholder="Введите цену" required step="0.01">
+        </div>
+
+        <div class="form-group">
+            <label>Категории</label>
+            <div class="tags-container">
+                <div class="tags-grid" id="tags-grid">
+                </div>
+                <div class="selected-tags-display" id="selected-tags-display">
+                    Выбрано: нет
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="product-description">Описание</label>
+            <textarea id="product-description" placeholder="Подробное описание..." rows="6" style="resize: vertical;"></textarea>
+            <label for="product-backcom">Способ связи</label>
+            <textarea id="product-backcom" placeholder="Способ для других связаться с вами..." rows="2" style="resize: vertical;"></textarea>
+        </div>
+
+        <div class="action-buttons">
+            <button onclick="cancelCreation()" class="btn-secondary">Отмена</button>
+            <button onclick="submitForm()" class="btn-success">Сохранить</button>
+        </div>
+    </div>
+
+    {{ product|json_script:"product-data" }}
+    {{ product_id|json_script:"product-id-data" }}
+
+    <script>
+        const availableTags = [
+            "Общее", "Компьютерные", "Электроника"
+        ];
+
+        let selectedTags = [];
+        let currentType = null;
+        let currentProductId = null;
+
+        function initTags() {
+            const tagsGrid = document.getElementById('tags-grid');
+            tagsGrid.innerHTML = '';
+            
+            availableTags.forEach(tag => {
+                const tagDiv = document.createElement('div');
+                tagDiv.className = 'tag-item';
+                tagDiv.onclick = (e) => {
+                    if (e.target.type !== 'checkbox') {
+                        const checkbox = tagDiv.querySelector('input');
+                        checkbox.checked = !checkbox.checked;
+                        toggleTag(tag, checkbox.checked);
+                    }
+                };
+                
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.id = `tag-${tag}`;
+                checkbox.onchange = (e) => {
+                    e.stopPropagation();
+                    toggleTag(tag, checkbox.checked);
+                };
+                
+                const label = document.createElement('label');
+                label.htmlFor = `tag-${tag}`;
+                label.textContent = tag;
+                
+                tagDiv.appendChild(checkbox);
+                tagDiv.appendChild(label);
+                tagsGrid.appendChild(tagDiv);
+            });
+        }
+
+        function toggleTag(tag, isChecked) {
+            if (isChecked) {
+                if (!selectedTags.includes(tag)) {
+                    selectedTags.push(tag);
+                }
+            } else {
+                selectedTags = selectedTags.filter(t => t !== tag);
+            }
+            updateSelectedTagsDisplay();
+        }
+
+        function updateSelectedTagsDisplay() {
+            const display = document.getElementById('selected-tags-display');
+            if (selectedTags.length === 0) {
+                display.textContent = 'Выбрано: нет';
+                display.style.color = '#aaa';
+            } else {
+                display.textContent = `Выбрано: ${selectedTags.join(', ')}`;
+                display.style.color = '#00a8ff';
+            }
+        }
+
+        function getSelectedTags() {
+            return selectedTags;
+        }
+
+        function getTypeName(type) {
+            const types = {
+                'product': 'Товар',
+                'service': 'Услуга',
+                'vacancy': 'Вакансия'
+            };
+            return types[type] || type;
+        }
+
+        async function submitForm() {
+            const name = document.getElementById('product-name').value;
+            const price = document.getElementById('product-price').value;
+            const description = document.getElementById('product-description').value;
+            const backcom = document.getElementById('product-backcom').value;
+            const tags = getSelectedTags();
+
+            if (!name) {
+                alert('Пожалуйста, введите название');
+                return;
+            }
+            if (!price) {
+                alert('Пожалуйста, введите цену');
+                return;
+            }
+            if (!backcom) {
+                alert('Пожалуйста, введите способ связи');
+                return;
+            }
+
+            const formData = {
+                type: currentType,
+                name: name,
+                price: price,
+                description: description,
+                tags: tags,
+                backcom: backcom,
+            };
+
+            console.log('Отправка данных:', formData);
+            
+            try {
+                let url = '/secmark/create/';
+                let method = 'POST';
+                
+                if (currentProductId) {
+                    url = `/secmark/edit/?id=${encodeURIComponent(currentProductId)}`;
+                    method = 'POST';
+                }
+                
+                const response = await fetch(url, {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const result = await response.json();
+                console.log('result:', result);
+                alert('Сохранено.');
+            
+                window.location.href = '/secmark/dashboard/';
+                
+            } catch (error) {
+                console.error(error);
+                alert('Произошла ошибка при отправке данных: ' + error.message);
+            }
+        }
+
+        function resetForm() {
+            document.getElementById('product-name').value = '';
+            document.getElementById('product-price').value = '';
+            document.getElementById('product-description').value = '';
+            document.getElementById('product-backcom').value = '';
+            
+            document.querySelectorAll('.tag-item input').forEach(checkbox => {
+                checkbox.checked = false;
+            });
+            selectedTags = [];
+            updateSelectedTagsDisplay();
+        }
+
+        function cancelCreation() {
+            window.location.href = '/secmark/dashboard/';
+        }
+
+        function Product() {
+            currentType = 'product';
+            currentProductId = null;
+            document.getElementById('init_buttons').style.display = 'none';
+            document.getElementById('creation').style.display = 'block';
+            document.getElementById('form-title').textContent = 'Создание товара';
+            document.getElementById('type').innerText = "Товар";
+            resetForm();
+        }
+
+        function Service() {
+            currentType = 'service';
+            currentProductId = null;
+            document.getElementById('init_buttons').style.display = 'none';
+            document.getElementById('creation').style.display = 'block';
+            document.getElementById('form-title').textContent = 'Размещение услуги';
+            document.getElementById('type').innerText = "Услуга";
+            resetForm();
+        }
+
+        function Vacancy() {
+            currentType = 'vacancy';
+            currentProductId = null;
+            document.getElementById('init_buttons').style.display = 'none';
+            document.getElementById('creation').style.display = 'block';
+            document.getElementById('form-title').textContent = 'Размещение вакансии';
+            document.getElementById('type').innerText = "Вакансия";
+            resetForm();
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initTags();
+            
+            document.getElementById('creation').style.display = 'none';
+            
+            let productData = null;
+            let productId = null;
+            
+            const productScript = document.getElementById('product-data');
+            if (productScript && productScript.textContent && productScript.textContent !== 'null' && productScript.textContent !== '') {
+                try {
+                    productData = JSON.parse(productScript.textContent);
+                } catch (e) {
+                    console.error('Error parsing product:', e);
+                }
+            }
+            
+            const idScript = document.getElementById('product-id-data');
+            if (idScript && idScript.textContent && idScript.textContent !== 'null' && idScript.textContent !== '') {
+                productId = idScript.textContent.replace(/^"|"$/g, ''); // Убираем кавычки
+                console.log('Product ID cleaned:', productId);
+            }
+            
+            console.log('Product data:', productData);
+            console.log('Product ID:', productId);
+            
+            if (productData && productData !== null && productId && productId !== 'None') {
+                document.getElementById('init_buttons').style.display = 'none';
+                document.getElementById('creation').style.display = 'block';
+                
+                currentType = productData.type;
+                currentProductId = productId;
+                document.getElementById('form-title').textContent = 'Редактирование';
+                document.getElementById('type').innerText = getTypeName(productData.type);
+                
+                document.getElementById('product-name').value = productData.name || '';
+                document.getElementById('product-price').value = productData.price || '';
+                document.getElementById('product-description').value = productData.description || '';
+                document.getElementById('product-backcom').value = productData.backcom || '';
+                
+                if (productData.special && productData.special.tags) {
+                    selectedTags = [...productData.special.tags];
+                    document.querySelectorAll('.tag-item input').forEach(checkbox => {
+                        const label = checkbox.nextElementSibling;
+                        if (label && selectedTags.includes(label.textContent)) {
+                            checkbox.checked = true;
+                        }
+                    });
+                    updateSelectedTagsDisplay();
+                }
+                
+                console.log('Режим редактирования, продукт:', productData);
+            }
+        });
+    </script>
 </body>
 </html>

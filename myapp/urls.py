@@ -9,7 +9,7 @@ from accounts.reg import (
 )
 from accounts.avito import (
     create_product_view, avito_dashboard, create_product_page,
-    
+    edit_product_page, delete_product_view, edit_product_view
 )
 
 urlpatterns = [
@@ -35,5 +35,8 @@ urlpatterns = [
     #Avito
     path("secmark/create/", create_product_view),
     path("secmark/create_page/", create_product_page),
+    path("secmark/edit_page/", edit_product_page),
+    path("secmark/edit/", edit_product_view),
+    path("secmark/delete/", delete_product_view),
     path("secmark/dashboard/", avito_dashboard),
 ]

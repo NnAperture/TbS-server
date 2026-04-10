@@ -1,150 +1,355 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponseBadRequest, JsonResponse, HttpResponse
-from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt, csrf_protect
-from django.middleware.csrf import get_token, rotate_token
-from django.conf import settings
-from django.urls import reverse
-import requests
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.middleware.csrf import get_token
 import tgcloud as tg
 from .client import client
 from .reg import SessionManager
 import threading
 import json
-from accounts.reg import SessionManager
 
-class Product:
-    def __init__(self):
-        self.icon = None
-        self.name = None 
-        self.price = None
-        self.description = None
-        self.author = None
-        self.special = {}
-        self.id = 0
+def create_product_dict(author_id=None, properties=None):
+    product = {
+        'icon': None,
+        'name': None,
+        'price': None,
+        'description': None,
+        'backcom': None,
+        'author': author_id,
+        'special': {},
+        'type': "",
+    }
+    
+    if properties:
+        for key, value in properties.items():
+            if key in product:
+                product[key] = value
+            elif key == 'special' and isinstance(value, dict):
+                product['special'] = value
+            elif key == 'tags':
+                product['special']['tags'] = value
+    
+    return product
 
 class Packager:
     def __init__(self, obj=None, id=None):
         self._obj = tg.UndefinedVar(obj, id=id).cache()
     
     def get_obj(self):
-        return self._obj.get()
+        try:
+            value = self._obj.get()
+            if value is None:
+                return None
+            if isinstance(value, dict):
+                return value
+            # Если value - строка (ID)
+            if isinstance(value, str) and '|' in value:
+                return tg.UndefinedVar(id=tg.Id().from_str(value)).get()
+            return None
+        except Exception as e:
+            print(f"Error in get_obj: {e}")
+            return None
     
     def set_obj(self, obj):
-        self._obj.set(obj)
+        try:
+            current_id = self._obj.get()
+            if isinstance(current_id, str) and '|' in current_id:
+                tg.UndefinedVar(id=tg.Id().from_str(current_id)).set(obj)
+            else:
+                self._obj.set(obj)
+        except Exception as e:
+            print(f"Error in set_obj: {e}")
     
     @property
     def id(self):
         return self._obj.id
 
-def add_product(id, pack_id):
-    av_id = client.get(id)["avito"]
-    if(av_id == None):
-        client.update_user_info({"avito":
-                                 tg.UndefinedVar([pack_id])})
-        return
-    obj = tg.UndefinedVar(id=av_id)
-    obj.set(obj.get() + [pack_id])
+def add_product_to_user(user_id, product_id):
+    av_data = client.get(user_id).get("avito")
+    if av_data is None:
+        new_list_id = str(tg.UndefinedVar([product_id]).id)
+        client.update_user_info(user_id, {"avito": new_list_id})
+    else:
+        product_list = tg.UndefinedVar(id=tg.Id().from_str(av_data))
+        current_ids = product_list.get()
+        current_ids.append(product_id)
+        product_list.set(current_ids)
 
-def create_product(id, properties):
-    prod = Product()
-    prod.author = id
-    prod.name = properties.get("name", None)
-    prod.price = properties.get("price", None)
-    prod.icon = properties.get("icon", None)
-    prod.description = properties.get("description", None)
-    prod.special = properties.get("special", None)
-
-    pack_id = Packager(prod).id
-    threading.Thread(target=add_product, args=(id, pack_id)).start()
-
-    return pack_id
+def create_product(user_id, properties):
+    product = create_product_dict(author_id=user_id, properties=properties)
+    packager = Packager(product)
+    product_id = str(packager.id)
+    threading.Thread(target=add_product_to_user, args=(user_id, product_id)).start()
+    return product_id
 
 @csrf_exempt
 def create_product_view(request):
-    if request.method == 'POST':
-        try:
-            user_data = SessionManager.validate_request(request)
-            if not user_data:
-                return JsonResponse({
-                    'authenticated': False,
-                    'error': 'Authentication required'
-                }, status=401)
-            data = json.loads(request.body)
-            id = user_data.get("id")
-            properties = data.get('properties', {})
-            
-            pack_id = create_product(id, properties)
-            
-            return JsonResponse({
-                'status': 'success',
-                'pack_id': pack_id.to_str()
-            })
-        except Exception as e:
-            return JsonResponse({
-                'status': 'error',
-                'message': str(e)
-            }, status=400)
-    else:
-        return JsonResponse({
-            'status': 'error',
-            'message': 'Method not allowed'
-        }, status=405)
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+    
+    try:
+        user_data = SessionManager.validate_request(request)
+        if not user_data:
+            return JsonResponse({'error': 'Authentication required'}, status=401)
+        
+        properties = json.loads(request.body)
+        user_id = user_data.get("id")
+        
+        required_fields = ['name', 'price', 'backcom', 'type']
+        missing = [f for f in required_fields if not properties.get(f)]
+        
+        if missing:
+            return JsonResponse({'error': f'Missing fields: {missing}'}, status=400)
+        
+        product_id = create_product(user_id, properties)
+        return JsonResponse({'success': True, 'product_id': product_id})
+        
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
 
-def get_avito(id):
-    avito = tg.UndefinedVar(id=client.get(id)["avito"]).get()
-    if(avito == None): avito = []
-    return [Packager(id) for id in avito]
+@csrf_exempt
+def edit_product_view(request):
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+    
+    try:
+        user_data = SessionManager.validate_request(request)
+        if not user_data:
+            return JsonResponse({'error': 'Authentication required'}, status=401)
+        
+        product_id = request.GET.get('id', '').strip('"')
+        if not product_id:
+            return JsonResponse({'error': 'Product ID required'}, status=400)
+        
+        print(f"Editing product ID: {product_id}")
+        
+        properties = json.loads(request.body)
+        user_id = user_data.get("id")
+        
+        required_fields = ['name', 'price', 'backcom', 'type']
+        missing = [f for f in required_fields if not properties.get(f)]
+        if missing:
+            return JsonResponse({'error': f'Missing fields: {missing}'}, status=400)
+        
+        # Получаем существующий продукт через tg.UndefinedVar напрямую
+        tg_id = tg.Id().from_str(product_id)
+        product_var = tg.UndefinedVar(id=tg_id)
+        
+        # Пробуем разные варианты получения данных
+        existing_product = None
+        try:
+            # Вариант 1: без аргументов
+            existing_product = product_var.get()
+        except TypeError:
+            try:
+                # Вариант 2: с пустым аргументом
+                existing_product = product_var.get(None)
+            except:
+                try:
+                    # Вариант 3: через cache
+                    existing_product = product_var.cache().get()
+                except:
+                    existing_product = None
+        
+        if not existing_product:
+            return JsonResponse({'error': 'Product not found'}, status=404)
+        
+        if str(existing_product.get('author')) != str(user_id):
+            return JsonResponse({'error': 'Access denied'}, status=403)
+        
+        # Обновляем поля
+        for key, value in properties.items():
+            if key in existing_product:
+                existing_product[key] = value
+            elif key == 'tags':
+                if 'special' not in existing_product:
+                    existing_product['special'] = {}
+                existing_product['special']['tags'] = value
+        
+        # Сохраняем - пробуем set с разными способами
+        try:
+            product_var.set(existing_product)
+        except:
+            try:
+                product_var.cache().set(existing_product)
+            except Exception as e:
+                print(f"Error saving: {e}")
+        
+        return JsonResponse({'success': True})
+        
+    except Exception as e:
+        print(f"Edit error: {e}")
+        import traceback
+        traceback.print_exc()
+        return JsonResponse({'error': str(e)}, status=500)
+
+@csrf_exempt
+def delete_product_view(request):
+    if request.method != 'DELETE':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+    
+    try:
+        user_data = SessionManager.validate_request(request)
+        if not user_data:
+            return JsonResponse({'error': 'Authentication required'}, status=401)
+        
+        product_id = request.GET.get('id')
+        if not product_id:
+            return JsonResponse({'error': 'Product ID required'}, status=400)
+        
+        user_id = user_data.get("id")
+        
+        # Проверяем существование продукта
+        try:
+            packager = Packager(id=tg.Id().from_str(product_id))
+            product = packager.get_obj().get()
+            if not product:
+                print(f"Product {product_id} not found or is None")
+        except Exception as e:
+            print(f"Product {product_id} may not exist: {e}")
+        
+        # Удаляем из списка пользователя
+        av_data = client.get(user_id).get("avito")
+        if av_data:
+            try:
+                product_list = tg.UndefinedVar(id=tg.Id().from_str(av_data))
+                current_ids = product_list.get()
+                if product_id in current_ids:
+                    current_ids.remove(product_id)
+                    if current_ids:
+                        product_list.set(current_ids)
+                    else:
+                        client.update_user_info(user_id, {"avito": None})
+            except Exception as e:
+                print(f"Error updating user product list: {e}")
+        
+        # Пытаемся удалить продукт (если существует)
+        try:
+            packager._obj.set(None)
+        except:
+            pass
+        
+        return JsonResponse({'success': True})
+        
+    except Exception as e:
+        print(f"Delete error: {e}")
+        return JsonResponse({'error': str(e)}, status=500)
+
+def get_user_products(user_id):
+    av_data = client.get(user_id).get("avito")
+    if not av_data:
+        return []
+    
+    try:
+        product_ids = tg.UndefinedVar(id=tg.Id().from_str(av_data)).get()
+        if not product_ids:
+            return []
+    except Exception as e:
+        print(f"Error getting product IDs: {e}")
+        return []
+    
+    products = []
+    for pid in product_ids:
+        try:
+            # Проверяем существует ли продукт
+            product_var = tg.UndefinedVar(id=tg.Id().from_str(pid))
+            if product_var.get() is None:
+                print(f"Product {pid} is None, skipping")
+                continue
+            
+            product_data = product_var.get()
+            if isinstance(product_data, dict):
+                product_data['real_id'] = pid
+                products.append(product_data)
+            else:
+                print(f"Product {pid} returned non-dict: {type(product_data)}")
+        except Exception as e:
+            print(f"Error loading product {pid}: {e}")
+            continue
+    
+    return products
 
 @csrf_exempt
 def avito_dashboard(request):
     user_data = SessionManager.validate_request(request)
-
     if not user_data:
         return redirect('/oauth/google/')
     
     user_id = user_data['id']
-
-    avito = list(map(lambda x:x.get_obj, get_avito(user_id)))
+    products = get_user_products(user_id)
+    
+    # Фильтруем None и пустые продукты
+    products = [p for p in products if p and isinstance(p, dict)]
+    
     response = render(request, 'avito/dashboard.html', {
-        'avito': avito,
+        'products': products,
         'name': client.get(user_id)["name"]
     })
-
-    response.set_cookie(
-        'csrftoken',
-        get_token(request),
-        max_age=31449600,
-        secure=True,  
-
-        httponly=False,
-        samesite='Lax'
-    )
-
+    
+    response.set_cookie('csrftoken', get_token(request), max_age=31449600, secure=True, httponly=False, samesite='Lax')
     return response
 
 @csrf_exempt
 def create_product_page(request):
     user_data = SessionManager.validate_request(request)
-
     if not user_data:
         return redirect('/oauth/google/')
     
     user_id = user_data['id']
-
+    
     response = render(request, 'avito/edit_page.html', {
         'name': client.get(user_id)["name"],
         'product': None,
-        'id':None
+        'product_id': None
     })
+    
+    response.set_cookie('csrftoken', get_token(request), max_age=31449600, secure=True, httponly=False, samesite='Lax')
+    return response
 
-    response.set_cookie(
-        'csrftoken',
-        get_token(request),
-        max_age=31449600,
-        secure=True,  
-
-        httponly=False,
-        samesite='Lax'
-    )
-
+@csrf_exempt
+def edit_product_page(request):
+    product_id = request.GET.get('id')
+    if not product_id:
+        return redirect('/secmark/dashboard/')
+    
+    user_data = SessionManager.validate_request(request)
+    if not user_data:
+        return redirect('/oauth/google/')
+    
+    user_id = user_data['id']
+    
+    try:
+        # Получаем ID объект
+        tg_id = tg.Id().from_str(product_id)
+        
+        # Создаем UndefinedVar с ID
+        var = tg.UndefinedVar(id=tg_id)
+        
+        # Пытаемся получить данные
+        product = var.get() if hasattr(var, 'get') else None
+        
+        # Если не получилось, пробуем через cache
+        if not product:
+            product = var.cache().get() if hasattr(var, 'cache') else None
+        
+        if not product or not isinstance(product, dict):
+            print(f"Product not found or invalid: {product}")
+            return redirect('/secmark/dashboard/')
+        
+        if str(product.get('author')) != str(user_id):
+            return redirect('/secmark/dashboard/')
+        
+    except Exception as e:
+        print(f"Error loading product: {e}")
+        import traceback
+        traceback.print_exc()
+        return redirect('/secmark/dashboard/')
+    
+    response = render(request, 'avito/edit_page.html', {
+        'name': client.get(user_id)["name"],
+        'product': product,
+        'product_id': product_id
+    })
+    
+    response.set_cookie('csrftoken', get_token(request), max_age=31449600, secure=True, httponly=False, samesite='Lax')
     return response

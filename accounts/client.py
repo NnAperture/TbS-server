@@ -75,7 +75,7 @@ class PHPApiClient:
                     manifest.set(manifest.get() + [str(v.id)])
                     public_manifest.set(self.public)
             threading.Thread(target=th).start()
-            return new_user
+            return user_data
 
     def __contains__(self, value):
         return value in self.accounts

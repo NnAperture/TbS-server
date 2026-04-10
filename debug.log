@@ -379,3 +379,1650 @@ INFO 2026-04-03 22:24:03,156 autoreload E:\projects\1A.TbS-server\myapp\urls.py 
 INFO 2026-04-03 22:24:08,435 autoreload Watching for file changes with StatReloader
 INFO 2026-04-03 22:24:27,914 autoreload E:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
 INFO 2026-04-03 22:24:31,595 autoreload Watching for file changes with StatReloader
+INFO 2026-04-05 22:26:52,217 autoreload Watching for file changes with StatReloader
+INFO 2026-04-05 22:27:56,671 autoreload Watching for file changes with StatReloader
+INFO 2026-04-05 22:29:52,431 basehttp "GET / HTTP/1.1" 200 31706
+INFO 2026-04-05 22:29:53,340 basehttp "GET /avatar/?pub_id=3&format=image&t=1775410192536 HTTP/1.1" 200 20324
+INFO 2026-04-05 22:29:53,851 basehttp "GET /avatar/?pub_id=3&format=image&t=1775410192536 HTTP/1.1" 200 20324
+WARNING 2026-04-05 22:29:53,870 log Not Found: /favicon.ico
+WARNING 2026-04-05 22:29:53,872 basehttp "GET /favicon.ico HTTP/1.1" 404 5606
+INFO 2026-04-05 22:30:20,484 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 346
+WARNING 2026-04-05 22:30:25,313 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-05 22:30:25,314 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-05 22:32:02,427 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 554
+WARNING 2026-04-05 22:32:02,657 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-05 22:32:02,658 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-06 06:38:51,315 autoreload Watching for file changes with StatReloader
+INFO 2026-04-06 06:38:58,011 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 551
+WARNING 2026-04-06 06:38:58,551 log Not Found: /favicon.ico
+WARNING 2026-04-06 06:38:58,552 basehttp "GET /favicon.ico HTTP/1.1" 404 5606
+WARNING 2026-04-06 06:39:00,040 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-06 06:39:00,042 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-06 06:39:07,139 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 551
+WARNING 2026-04-06 06:39:07,366 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-06 06:39:07,367 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-06 06:43:19,735 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 1132
+INFO 2026-04-06 06:43:35,341 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 1164
+INFO 2026-04-06 06:43:41,303 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 1165
+INFO 2026-04-06 06:44:03,991 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 1192
+INFO 2026-04-06 06:44:10,001 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 1193
+INFO 2026-04-06 06:44:24,366 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 1221
+INFO 2026-04-06 06:44:41,618 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 1248
+INFO 2026-04-06 06:44:56,299 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 1279
+INFO 2026-04-06 06:45:01,594 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 1281
+INFO 2026-04-06 06:45:07,467 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 1281
+INFO 2026-04-06 06:45:13,453 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 1302
+INFO 2026-04-06 06:45:25,766 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 1343
+INFO 2026-04-06 06:45:36,033 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 1343
+INFO 2026-04-06 06:45:41,054 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 1343
+INFO 2026-04-06 06:46:19,937 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 1375
+INFO 2026-04-06 06:46:52,062 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 1371
+INFO 2026-04-06 06:49:54,426 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 1774
+INFO 2026-04-06 06:50:00,418 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 1774
+INFO 2026-04-06 06:50:01,922 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 1586
+INFO 2026-04-06 06:50:32,308 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 1584
+INFO 2026-04-06 06:50:38,960 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 1588
+INFO 2026-04-06 06:50:49,217 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 1584
+INFO 2026-04-06 06:50:54,086 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 1584
+INFO 2026-04-06 06:51:01,135 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 1584
+INFO 2026-04-06 06:51:11,447 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 1614
+INFO 2026-04-06 06:51:21,670 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 1614
+INFO 2026-04-07 19:24:47,283 autoreload Watching for file changes with StatReloader
+INFO 2026-04-08 18:38:26,969 autoreload Watching for file changes with StatReloader
+INFO 2026-04-08 22:13:49,578 autoreload Watching for file changes with StatReloader
+INFO 2026-04-08 22:14:25,905 basehttp "GET / HTTP/1.1" 302 0
+INFO 2026-04-08 22:14:25,912 basehttp "GET /oauth/google/ HTTP/1.1" 302 0
+INFO 2026-04-08 22:14:43,383 basehttp "GET / HTTP/1.1" 302 0
+INFO 2026-04-08 22:14:43,401 basehttp "GET /oauth/google/ HTTP/1.1" 302 0
+WARNING 2026-04-08 22:14:54,362 log Not Found: /avito/
+WARNING 2026-04-08 22:14:54,362 basehttp "GET /avito/ HTTP/1.1" 404 5591
+WARNING 2026-04-08 22:14:54,469 log Not Found: /favicon.ico
+WARNING 2026-04-08 22:14:54,469 basehttp "GET /favicon.ico HTTP/1.1" 404 5606
+WARNING 2026-04-08 22:15:44,940 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-08 22:15:44,941 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+WARNING 2026-04-08 22:16:05,877 log Not Found: /avito/
+WARNING 2026-04-08 22:16:05,878 basehttp "GET /avito/ HTTP/1.1" 404 5591
+WARNING 2026-04-08 22:16:05,981 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-08 22:16:05,981 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+WARNING 2026-04-08 22:16:13,936 log Not Found: /avito/
+WARNING 2026-04-08 22:16:13,936 basehttp "GET /avito/ HTTP/1.1" 404 5591
+WARNING 2026-04-08 22:16:14,046 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-08 22:16:14,046 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-08 22:16:18,922 autoreload Watching for file changes with StatReloader
+INFO 2026-04-08 22:16:26,482 basehttp "GET / HTTP/1.1" 200 31706
+INFO 2026-04-08 22:16:27,133 basehttp "GET /avatar/?pub_id=3&format=image&t=1775668586530 HTTP/1.1" 200 20324
+INFO 2026-04-08 22:16:27,460 basehttp "GET /avatar/?pub_id=3&format=image&t=1775668586530 HTTP/1.1" 200 20324
+INFO 2026-04-08 22:16:49,526 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 2232
+INFO 2026-04-08 22:16:54,827 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 1840
+WARNING 2026-04-08 22:17:00,249 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-08 22:17:00,250 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-08 22:17:23,806 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 1846
+WARNING 2026-04-08 22:17:23,901 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-08 22:17:23,901 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-08 22:17:42,706 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 1846
+WARNING 2026-04-08 22:17:42,803 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-08 22:17:42,803 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-08 22:18:02,403 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-08 22:18:04,347 autoreload Watching for file changes with StatReloader
+INFO 2026-04-08 22:18:34,949 autoreload Watching for file changes with StatReloader
+INFO 2026-04-08 22:18:41,358 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 1838
+WARNING 2026-04-08 22:18:41,461 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-08 22:18:41,462 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-08 22:19:06,811 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 1997
+WARNING 2026-04-08 22:19:06,899 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-08 22:19:06,899 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-08 22:21:10,696 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 2243
+WARNING 2026-04-08 22:21:10,794 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-08 22:21:10,795 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-08 22:21:22,791 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 2334
+WARNING 2026-04-08 22:21:22,887 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-08 22:21:22,888 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-08 22:21:44,256 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 2334
+WARNING 2026-04-08 22:21:44,347 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-08 22:21:44,347 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-08 22:21:51,250 autoreload Watching for file changes with StatReloader
+INFO 2026-04-08 22:21:52,803 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 2334
+WARNING 2026-04-08 22:21:52,913 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-08 22:21:52,913 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-08 22:21:53,693 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 2334
+WARNING 2026-04-08 22:21:53,791 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-08 22:21:53,792 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-08 22:22:29,236 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 2470
+WARNING 2026-04-08 22:22:29,325 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-08 22:22:29,325 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-08 22:22:47,215 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 2502
+WARNING 2026-04-08 22:22:47,310 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-08 22:22:47,311 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-08 22:22:57,915 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 2506
+WARNING 2026-04-08 22:22:58,011 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-08 22:22:58,012 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-08 22:23:16,452 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 2518
+WARNING 2026-04-08 22:23:16,540 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-08 22:23:16,540 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-08 22:23:32,750 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 2546
+WARNING 2026-04-08 22:23:32,857 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-08 22:23:32,858 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-08 22:23:35,755 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 2546
+WARNING 2026-04-08 22:23:35,868 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-08 22:23:35,869 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-08 22:23:47,379 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 2520
+WARNING 2026-04-08 22:23:47,476 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-08 22:23:47,477 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+WARNING 2026-04-08 22:24:10,827 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-08 22:24:10,827 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-08 22:24:52,337 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 2544
+WARNING 2026-04-08 22:24:52,426 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-08 22:24:52,427 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-08 22:24:52,504 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 2544
+WARNING 2026-04-08 22:24:52,601 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-08 22:24:52,601 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-08 22:25:00,787 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 2550
+WARNING 2026-04-08 22:25:00,886 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-08 22:25:00,886 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-08 22:25:08,019 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 2550
+WARNING 2026-04-08 22:25:08,119 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-08 22:25:08,120 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-08 22:26:04,974 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 2522
+WARNING 2026-04-08 22:26:05,066 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-08 22:26:05,067 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-08 22:27:46,350 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 2625
+WARNING 2026-04-08 22:27:46,451 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-08 22:27:46,451 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-08 22:28:04,746 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 2692
+WARNING 2026-04-08 22:28:04,849 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-08 22:28:04,850 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-08 22:28:21,045 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 2783
+WARNING 2026-04-08 22:28:21,143 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-08 22:28:21,143 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-08 22:28:28,762 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 2809
+WARNING 2026-04-08 22:28:28,869 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-08 22:28:28,869 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-09 19:24:36,935 autoreload Watching for file changes with StatReloader
+INFO 2026-04-09 19:24:56,326 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 2809
+WARNING 2026-04-09 19:24:56,700 log Not Found: /favicon.ico
+WARNING 2026-04-09 19:24:56,700 basehttp "GET /favicon.ico HTTP/1.1" 404 5606
+INFO 2026-04-09 19:45:58,954 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 3582
+INFO 2026-04-09 19:46:22,823 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 3596
+INFO 2026-04-09 19:46:34,085 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 3609
+INFO 2026-04-09 19:46:48,071 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 3625
+INFO 2026-04-09 19:48:53,140 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 3739
+INFO 2026-04-09 22:03:05,689 autoreload Watching for file changes with StatReloader
+INFO 2026-04-09 22:03:18,320 autoreload Watching for file changes with StatReloader
+INFO 2026-04-09 22:03:53,466 autoreload Watching for file changes with StatReloader
+INFO 2026-04-09 22:03:58,185 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 13794
+WARNING 2026-04-09 22:03:58,362 log Not Found: /favicon.ico
+WARNING 2026-04-09 22:03:58,362 basehttp "GET /favicon.ico HTTP/1.1" 404 5606
+INFO 2026-04-09 22:04:00,880 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 2232
+INFO 2026-04-09 22:04:56,642 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 13089
+INFO 2026-04-09 22:10:17,848 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 12966
+INFO 2026-04-09 22:25:59,053 autoreload Watching for file changes with StatReloader
+INFO 2026-04-09 22:27:39,139 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 13037
+INFO 2026-04-09 22:29:55,536 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-09 22:29:57,273 autoreload Watching for file changes with StatReloader
+INFO 2026-04-09 22:41:54,761 autoreload Watching for file changes with StatReloader
+INFO 2026-04-09 22:42:03,400 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 2232
+INFO 2026-04-09 22:42:07,107 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 14015
+INFO 2026-04-09 22:42:42,802 basehttp "POST /secmark/create_page/ HTTP/1.1" 200 14015
+WARNING 2026-04-09 22:42:56,705 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-09 22:42:56,725 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-09 22:42:59,184 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 13752
+WARNING 2026-04-09 22:42:59,285 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-09 22:42:59,285 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-09 22:43:17,357 basehttp "POST /secmark/create_page/ HTTP/1.1" 200 13752
+INFO 2026-04-09 22:43:44,042 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 13747
+WARNING 2026-04-09 22:43:44,163 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-09 22:43:44,164 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-09 22:43:56,989 basehttp "POST /secmark/create/ HTTP/1.1" 200 54
+INFO 2026-04-09 22:44:18,022 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-09 22:44:20,056 autoreload Watching for file changes with StatReloader
+INFO 2026-04-09 22:44:22,453 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-09 22:44:24,475 autoreload Watching for file changes with StatReloader
+INFO 2026-04-09 22:44:36,460 basehttp "POST /secmark/create/ HTTP/1.1" 200 54
+INFO 2026-04-09 22:46:00,691 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-09 22:46:02,731 autoreload Watching for file changes with StatReloader
+INFO 2026-04-09 22:46:13,324 basehttp "POST /secmark/create/ HTTP/1.1" 200 54
+INFO 2026-04-09 22:48:37,233 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-09 22:48:39,506 autoreload Watching for file changes with StatReloader
+INFO 2026-04-09 22:48:44,071 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-09 22:48:46,179 autoreload Watching for file changes with StatReloader
+INFO 2026-04-09 22:49:15,563 autoreload Watching for file changes with StatReloader
+INFO 2026-04-09 22:49:23,919 basehttp "POST /secmark/create/ HTTP/1.1" 200 54
+INFO 2026-04-09 22:50:13,715 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 13735
+WARNING 2026-04-09 22:50:13,831 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-09 22:50:13,832 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-09 22:50:20,003 basehttp "POST /secmark/create/ HTTP/1.1" 200 44
+INFO 2026-04-09 22:51:12,436 autoreload Watching for file changes with StatReloader
+INFO 2026-04-09 22:51:16,143 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 13735
+WARNING 2026-04-09 22:51:16,260 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-09 22:51:16,261 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+WARNING 2026-04-09 22:51:23,101 log Bad Request: /secmark/create/
+WARNING 2026-04-09 22:51:23,103 basehttp "POST /secmark/create/ HTTP/1.1" 400 72
+INFO 2026-04-09 22:51:36,573 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-09 22:51:38,556 autoreload Watching for file changes with StatReloader
+INFO 2026-04-09 22:51:52,531 autoreload Watching for file changes with StatReloader
+WARNING 2026-04-09 22:51:57,490 log Bad Request: /secmark/create/
+INFO 2026-04-09 22:52:39,967 autoreload Watching for file changes with StatReloader
+INFO 2026-04-09 22:53:18,738 autoreload Watching for file changes with StatReloader
+WARNING 2026-04-09 22:53:21,731 log Bad Request: /secmark/create/
+WARNING 2026-04-09 22:53:21,732 basehttp "POST /secmark/create/ HTTP/1.1" 400 72
+INFO 2026-04-09 22:53:52,034 autoreload Watching for file changes with StatReloader
+WARNING 2026-04-09 22:53:54,632 log Bad Request: /secmark/create/
+WARNING 2026-04-09 22:53:54,633 basehttp "POST /secmark/create/ HTTP/1.1" 400 72
+INFO 2026-04-09 22:54:55,540 autoreload Watching for file changes with StatReloader
+WARNING 2026-04-09 22:54:58,873 log Bad Request: /secmark/create/
+WARNING 2026-04-09 22:54:58,874 basehttp "POST /secmark/create/ HTTP/1.1" 400 72
+INFO 2026-04-09 22:55:11,315 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-09 22:55:13,318 autoreload Watching for file changes with StatReloader
+INFO 2026-04-09 22:55:25,916 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-09 22:55:28,204 autoreload Watching for file changes with StatReloader
+WARNING 2026-04-09 22:55:31,632 log Bad Request: /secmark/create/
+WARNING 2026-04-09 22:55:41,840 basehttp "POST /secmark/create/ HTTP/1.1" 400 72
+INFO 2026-04-09 22:56:02,577 autoreload Watching for file changes with StatReloader
+INFO 2026-04-09 22:56:43,078 autoreload Watching for file changes with StatReloader
+WARNING 2026-04-09 22:56:47,791 log Bad Request: /secmark/create/
+WARNING 2026-04-09 22:56:52,903 basehttp "POST /secmark/create/ HTTP/1.1" 400 72
+INFO 2026-04-09 22:57:10,099 autoreload Watching for file changes with StatReloader
+WARNING 2026-04-09 22:57:12,814 log Bad Request: /secmark/create/
+WARNING 2026-04-09 22:57:41,478 basehttp "POST /secmark/create/ HTTP/1.1" 400 72
+INFO 2026-04-09 22:57:54,811 autoreload Watching for file changes with StatReloader
+WARNING 2026-04-09 22:58:01,706 log Bad Request: /secmark/create/
+WARNING 2026-04-09 22:58:01,707 basehttp "POST /secmark/create/ HTTP/1.1" 400 72
+INFO 2026-04-10 15:49:52,990 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 15:50:59,008 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 15:51:26,036 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 15:51:50,418 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 15:52:14,351 basehttp "GET /secmark/create_page/ HTTP/1.1" 302 0
+INFO 2026-04-10 15:52:14,356 basehttp "GET /oauth/google/ HTTP/1.1" 302 0
+INFO 2026-04-10 15:52:49,995 basehttp "GET /secmark/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-10 15:52:52,812 basehttp "GET / HTTP/1.1" 302 0
+INFO 2026-04-10 15:52:52,822 basehttp "GET /oauth/google/ HTTP/1.1" 302 0
+WARNING 2026-04-10 15:53:00,655 log Not Found: /avito
+WARNING 2026-04-10 15:53:00,655 basehttp "GET /avito HTTP/1.1" 404 5588
+WARNING 2026-04-10 15:53:00,758 log Not Found: /favicon.ico
+WARNING 2026-04-10 15:53:00,758 basehttp "GET /favicon.ico HTTP/1.1" 404 5606
+WARNING 2026-04-10 15:53:02,584 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 15:53:02,584 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-10 15:53:15,189 basehttp "GET / HTTP/1.1" 302 0
+INFO 2026-04-10 15:53:15,195 basehttp "GET /oauth/google/ HTTP/1.1" 302 0
+WARNING 2026-04-10 15:53:17,910 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 15:53:17,911 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-10 15:53:23,727 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 15:53:28,473 basehttp "GET / HTTP/1.1" 302 0
+INFO 2026-04-10 15:53:28,479 basehttp "GET /oauth/google/ HTTP/1.1" 302 0
+INFO 2026-04-10 15:54:04,550 basehttp "GET / HTTP/1.1" 302 0
+INFO 2026-04-10 15:54:04,562 basehttp "GET /oauth/google/ HTTP/1.1" 302 0
+INFO 2026-04-10 15:57:17,153 basehttp "GET / HTTP/1.1" 302 0
+INFO 2026-04-10 15:57:17,163 basehttp "GET /oauth/google/ HTTP/1.1" 302 0
+INFO 2026-04-10 15:57:32,837 autoreload F:\projects\1A.TbS-server\accounts\reg.py changed, reloading.
+INFO 2026-04-10 15:57:34,637 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 15:57:37,176 autoreload F:\projects\1A.TbS-server\accounts\reg.py changed, reloading.
+INFO 2026-04-10 15:57:38,896 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 15:57:46,096 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 15:57:48,736 basehttp "GET / HTTP/1.1" 302 0
+INFO 2026-04-10 15:57:48,742 basehttp "GET /oauth/google/ HTTP/1.1" 302 0
+INFO 2026-04-10 15:57:55,953 autoreload F:\projects\1A.TbS-server\accounts\reg.py changed, reloading.
+INFO 2026-04-10 15:57:57,910 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 15:58:00,641 basehttp "GET / HTTP/1.1" 302 0
+INFO 2026-04-10 15:58:00,648 basehttp "GET /oauth/google/ HTTP/1.1" 302 0
+INFO 2026-04-10 15:59:06,695 autoreload F:\projects\1A.TbS-server\accounts\reg.py changed, reloading.
+INFO 2026-04-10 15:59:08,431 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 15:59:13,141 autoreload F:\projects\1A.TbS-server\accounts\reg.py changed, reloading.
+INFO 2026-04-10 15:59:14,815 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 15:59:17,390 autoreload F:\projects\1A.TbS-server\accounts\reg.py changed, reloading.
+INFO 2026-04-10 15:59:19,105 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 15:59:23,023 basehttp "GET / HTTP/1.1" 302 0
+INFO 2026-04-10 15:59:23,029 basehttp "GET /oauth/google/ HTTP/1.1" 302 0
+INFO 2026-04-10 15:59:28,856 autoreload F:\projects\1A.TbS-server\accounts\reg.py changed, reloading.
+INFO 2026-04-10 15:59:30,569 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 15:59:33,047 autoreload F:\projects\1A.TbS-server\accounts\client.py changed, reloading.
+INFO 2026-04-10 15:59:35,048 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 15:59:45,212 basehttp "GET / HTTP/1.1" 302 0
+INFO 2026-04-10 15:59:45,217 basehttp "GET /oauth/google/ HTTP/1.1" 302 0
+INFO 2026-04-10 16:00:39,286 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 16:00:42,967 basehttp "GET / HTTP/1.1" 200 31707
+INFO 2026-04-10 16:00:43,865 basehttp "GET /avatar/?pub_id=3&format=image&t=1775818843007 HTTP/1.1" 200 20324
+INFO 2026-04-10 16:00:44,203 basehttp "GET /avatar/?pub_id=3&format=image&t=1775818843007 HTTP/1.1" 200 20324
+INFO 2026-04-10 16:00:50,232 autoreload F:\projects\1A.TbS-server\accounts\client.py changed, reloading.
+INFO 2026-04-10 16:00:52,027 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 16:01:03,817 autoreload F:\projects\1A.TbS-server\accounts\reg.py changed, reloading.
+INFO 2026-04-10 16:01:05,488 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 16:01:14,792 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 13735
+WARNING 2026-04-10 16:01:14,922 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 16:01:14,923 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+WARNING 2026-04-10 16:01:50,643 log Bad Request: /secmark/create/
+WARNING 2026-04-10 16:01:50,644 basehttp "POST /secmark/create/ HTTP/1.1" 400 72
+INFO 2026-04-10 16:03:10,197 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 16:03:16,416 basehttp "POST /secmark/create/ HTTP/1.1" 200 44
+INFO 2026-04-10 16:03:37,777 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 16:03:39,463 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 16:03:42,278 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 16:03:44,074 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 16:04:02,860 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 16:04:04,613 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 16:04:15,439 basehttp "POST /secmark/create/ HTTP/1.1" 200 44
+INFO 2026-04-10 16:05:20,146 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 16:05:37,664 basehttp "POST /secmark/create/ HTTP/1.1" 200 44
+INFO 2026-04-10 16:07:36,172 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 16:07:37,926 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 16:07:40,760 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 16:07:42,369 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 16:07:44,797 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 16:07:46,395 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 16:07:48,795 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 16:07:50,608 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 16:07:52,988 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 16:07:54,604 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 16:08:01,134 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 16:08:03,144 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 16:08:07,041 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 16:08:08,742 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 16:08:16,102 basehttp "POST /secmark/create/ HTTP/1.1" 200 44
+INFO 2026-04-10 16:08:31,864 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 16:08:33,689 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 16:10:46,523 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 16:10:48,167 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 16:11:00,132 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 16:11:06,906 basehttp "POST /secmark/create/ HTTP/1.1" 200 44
+INFO 2026-04-10 16:13:25,787 basehttp "GET / HTTP/1.1" 200 31707
+INFO 2026-04-10 16:13:26,521 basehttp "GET /avatar/?pub_id=3&format=image&t=1775819605827 HTTP/1.1" 200 20324
+INFO 2026-04-10 16:13:26,850 basehttp "GET /avatar/?pub_id=3&format=image&t=1775819605827 HTTP/1.1" 200 20324
+ERROR 2026-04-10 16:13:44,757 log Internal Server Error: /secmark/dashboard/
+Traceback (most recent call last):
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "F:\projects\1A.TbS-server\accounts\avito.py", line 123, in avito_dashboard
+    avito = list(map(lambda x:x.get_obj, get_avito(user_id)))
+                                         ~~~~~~~~~^^^^^^^^^
+  File "F:\projects\1A.TbS-server\accounts\avito.py", line 111, in get_avito
+    avito = tg.UndefinedVar(id=av_id).get()
+            ~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "F:\projects\1A.TbS-server\tgcloud\Undefined.py", line 10, in __init__
+    self._obj = Bytes(pickle.dumps(value), id=id, init_symbol="u", convert_block=convert_block)
+                ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\projects\1A.TbS-server\tgcloud\Bytes.py", line 27, in __init__
+    if(getbot_id(id).get_text(id)[1] == "l"):
+       ~~~~~~~~~~~~~~~~~~~~~~^^^^
+  File "F:\projects\1A.TbS-server\tgcloud\config.py", line 106, in get_text
+    cache[idd] = (text := self.forward(idd).text)
+                          ~~~~~~~~~~~~^^^^^
+  File "F:\projects\1A.TbS-server\tgcloud\config.py", line 100, in forward
+    return self.bot.forward_message(trashgroup, groups[idd.group], idd.id)
+                                                       ^^^^^^^^^
+AttributeError: 'str' object has no attribute 'group'
+ERROR 2026-04-10 16:13:44,760 basehttp "GET /secmark/dashboard/ HTTP/1.1" 500 98285
+INFO 2026-04-10 16:14:38,866 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 16:14:40,606 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 16:14:43,090 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 16:14:44,800 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 16:14:50,614 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 16:15:02,796 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 2321
+WARNING 2026-04-10 16:15:05,541 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 16:15:05,542 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-10 16:15:07,322 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 2321
+WARNING 2026-04-10 16:15:07,408 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 16:15:07,408 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-10 16:16:38,017 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 16:16:39,675 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 16:16:47,892 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 2321
+WARNING 2026-04-10 16:16:47,998 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 16:16:47,998 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-10 16:18:53,232 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 16:18:54,892 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 17:05:28,754 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 17:05:44,878 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 2242
+WARNING 2026-04-10 17:05:44,979 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 17:05:44,979 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-10 17:06:28,765 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 17:06:30,471 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 17:06:37,911 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 17:06:39,573 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 17:06:41,916 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 17:06:43,650 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 17:07:12,417 autoreload Watching for file changes with StatReloader
+ERROR 2026-04-10 17:07:17,860 log Internal Server Error: /secmark/dashboard/
+Traceback (most recent call last):
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "F:\projects\1A.TbS-server\accounts\avito.py", line 123, in avito_dashboard
+    avito = list(map(lambda x:x.get(), get_avito(user_id)))
+  File "F:\projects\1A.TbS-server\accounts\avito.py", line 123, in <lambda>
+    avito = list(map(lambda x:x.get(), get_avito(user_id)))
+                              ^^^^^
+AttributeError: 'Packager' object has no attribute 'get'
+ERROR 2026-04-10 17:07:17,862 basehttp "GET /secmark/dashboard/ HTTP/1.1" 500 81956
+WARNING 2026-04-10 17:07:17,951 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 17:07:17,951 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-10 17:07:37,733 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 17:07:39,334 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 17:07:47,727 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 17:07:49,767 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 17:08:10,702 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 17:08:29,690 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 2286
+WARNING 2026-04-10 17:08:29,799 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+INFO 2026-04-10 17:08:29,803 basehttp - Broken pipe from ('127.0.0.1', 54695)
+WARNING 2026-04-10 17:08:29,804 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-10 17:08:56,394 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 17:08:58,022 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 17:09:02,881 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 17:09:04,483 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 17:32:40,286 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 17:32:44,696 basehttp "GET / HTTP/1.1" 200 31707
+INFO 2026-04-10 17:32:45,155 basehttp "GET /avatar/?pub_id=3&format=image&t=1775824364724 HTTP/1.1" 200 20324
+INFO 2026-04-10 17:32:45,463 basehttp "GET /avatar/?pub_id=3&format=image&t=1775824364724 HTTP/1.1" 200 20324
+ERROR 2026-04-10 17:33:12,488 log Internal Server Error: /secmark/dashboard/
+Traceback (most recent call last):
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "F:\projects\1A.TbS-server\accounts\avito.py", line 137, in avito_dashboard
+    print(avito)
+    ~~~~~^^^^^^^
+  File "F:\projects\1A.TbS-server\tgcloud\Undefined.py", line 30, in __repr__
+    return f"u{self}"
+              ^^^^^^
+  File "F:\projects\1A.TbS-server\tgcloud\Undefined.py", line 27, in __str__
+    return str(self.get())
+               ~~~~~~~~^^
+  File "F:\projects\1A.TbS-server\tgcloud\Undefined.py", line 13, in get
+    return pickle.loads(bytes(self._obj))
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+TypeError: 'method' object does not support item assignment
+ERROR 2026-04-10 17:33:12,496 basehttp "GET /secmark/dashboard/ HTTP/1.1" 500 88474
+WARNING 2026-04-10 17:33:12,534 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 17:33:12,534 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-10 17:35:31,099 autoreload Watching for file changes with StatReloader
+ERROR 2026-04-10 17:35:59,861 log Internal Server Error: /secmark/dashboard/
+Traceback (most recent call last):
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "F:\projects\1A.TbS-server\accounts\avito.py", line 137, in avito_dashboard
+    print(avito)
+    ~~~~~^^^^^^^
+  File "F:\projects\1A.TbS-server\tgcloud\Undefined.py", line 30, in __repr__
+    return f"u{self.get()}"
+               ~~~~~~~~^^
+  File "F:\projects\1A.TbS-server\tgcloud\Undefined.py", line 13, in get
+    return pickle.loads(bytes(self._obj))
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+TypeError: 'method' object does not support item assignment
+ERROR 2026-04-10 17:35:59,866 basehttp "GET /secmark/dashboard/ HTTP/1.1" 500 85109
+WARNING 2026-04-10 17:35:59,905 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 17:35:59,905 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-10 17:36:09,544 autoreload Watching for file changes with StatReloader
+ERROR 2026-04-10 17:37:32,826 log Internal Server Error: /secmark/dashboard/
+Traceback (most recent call last):
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "F:\projects\1A.TbS-server\accounts\avito.py", line 137, in avito_dashboard
+    print(avito)
+    ~~~~~^^^^^^^
+  File "F:\projects\1A.TbS-server\tgcloud\Undefined.py", line 31, in __repr__
+    return f"u{self.get()}"
+               ~~~~~~~~^^
+  File "F:\projects\1A.TbS-server\tgcloud\Undefined.py", line 14, in get
+    return pickle.loads(bytes(self._obj))
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+TypeError: 'method' object does not support item assignment
+ERROR 2026-04-10 17:37:32,833 basehttp "GET /secmark/dashboard/ HTTP/1.1" 500 85127
+WARNING 2026-04-10 17:37:32,866 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 17:37:32,867 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-10 17:39:04,394 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 17:39:35,084 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 2232
+WARNING 2026-04-10 17:39:35,187 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 17:39:35,187 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+WARNING 2026-04-10 17:39:48,450 log Not Found: /create_page/
+WARNING 2026-04-10 17:39:48,450 basehttp "GET /create_page/ HTTP/1.1" 404 5609
+INFO 2026-04-10 17:40:00,656 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 13735
+INFO 2026-04-10 17:40:23,359 basehttp "POST /secmark/create/ HTTP/1.1" 200 44
+INFO 2026-04-10 17:42:17,919 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 17:42:24,580 autoreload F:\projects\1A.TbS-server\tgcloud\Undefined.py changed, reloading.
+INFO 2026-04-10 17:42:26,249 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 17:42:35,472 basehttp "POST /secmark/create/ HTTP/1.1" 200 44
+ERROR 2026-04-10 17:43:16,589 log Internal Server Error: /secmark/dashboard/
+Traceback (most recent call last):
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "F:\projects\1A.TbS-server\accounts\avito.py", line 139, in avito_dashboard
+    print(avito)
+    ~~~~~^^^^^^^
+  File "F:\projects\1A.TbS-server\tgcloud\Undefined.py", line 30, in __repr__
+    return f"u{self.get()}"
+               ~~~~~~~~^^
+  File "F:\projects\1A.TbS-server\tgcloud\Undefined.py", line 13, in get
+    return pickle.loads(bytes(self._obj))
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+AttributeError: Can't get attribute 'Product' on <module 'accounts.avito' from 'F:\\projects\\1A.TbS-server\\accounts\\avito.py'>
+ERROR 2026-04-10 17:43:16,594 basehttp "GET /secmark/dashboard/ HTTP/1.1" 500 85863
+WARNING 2026-04-10 17:43:16,629 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 17:43:16,630 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-10 17:45:05,674 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 17:45:14,252 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 2232
+WARNING 2026-04-10 17:45:14,363 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 17:45:14,364 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-10 17:45:23,421 basehttp "POST /secmark/create/ HTTP/1.1" 200 44
+INFO 2026-04-10 17:45:26,832 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 2402
+WARNING 2026-04-10 17:45:26,920 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 17:45:26,921 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-10 17:47:33,264 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 2115
+WARNING 2026-04-10 17:47:33,365 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 17:47:33,365 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-10 17:47:52,771 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 13833
+WARNING 2026-04-10 17:47:52,880 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 17:47:52,880 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-10 17:56:36,392 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 12316
+WARNING 2026-04-10 17:56:36,481 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 17:56:36,482 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-10 17:56:42,371 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 17:56:48,271 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 12316
+WARNING 2026-04-10 17:56:48,369 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 17:56:48,370 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-10 17:58:52,334 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 17:59:03,962 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 11714
+WARNING 2026-04-10 17:59:04,054 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 17:59:04,055 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5717
+INFO 2026-04-10 18:00:35,001 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 11725
+INFO 2026-04-10 18:01:48,899 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 13735
+INFO 2026-04-10 18:05:29,793 autoreload Watching for file changes with StatReloader
+ERROR 2026-04-10 18:06:13,778 log Internal Server Error: /secmark/dashboard/
+Traceback (most recent call last):
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "F:\projects\1A.TbS-server\accounts\avito.py", line 131, in avito_dashboard
+    avito = list(map(lambda x: x.get_obj() | (x._obj.get()), get_avito(user_id)))
+  File "F:\projects\1A.TbS-server\accounts\avito.py", line 131, in <lambda>
+    avito = list(map(lambda x: x.get_obj() | (x._obj.get()), get_avito(user_id)))
+                               ~~~~~~~~~~~~^~~~~~~~~~~~~~~~
+TypeError: unsupported operand type(s) for |: 'UndefinedVar' and 'str'
+ERROR 2026-04-10 18:06:13,780 basehttp "GET /secmark/dashboard/ HTTP/1.1" 500 82122
+WARNING 2026-04-10 18:06:13,863 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 18:06:13,864 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5882
+INFO 2026-04-10 18:06:34,751 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 18:06:36,325 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 18:06:56,918 autoreload Watching for file changes with StatReloader
+ERROR 2026-04-10 18:07:00,475 log Internal Server Error: /secmark/dashboard/
+Traceback (most recent call last):
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "F:\projects\1A.TbS-server\accounts\avito.py", line 131, in avito_dashboard
+    avito = list(map(lambda x: x.get_obj().get() | (x._obj.get()), get_avito(user_id)))
+  File "F:\projects\1A.TbS-server\accounts\avito.py", line 131, in <lambda>
+    avito = list(map(lambda x: x.get_obj().get() | (x._obj.get()), get_avito(user_id)))
+                               ~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~
+TypeError: unsupported operand type(s) for |: 'dict' and 'str'
+ERROR 2026-04-10 18:07:00,477 basehttp "GET /secmark/dashboard/ HTTP/1.1" 500 82222
+WARNING 2026-04-10 18:07:00,553 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 18:07:00,554 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5882
+INFO 2026-04-10 18:07:09,728 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 18:07:11,480 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 18:07:27,092 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 18:07:59,260 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 11773
+WARNING 2026-04-10 18:07:59,360 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 18:07:59,361 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5882
+INFO 2026-04-10 18:08:16,487 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 14923
+INFO 2026-04-10 18:08:35,905 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 14924
+WARNING 2026-04-10 18:08:38,977 log Not Found: /secmark/edit_page/4219/
+WARNING 2026-04-10 18:08:38,977 basehttp "GET /secmark/edit_page/4219/ HTTP/1.1" 404 5807
+INFO 2026-04-10 18:08:41,431 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 13735
+INFO 2026-04-10 18:09:17,576 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 13735
+INFO 2026-04-10 18:09:34,794 basehttp "POST /secmark/create/ HTTP/1.1" 200 44
+INFO 2026-04-10 18:09:40,389 basehttp "GET /avatar/?pub_id=3&format=image&t=1775826580043 HTTP/1.1" 200 20324
+INFO 2026-04-10 18:09:40,719 basehttp "GET /avatar/?pub_id=3&format=image&t=1775826580043 HTTP/1.1" 200 20324
+INFO 2026-04-10 18:09:43,983 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 15121
+INFO 2026-04-10 18:10:24,524 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 15121
+INFO 2026-04-10 18:10:34,279 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 15117
+WARNING 2026-04-10 18:10:47,224 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 18:10:47,224 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5882
+INFO 2026-04-10 18:10:52,775 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 15117
+WARNING 2026-04-10 18:10:52,862 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 18:10:52,862 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5882
+INFO 2026-04-10 18:11:33,965 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 15167
+WARNING 2026-04-10 18:11:34,045 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 18:11:34,046 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5882
+INFO 2026-04-10 18:13:42,814 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 15026
+WARNING 2026-04-10 18:13:42,897 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 18:13:42,898 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 5882
+WARNING 2026-04-10 18:13:48,742 log Not Found: /secmark/delete_page/0|1|4218/
+WARNING 2026-04-10 18:13:48,743 basehttp "DELETE /secmark/delete_page/0%7C1%7C4218/ HTTP/1.1" 404 5832
+INFO 2026-04-10 18:20:31,320 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 18:20:47,840 autoreload F:\projects\1A.TbS-server\myapp\urls.py changed, reloading.
+INFO 2026-04-10 18:20:49,605 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 18:21:23,102 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 18:21:29,247 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 15034
+WARNING 2026-04-10 18:21:31,853 log Not Found: /secmark/edit_page/0|4|3723/
+WARNING 2026-04-10 18:21:31,853 basehttp "GET /secmark/edit_page/0%7C4%7C3723/ HTTP/1.1" 404 5990
+WARNING 2026-04-10 18:21:40,852 log Not Found: /secmark/edit_page/0|4|3723/
+WARNING 2026-04-10 18:21:40,853 basehttp "GET /secmark/edit_page/0%7C4%7C3723/ HTTP/1.1" 404 5990
+INFO 2026-04-10 18:22:38,393 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 18:22:40,071 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 18:24:54,311 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 18:24:56,018 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 18:25:03,564 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 15068
+INFO 2026-04-10 18:25:07,062 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 15068
+ERROR 2026-04-10 18:25:08,413 log Internal Server Error: /secmark/edit_page/
+Traceback (most recent call last):
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "F:\projects\1A.TbS-server\accounts\avito.py", line 207, in edit_product_page
+    product = Packager(id=product_id).get_obj().get()
+              ~~~~~~~~^^^^^^^^^^^^^^^
+  File "F:\projects\1A.TbS-server\accounts\avito.py", line 44, in __init__
+    self._obj = tg.UndefinedVar(obj, id=id).cache()
+                ~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "F:\projects\1A.TbS-server\tgcloud\Undefined.py", line 10, in __init__
+    self._obj = Bytes(pickle.dumps(value), id=id, init_symbol="u", convert_block=convert_block)
+                ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\projects\1A.TbS-server\tgcloud\Bytes.py", line 27, in __init__
+    if(getbot_id(id).get_text(id)[1] == "l"):
+       ~~~~~~~~~~~~~~~~~~~~~~^^^^
+  File "F:\projects\1A.TbS-server\tgcloud\config.py", line 106, in get_text
+    cache[idd] = (text := self.forward(idd).text)
+                          ~~~~~~~~~~~~^^^^^
+  File "F:\projects\1A.TbS-server\tgcloud\config.py", line 100, in forward
+    return self.bot.forward_message(trashgroup, groups[idd.group], idd.id)
+                                                       ^^^^^^^^^
+AttributeError: 'str' object has no attribute 'group'
+ERROR 2026-04-10 18:25:08,417 basehttp "GET /secmark/edit_page/?id=0%7C4%7C3723 HTTP/1.1" 500 99233
+INFO 2026-04-10 18:25:23,006 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 18:25:24,643 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 18:25:38,207 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 18:25:41,275 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 15068
+ERROR 2026-04-10 18:25:42,976 log Internal Server Error: /secmark/edit_page/
+Traceback (most recent call last):
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "F:\projects\1A.TbS-server\accounts\avito.py", line 207, in edit_product_page
+    product = Packager(id=tg.Id().from_str(product_id)).get_obj().get()
+              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "F:\projects\1A.TbS-server\accounts\avito.py", line 47, in get_obj
+    return tg.UndefinedVar(id=tg.Id().from_str(self._obj.get())).cache()
+                              ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "F:\projects\1A.TbS-server\tgcloud\id_class.py", line 105, in from_str
+    self.set(*tuple(map(int, string.split('|'))))
+                             ^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'split'
+ERROR 2026-04-10 18:25:42,978 basehttp "GET /secmark/edit_page/?id=0%7C4%7C3723 HTTP/1.1" 500 86506
+INFO 2026-04-10 18:26:02,243 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 18:26:03,924 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 18:26:08,029 autoreload Watching for file changes with StatReloader
+ERROR 2026-04-10 18:26:11,763 log Internal Server Error: /secmark/edit_page/
+Traceback (most recent call last):
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "F:\projects\1A.TbS-server\accounts\avito.py", line 208, in edit_product_page
+    product = Packager(id=tg.Id().from_str(product_id)).get_obj().get()
+              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "F:\projects\1A.TbS-server\accounts\avito.py", line 47, in get_obj
+    return tg.UndefinedVar(id=tg.Id().from_str(self._obj.get())).cache()
+                              ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "F:\projects\1A.TbS-server\tgcloud\id_class.py", line 105, in from_str
+    self.set(*tuple(map(int, string.split('|'))))
+                             ^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'split'
+ERROR 2026-04-10 18:26:11,766 basehttp "GET /secmark/edit_page/?id=0%7C4%7C3723 HTTP/1.1" 500 86527
+INFO 2026-04-10 18:27:20,370 autoreload Watching for file changes with StatReloader
+ERROR 2026-04-10 18:27:26,380 log Internal Server Error: /secmark/dashboard/
+Traceback (most recent call last):
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "F:\projects\1A.TbS-server\accounts\avito.py", line 134, in avito_dashboard
+    response = render(request, 'avito/dashboard.html', {
+        'avito': avito,
+        'name': client.get(user_id)["name"]
+    })
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\template\base.py", line 1064, in render
+    output = self.filter_expression.resolve(context)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\template\base.py", line 742, in resolve
+    new_obj = func(obj, *arg_vals)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\template\defaultfilters.py", line 92, in json_script
+    return _json_script(value, element_id)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\utils\html.py", line 77, in json_script
+    json_str = json.dumps(value, cls=encoder or DjangoJSONEncoder).translate(
+               ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\robom\AppData\Local\Programs\Python\Python313\Lib\json\__init__.py", line 238, in dumps
+    **kw).encode(obj)
+          ~~~~~~^^^^^
+  File "C:\Users\robom\AppData\Local\Programs\Python\Python313\Lib\json\encoder.py", line 200, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "C:\Users\robom\AppData\Local\Programs\Python\Python313\Lib\json\encoder.py", line 261, in iterencode
+    return _iterencode(o, 0)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\serializers\json.py", line 106, in default
+    return super().default(o)
+           ~~~~~~~~~~~~~~~^^^
+  File "C:\Users\robom\AppData\Local\Programs\Python\Python313\Lib\json\encoder.py", line 180, in default
+    raise TypeError(f'Object of type {o.__class__.__name__} '
+                    f'is not JSON serializable')
+TypeError: Object of type Id is not JSON serializable
+ERROR 2026-04-10 18:27:26,386 basehttp "GET /secmark/dashboard/ HTTP/1.1" 500 162865
+INFO 2026-04-10 18:27:33,692 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 18:27:35,374 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 18:27:43,084 basehttp "GET /avatar/?pub_id=3&format=image&t=1775827661353 HTTP/1.1" 200 20324
+INFO 2026-04-10 18:27:43,373 basehttp "GET /avatar/?pub_id=3&format=image&t=1775827661353 HTTP/1.1" 200 20324
+INFO 2026-04-10 18:27:43,956 basehttp - Broken pipe from ('127.0.0.1', 53790)
+INFO 2026-04-10 18:27:43,980 basehttp - Broken pipe from ('127.0.0.1', 56277)
+ERROR 2026-04-10 18:27:45,976 log Internal Server Error: /secmark/edit_page/
+Traceback (most recent call last):
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "F:\projects\1A.TbS-server\accounts\avito.py", line 208, in edit_product_page
+    product = Packager(id=tg.Id().from_str(product_id)).get_obj().get()
+              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "F:\projects\1A.TbS-server\accounts\avito.py", line 47, in get_obj
+    return tg.UndefinedVar(id=tg.Id().from_str(self._obj.get())).cache()
+                              ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "F:\projects\1A.TbS-server\tgcloud\id_class.py", line 105, in from_str
+    self.set(*tuple(map(int, string.split('|'))))
+                             ^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'split'
+ERROR 2026-04-10 18:27:45,979 basehttp "GET /secmark/edit_page/?id=0%7C4%7C3723 HTTP/1.1" 500 86664
+INFO 2026-04-10 18:27:49,332 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 15068
+INFO 2026-04-10 18:27:52,862 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 15067
+INFO 2026-04-10 18:27:55,362 basehttp "GET /secmark/edit_page/?id=0%7C8%7C166 HTTP/1.1" 200 14361
+WARNING 2026-04-10 18:28:03,141 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 18:28:03,141 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6049
+INFO 2026-04-10 18:31:41,394 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 18:31:46,752 basehttp "GET /secmark/edit_page/?id=0%7C8%7C166 HTTP/1.1" 200 16205
+WARNING 2026-04-10 18:31:51,014 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 18:31:51,015 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6049
+INFO 2026-04-10 18:32:08,283 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 18:32:10,025 autoreload Watching for file changes with StatReloader
+WARNING 2026-04-10 18:32:15,757 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 18:32:15,758 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6049
+INFO 2026-04-10 18:32:20,011 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 15068
+WARNING 2026-04-10 18:32:20,100 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 18:32:20,101 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6049
+INFO 2026-04-10 18:32:21,710 basehttp "GET /secmark/edit_page/?id=0%7C2%7C4057 HTTP/1.1" 200 16206
+WARNING 2026-04-10 18:32:21,796 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 18:32:21,797 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6049
+INFO 2026-04-10 18:32:49,358 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 18:32:50,989 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 18:32:53,325 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 18:32:54,877 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 18:33:00,604 basehttp "GET /secmark/edit_page/?id=0%7C2%7C4057 HTTP/1.1" 200 16206
+WARNING 2026-04-10 18:33:00,705 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 18:33:00,706 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6049
+WARNING 2026-04-10 18:33:01,331 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 18:33:01,331 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6049
+WARNING 2026-04-10 18:33:01,383 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 18:33:01,383 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6049
+INFO 2026-04-10 18:33:02,899 basehttp "GET /secmark/edit_page/?id=0%7C1%7C4230 HTTP/1.1" 200 16195
+WARNING 2026-04-10 18:33:02,984 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 18:33:02,984 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6049
+WARNING 2026-04-10 18:33:04,041 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 18:33:04,042 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6049
+WARNING 2026-04-10 18:33:04,091 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 18:33:04,092 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6049
+INFO 2026-04-10 18:33:05,128 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 15068
+WARNING 2026-04-10 18:33:05,209 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 18:33:05,210 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6049
+INFO 2026-04-10 18:33:05,940 basehttp "GET /secmark/edit_page/?id=0%7C1%7C4231 HTTP/1.1" 200 16195
+WARNING 2026-04-10 18:33:06,043 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 18:33:06,043 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6049
+WARNING 2026-04-10 18:33:09,322 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 18:33:09,322 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6049
+WARNING 2026-04-10 18:33:09,372 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 18:33:09,372 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6049
+INFO 2026-04-10 18:34:12,871 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 18:34:24,973 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 15068
+WARNING 2026-04-10 18:34:25,071 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 18:34:25,071 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6049
+INFO 2026-04-10 18:34:25,886 basehttp "GET /secmark/edit_page/?id=0%7C1%7C4232 HTTP/1.1" 200 17272
+WARNING 2026-04-10 18:34:25,974 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 18:34:25,974 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6049
+WARNING 2026-04-10 18:34:30,209 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 18:34:30,210 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6049
+WARNING 2026-04-10 18:34:30,260 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 18:34:30,261 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6049
+INFO 2026-04-10 18:34:46,077 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 18:34:47,813 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 18:35:54,097 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 15068
+WARNING 2026-04-10 18:35:54,205 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 18:35:54,206 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6049
+INFO 2026-04-10 18:35:54,945 basehttp "GET /secmark/edit_page/?id=0%7C1%7C4233 HTTP/1.1" 200 16723
+WARNING 2026-04-10 18:35:55,034 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 18:35:55,034 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6049
+WARNING 2026-04-10 18:35:59,964 log Not Found: /secmark/edit/
+WARNING 2026-04-10 18:35:59,964 basehttp "PUT /secmark/edit/?id=%220%7C1%7C4233%22 HTTP/1.1" 404 5966
+INFO 2026-04-10 18:41:12,123 autoreload Watching for file changes with StatReloader
+WARNING 2026-04-10 18:41:13,486 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 18:41:13,486 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+WARNING 2026-04-10 18:41:13,534 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 18:41:13,534 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+INFO 2026-04-10 18:41:16,512 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 15068
+INFO 2026-04-10 18:41:17,757 basehttp "GET /secmark/edit_page/?id=0%7C1%7C4234 HTTP/1.1" 200 16723
+ERROR 2026-04-10 18:41:23,529 log Internal Server Error: /secmark/edit/
+Traceback (most recent call last):
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "F:\projects\1A.TbS-server\accounts\avito.py", line 274, in edit_product_page
+    product = Packager(id=tg.Id().from_str(product_id)).get_obj().get()
+                          ~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "F:\projects\1A.TbS-server\tgcloud\id_class.py", line 105, in from_str
+    self.set(*tuple(map(int, string.split('|'))))
+              ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: '"0'
+ERROR 2026-04-10 18:41:23,532 basehttp "PUT /secmark/edit/?id=%220%7C1%7C4234%22 HTTP/1.1" 500 82703
+WARNING 2026-04-10 18:41:27,382 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 18:41:27,383 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+INFO 2026-04-10 18:42:06,393 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 18:42:08,084 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 18:42:11,815 autoreload Watching for file changes with StatReloader
+ERROR 2026-04-10 18:42:15,691 log Internal Server Error: /secmark/edit/
+Traceback (most recent call last):
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "F:\projects\1A.TbS-server\accounts\avito.py", line 274, in edit_product_page
+    product = Packager(id=tg.Id().from_str(product_id)).get_obj().get()
+                          ~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "F:\projects\1A.TbS-server\tgcloud\id_class.py", line 105, in from_str
+    self.set(*tuple(map(int, string.split('|'))))
+              ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: '"0'
+ERROR 2026-04-10 18:42:15,694 basehttp "PUT /secmark/edit/?id=%220%7C1%7C4234%22 HTTP/1.1" 500 82721
+INFO 2026-04-10 18:44:25,944 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 18:44:27,691 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 18:44:36,651 basehttp "GET /secmark/edit_page/?id=0%7C1%7C4234 HTTP/1.1" 200 16723
+WARNING 2026-04-10 18:44:36,763 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 18:44:36,763 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+INFO 2026-04-10 18:44:43,136 basehttp "PUT /secmark/edit/?id=%220%7C1%7C4234%22 HTTP/1.1" 200 16723
+INFO 2026-04-10 18:45:25,509 basehttp "GET /secmark/edit_page/?id=0%7C1%7C4234 HTTP/1.1" 200 16723
+WARNING 2026-04-10 18:45:25,600 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 18:45:25,601 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+INFO 2026-04-10 18:45:30,896 basehttp "PUT /secmark/edit/?id=%220%7C1%7C4234%22 HTTP/1.1" 200 16723
+INFO 2026-04-10 18:46:18,590 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 18:46:20,221 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 18:46:33,712 autoreload F:\projects\1A.TbS-server\myapp\urls.py changed, reloading.
+INFO 2026-04-10 18:46:35,584 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 18:47:00,867 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 18:47:04,515 basehttp "GET /secmark/edit_page/?id=0%7C1%7C4234 HTTP/1.1" 200 16723
+WARNING 2026-04-10 18:47:04,610 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 18:47:04,610 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+WARNING 2026-04-10 18:47:09,051 log Method Not Allowed: /secmark/edit/
+WARNING 2026-04-10 18:47:09,052 basehttp "PUT /secmark/edit/?id=%220%7C1%7C4234%22 HTTP/1.1" 405 52
+INFO 2026-04-10 18:47:40,018 basehttp "GET /secmark/edit_page/?id=0%7C1%7C4234 HTTP/1.1" 200 16724
+WARNING 2026-04-10 18:47:40,098 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 18:47:40,098 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+WARNING 2026-04-10 18:47:44,723 log Bad Request: /secmark/edit/
+WARNING 2026-04-10 18:47:44,724 basehttp "POST /secmark/edit/?id=%220%7C1%7C4234%22 HTTP/1.1" 400 79
+INFO 2026-04-10 18:48:17,505 basehttp "GET /secmark/edit_page/?id=0%7C1%7C4234 HTTP/1.1" 200 16724
+WARNING 2026-04-10 18:48:17,593 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 18:48:17,593 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+WARNING 2026-04-10 18:48:20,707 log Bad Request: /secmark/edit/
+WARNING 2026-04-10 18:48:20,707 basehttp "POST /secmark/edit/?id=%220%7C1%7C4234%22 HTTP/1.1" 400 79
+INFO 2026-04-10 18:49:27,649 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 18:49:29,395 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 18:49:31,790 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 18:49:33,553 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 18:49:40,743 basehttp "POST /secmark/edit/?id=%220%7C1%7C4234%22 HTTP/1.1" 200 90
+INFO 2026-04-10 18:49:45,287 basehttp - Broken pipe from ('127.0.0.1', 63309)
+INFO 2026-04-10 18:49:46,389 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 15068
+INFO 2026-04-10 18:49:49,753 basehttp "GET /secmark/edit_page/?id=0%7C3%7C3971 HTTP/1.1" 200 16724
+INFO 2026-04-10 18:49:56,262 basehttp "POST /secmark/edit/?id=%220%7C3%7C3971%22 HTTP/1.1" 200 90
+INFO 2026-04-10 18:50:00,061 basehttp - Broken pipe from ('127.0.0.1', 52836)
+INFO 2026-04-10 18:50:02,585 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 15067
+INFO 2026-04-10 18:50:08,970 basehttp "GET /secmark/edit_page/?id=0%7C7%7C3221 HTTP/1.1" 200 16724
+INFO 2026-04-10 18:50:24,408 basehttp "GET /secmark/edit_page/?id=0%7C7%7C3221 HTTP/1.1" 200 16724
+INFO 2026-04-10 18:50:32,927 basehttp "POST /secmark/edit/?id=%220%7C7%7C3221%22 HTTP/1.1" 200 90
+INFO 2026-04-10 18:50:37,395 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 15069
+INFO 2026-04-10 18:50:59,666 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 18:51:01,389 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 18:51:03,615 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 18:51:05,196 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 18:51:07,536 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 18:51:09,173 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 18:51:21,323 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 15068
+INFO 2026-04-10 18:51:22,300 basehttp "GET /secmark/edit_page/?id=0%7C1%7C4237 HTTP/1.1" 200 16724
+INFO 2026-04-10 18:51:27,121 basehttp "POST /secmark/edit/?id=%220%7C1%7C4237%22 HTTP/1.1" 200 90
+INFO 2026-04-10 18:51:30,196 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 15068
+INFO 2026-04-10 18:51:45,551 basehttp "GET /secmark/edit_page/?id=0%7C3%7C3972 HTTP/1.1" 200 16724
+INFO 2026-04-10 18:51:49,454 basehttp "POST /secmark/edit/?id=%220%7C3%7C3972%22 HTTP/1.1" 200 90
+INFO 2026-04-10 18:51:54,163 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 15068
+INFO 2026-04-10 18:52:08,138 basehttp "GET /secmark/edit_page/?id=0%7C5%7C3668 HTTP/1.1" 200 16724
+INFO 2026-04-10 18:52:12,625 basehttp "POST /secmark/edit/?id=%220%7C5%7C3668%22 HTTP/1.1" 200 90
+INFO 2026-04-10 18:52:16,927 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 15067
+INFO 2026-04-10 18:52:25,928 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 18:52:27,558 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 18:52:30,011 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 18:52:31,597 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 18:52:37,665 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 15068
+INFO 2026-04-10 18:53:38,895 basehttp "GET /secmark/edit_page/?id=0%7C1%7C4238 HTTP/1.1" 200 16724
+WARNING 2026-04-10 18:53:42,573 log Bad Request: /secmark/edit/
+WARNING 2026-04-10 18:53:42,574 basehttp "POST /secmark/edit/?id=%220%7C1%7C4238%22 HTTP/1.1" 400 72
+WARNING 2026-04-10 18:53:51,765 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 18:53:51,765 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+ERROR 2026-04-10 18:53:57,437 log Internal Server Error: /secmark/edit_page/
+Traceback (most recent call last):
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "F:\projects\1A.TbS-server\accounts\avito.py", line 277, in edit_product_page
+    product = Packager(id=tg.Id().from_str(product_id)).get_obj().get()
+              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "F:\projects\1A.TbS-server\accounts\avito.py", line 47, in get_obj
+    return tg.UndefinedVar(id=tg.Id().from_str(self._obj.get())).cache()
+                              ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "F:\projects\1A.TbS-server\tgcloud\id_class.py", line 105, in from_str
+    self.set(*tuple(map(int, string.split('|'))))
+                             ^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'split'
+ERROR 2026-04-10 18:53:57,440 basehttp "GET /secmark/edit_page/?id=0%7C1%7C4238 HTTP/1.1" 500 86931
+WARNING 2026-04-10 18:53:57,538 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 18:53:57,538 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+WARNING 2026-04-10 18:53:58,659 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 18:53:58,660 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+WARNING 2026-04-10 18:53:58,711 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 18:53:58,711 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+WARNING 2026-04-10 18:53:59,128 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 18:53:59,129 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+WARNING 2026-04-10 18:53:59,179 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 18:53:59,180 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+WARNING 2026-04-10 18:53:59,832 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 18:53:59,833 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+WARNING 2026-04-10 18:53:59,882 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 18:53:59,882 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+ERROR 2026-04-10 18:54:00,720 log Internal Server Error: /secmark/edit_page/
+Traceback (most recent call last):
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "F:\projects\1A.TbS-server\accounts\avito.py", line 277, in edit_product_page
+    product = Packager(id=tg.Id().from_str(product_id)).get_obj().get()
+              ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "F:\projects\1A.TbS-server\accounts\avito.py", line 47, in get_obj
+    return tg.UndefinedVar(id=tg.Id().from_str(self._obj.get())).cache()
+                              ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "F:\projects\1A.TbS-server\tgcloud\id_class.py", line 105, in from_str
+    self.set(*tuple(map(int, string.split('|'))))
+                             ^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'split'
+ERROR 2026-04-10 18:54:00,722 basehttp "GET /secmark/edit_page/?id=0%7C1%7C4238 HTTP/1.1" 500 86794
+WARNING 2026-04-10 18:54:00,801 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 18:54:00,802 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+INFO 2026-04-10 18:55:06,877 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 18:55:08,542 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 18:55:20,012 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 18:55:21,613 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 18:55:24,030 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 18:55:25,555 autoreload Watching for file changes with StatReloader
+WARNING 2026-04-10 18:55:29,334 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 18:55:29,335 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+WARNING 2026-04-10 18:55:29,386 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 18:55:29,387 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+INFO 2026-04-10 18:55:33,779 basehttp - Broken pipe from ('127.0.0.1', 55056)
+INFO 2026-04-10 18:55:33,872 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 15068
+WARNING 2026-04-10 18:55:33,960 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 18:55:33,960 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+INFO 2026-04-10 18:55:36,237 basehttp "GET /secmark/edit_page/?id=0%7C3%7C3973 HTTP/1.1" 200 16724
+WARNING 2026-04-10 18:55:36,336 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 18:55:36,337 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+WARNING 2026-04-10 18:55:43,901 log Bad Request: /secmark/edit/
+WARNING 2026-04-10 18:55:43,901 basehttp "POST /secmark/edit/?id=%220%7C3%7C3973%22 HTTP/1.1" 400 72
+WARNING 2026-04-10 18:56:04,381 log Bad Request: /secmark/edit/
+WARNING 2026-04-10 18:56:04,382 basehttp "POST /secmark/edit/?id=%220%7C3%7C3973%22 HTTP/1.1" 400 72
+WARNING 2026-04-10 18:56:14,975 log Bad Request: /secmark/edit/
+WARNING 2026-04-10 18:56:14,976 basehttp "POST /secmark/edit/?id=%220%7C3%7C3973%22 HTTP/1.1" 400 72
+WARNING 2026-04-10 18:56:21,500 log Method Not Allowed: /secmark/edit/
+WARNING 2026-04-10 18:56:21,501 basehttp "GET /secmark/edit/?id=%220%7C3%7C3973%22 HTTP/1.1" 405 52
+INFO 2026-04-10 18:58:03,857 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 18:58:05,475 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 18:58:33,397 autoreload Watching for file changes with StatReloader
+ERROR 2026-04-10 18:58:39,449 log Internal Server Error: /secmark/edit/
+Traceback (most recent call last):
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "F:\projects\1A.TbS-server\accounts\avito.py", line 152, in edit_product_view
+    existing_product = pack.get_obj().get()
+                       ~~~~~~~~~~~~^^
+  File "F:\projects\1A.TbS-server\accounts\avito.py", line 47, in get_obj
+    return tg.UndefinedVar(id=tg.Id().from_str(self._obj.get())).cache()
+                              ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "F:\projects\1A.TbS-server\tgcloud\id_class.py", line 105, in from_str
+    self.set(*tuple(map(int, string.split('|'))))
+                             ^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'split'
+ERROR 2026-04-10 18:58:39,452 basehttp "POST /secmark/edit/?id=%220%7C3%7C3973%22 HTTP/1.1" 500 87469
+INFO 2026-04-10 18:59:06,969 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 18:59:08,864 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 18:59:11,286 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 18:59:13,206 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 18:59:15,750 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 18:59:17,433 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 18:59:27,836 autoreload Watching for file changes with StatReloader
+ERROR 2026-04-10 18:59:31,471 log Internal Server Error: /secmark/edit/
+Traceback (most recent call last):
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "F:\projects\1A.TbS-server\accounts\avito.py", line 153, in edit_product_view
+    existing_product = pack.get_obj().get()
+                       ~~~~~~~~~~~~^^
+  File "F:\projects\1A.TbS-server\accounts\avito.py", line 47, in get_obj
+    return tg.UndefinedVar(id=tg.Id().from_str(self._obj.get())).cache()
+                              ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "F:\projects\1A.TbS-server\tgcloud\id_class.py", line 105, in from_str
+    self.set(*tuple(map(int, string.split('|'))))
+                             ^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'split'
+ERROR 2026-04-10 18:59:31,474 basehttp "POST /secmark/edit/?id=%220%7C3%7C3973%22 HTTP/1.1" 500 87511
+WARNING 2026-04-10 19:00:03,258 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:00:03,258 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+WARNING 2026-04-10 19:00:03,309 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:00:03,310 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+INFO 2026-04-10 19:00:05,569 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 15068
+WARNING 2026-04-10 19:00:05,663 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:00:05,664 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+INFO 2026-04-10 19:00:16,910 basehttp "GET /secmark/edit_page/?id=0%7C1%7C4240 HTTP/1.1" 200 16724
+WARNING 2026-04-10 19:00:16,992 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:00:16,993 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+ERROR 2026-04-10 19:00:30,302 log Internal Server Error: /secmark/edit/
+Traceback (most recent call last):
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "F:\projects\1A.TbS-server\accounts\avito.py", line 170, in edit_product_view
+    print(pack.get_obj())
+          ~~~~~~~~~~~~^^
+  File "F:\projects\1A.TbS-server\accounts\avito.py", line 47, in get_obj
+    return tg.UndefinedVar(id=tg.Id().from_str(self._obj.get())).cache()
+                              ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "F:\projects\1A.TbS-server\tgcloud\id_class.py", line 105, in from_str
+    self.set(*tuple(map(int, string.split('|'))))
+                             ^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'split'
+ERROR 2026-04-10 19:00:30,305 basehttp "POST /secmark/edit/?id=%220%7C1%7C4240%22 HTTP/1.1" 500 88019
+INFO 2026-04-10 19:01:07,259 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 19:01:09,023 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 19:01:11,855 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 19:01:13,871 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 19:01:30,405 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 19:01:32,239 autoreload Watching for file changes with StatReloader
+ERROR 2026-04-10 19:01:37,318 log Internal Server Error: /secmark/edit/
+Traceback (most recent call last):
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "F:\projects\1A.TbS-server\accounts\avito.py", line 153, in edit_product_view
+    existing_product = pack.get_obj().get()
+                       ~~~~~~~~~~~~^^
+  File "F:\projects\1A.TbS-server\accounts\avito.py", line 47, in get_obj
+    return tg.UndefinedVar(id=tg.Id().from_str(self._obj.get())).cache()
+                              ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "F:\projects\1A.TbS-server\tgcloud\id_class.py", line 105, in from_str
+    self.set(*tuple(map(int, string.split('|'))))
+                             ^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'split'
+ERROR 2026-04-10 19:01:37,321 basehttp "POST /secmark/edit/?id=%220%7C1%7C4240%22 HTTP/1.1" 500 87510
+INFO 2026-04-10 19:01:52,814 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 19:01:54,351 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 19:02:24,626 autoreload Watching for file changes with StatReloader
+ERROR 2026-04-10 19:02:29,553 log Internal Server Error: /secmark/delete_page/
+Traceback (most recent call last):
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+TypeError: delete_product_view() missing 1 required positional argument: 'product_id'
+ERROR 2026-04-10 19:02:29,555 basehttp "DELETE /secmark/delete_page/ HTTP/1.1" 500 74035
+INFO 2026-04-10 19:02:49,196 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 19:02:50,812 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 19:02:54,383 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 19:03:03,183 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 15068
+WARNING 2026-04-10 19:03:03,283 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:03:03,284 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+WARNING 2026-04-10 19:03:05,118 log Bad Request: /secmark/delete_page/
+WARNING 2026-04-10 19:03:05,119 basehttp "DELETE /secmark/delete_page/ HTTP/1.1" 400 32
+INFO 2026-04-10 19:05:16,920 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 19:05:19,188 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 14697
+INFO 2026-04-10 19:05:20,405 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 16550
+INFO 2026-04-10 19:05:32,502 basehttp "POST /secmark/create/ HTTP/1.1" 200 44
+INFO 2026-04-10 19:05:34,024 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 14875
+INFO 2026-04-10 19:05:36,568 basehttp "GET /secmark/edit_page/?id=0%7C3%7C3974 HTTP/1.1" 200 16723
+INFO 2026-04-10 19:05:40,339 basehttp "POST /secmark/edit/?id=%220%7C3%7C3974%22 HTTP/1.1" 200 90
+INFO 2026-04-10 19:05:42,027 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 14900
+WARNING 2026-04-10 19:05:45,911 log Bad Request: /secmark/delete_page/
+WARNING 2026-04-10 19:05:45,911 basehttp "DELETE /secmark/delete_page/ HTTP/1.1" 400 32
+WARNING 2026-04-10 19:05:51,455 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:05:51,455 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+WARNING 2026-04-10 19:05:55,318 log Bad Request: /secmark/delete_page/
+WARNING 2026-04-10 19:05:55,319 basehttp "DELETE /secmark/delete_page/ HTTP/1.1" 400 32
+INFO 2026-04-10 19:07:02,990 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 19:07:04,584 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 19:07:09,626 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 14909
+WARNING 2026-04-10 19:07:09,735 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:07:09,735 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+INFO 2026-04-10 19:07:11,118 basehttp "DELETE /secmark/delete_page/?id=0%7C1%7C4243 HTTP/1.1" 200 43
+INFO 2026-04-10 19:07:13,884 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 16550
+INFO 2026-04-10 19:07:28,327 basehttp "POST /secmark/create/ HTTP/1.1" 200 44
+INFO 2026-04-10 19:07:30,534 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 15189
+INFO 2026-04-10 19:07:34,313 basehttp "DELETE /secmark/delete_page/?id=0%7C3%7C3975 HTTP/1.1" 200 43
+INFO 2026-04-10 19:07:36,286 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 15189
+INFO 2026-04-10 19:07:40,025 basehttp "GET /secmark/edit_page/?id=0%7C5%7C3669 HTTP/1.1" 200 16748
+INFO 2026-04-10 19:08:59,349 basehttp "DELETE /secmark/delete_page/?id=0%7C5%7C3669 HTTP/1.1" 200 43
+INFO 2026-04-10 19:10:16,092 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 19:10:19,332 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 19:10:24,363 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 15189
+INFO 2026-04-10 19:10:26,406 basehttp "DELETE /secmark/delete_page/?id=0%7C1%7C4244 HTTP/1.1" 200 69
+INFO 2026-04-10 19:10:28,254 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 15189
+INFO 2026-04-10 19:11:07,672 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 19:11:10,271 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 15425
+INFO 2026-04-10 19:11:11,603 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 15425
+INFO 2026-04-10 19:11:13,345 basehttp "DELETE /secmark/delete_page/?id=0%7C3%7C3977 HTTP/1.1" 200 69
+INFO 2026-04-10 19:11:15,320 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 15425
+WARNING 2026-04-10 19:11:34,775 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:11:34,775 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+INFO 2026-04-10 19:11:37,670 basehttp "DELETE /secmark/delete_page/?id=0%7C5%7C3670 HTTP/1.1" 200 69
+INFO 2026-04-10 19:13:07,257 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 19:13:13,578 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 15425
+WARNING 2026-04-10 19:13:13,679 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:13:13,679 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+WARNING 2026-04-10 19:13:16,259 log Not Found: /secmark/delete_page/
+WARNING 2026-04-10 19:13:16,260 basehttp "DELETE /secmark/delete_page/?id=0%7C1%7C4246 HTTP/1.1" 404 110
+INFO 2026-04-10 19:13:42,429 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 19:13:44,015 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 19:13:46,835 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 19:13:48,662 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 19:13:57,039 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 19:13:58,704 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 19:14:41,033 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 19:14:45,965 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 15425
+WARNING 2026-04-10 19:14:46,069 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:14:46,069 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+WARNING 2026-04-10 19:14:48,153 log Not Found: /secmark/delete_page/
+WARNING 2026-04-10 19:14:48,155 basehttp "DELETE /secmark/delete_page/?id=0%7C1%7C4247 HTTP/1.1" 404 119
+INFO 2026-04-10 19:15:09,710 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 19:15:13,797 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 19:15:18,780 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 15425
+WARNING 2026-04-10 19:15:18,894 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:15:18,895 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+WARNING 2026-04-10 19:15:42,799 log Not Found: /secmark/delete_page/
+WARNING 2026-04-10 19:15:42,800 basehttp "DELETE /secmark/delete_page/?id=0%7C1%7C4248 HTTP/1.1" 404 119
+INFO 2026-04-10 19:15:58,282 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 15227
+WARNING 2026-04-10 19:15:58,371 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:15:58,372 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+WARNING 2026-04-10 19:15:59,765 log Not Found: /secmark/delete_page/
+WARNING 2026-04-10 19:15:59,765 basehttp "DELETE /secmark/delete_page/?id=0%7C3%7C3978 HTTP/1.1" 404 119
+INFO 2026-04-10 19:17:10,287 basehttp "GET /secmark/edit_page/?id=0%7C3%7C3978 HTTP/1.1" 200 16748
+WARNING 2026-04-10 19:17:10,370 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:17:10,370 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+INFO 2026-04-10 19:17:14,547 basehttp "POST /secmark/edit/?id=%220%7C3%7C3978%22 HTTP/1.1" 200 90
+INFO 2026-04-10 19:17:16,223 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 15246
+WARNING 2026-04-10 19:17:16,313 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:17:16,314 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+INFO 2026-04-10 19:18:21,087 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 19:18:22,733 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 19:18:28,789 basehttp "GET /secmark/edit_page/?id=0%7C5%7C3671 HTTP/1.1" 200 16767
+INFO 2026-04-10 19:18:39,260 basehttp "POST /secmark/edit/?id=%220%7C5%7C3671%22 HTTP/1.1" 200 90
+INFO 2026-04-10 19:18:42,642 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 15271
+WARNING 2026-04-10 19:18:46,459 log Not Found: /secmark/delete_page/
+WARNING 2026-04-10 19:18:46,459 basehttp "DELETE /secmark/delete_page/?id=0%7C1%7C4249 HTTP/1.1" 404 119
+WARNING 2026-04-10 19:18:51,626 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:18:51,627 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+INFO 2026-04-10 19:20:27,813 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 19:20:30,889 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 15253
+WARNING 2026-04-10 19:20:30,996 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:20:30,996 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+ERROR 2026-04-10 19:20:42,416 log Internal Server Error: /secmark/edit_page/
+Traceback (most recent call last):
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "F:\projects\1A.TbS-server\accounts\avito.py", line 287, in edit_product_page
+    product = Packager(id=tg.Id().from_str(product_id)).get_obj().get()
+              ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\projects\1A.TbS-server\accounts\avito.py", line 44, in __init__
+    self._obj = tg.UndefinedVar(obj, id=id).cache()
+                ~~~~~~~~~~~~~~~^^^^^^^^^^^^
+  File "F:\projects\1A.TbS-server\tgcloud\Undefined.py", line 10, in __init__
+    self._obj = Bytes(pickle.dumps(value), id=id, init_symbol="u", convert_block=convert_block)
+                ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\projects\1A.TbS-server\tgcloud\Bytes.py", line 27, in __init__
+    if(getbot_id(id).get_text(id)[1] == "l"):
+       ~~~~~~~~~^^^^
+  File "F:\projects\1A.TbS-server\tgcloud\config.py", line 119, in getbot_id
+    return matrix[id.bot][id.group]
+           ~~~~~~~~~~~~~~^^^^^^^^^^
+TypeError: list indices must be integers or slices, not NoneType
+ERROR 2026-04-10 19:20:42,421 basehttp "GET /secmark/edit_page/?id=0 HTTP/1.1" 500 95341
+WARNING 2026-04-10 19:20:42,503 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:20:42,504 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+WARNING 2026-04-10 19:20:44,715 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:20:44,715 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+WARNING 2026-04-10 19:20:44,770 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:20:44,770 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+INFO 2026-04-10 19:22:43,088 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 19:22:46,076 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 14710
+WARNING 2026-04-10 19:22:46,170 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:22:46,171 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+INFO 2026-04-10 19:22:50,702 basehttp "GET /secmark/edit_page/?id=0%7C1%7C4251 HTTP/1.1" 200 16792
+WARNING 2026-04-10 19:22:50,806 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:22:50,806 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+INFO 2026-04-10 19:22:59,907 basehttp "POST /secmark/edit/?id=%220%7C1%7C4251%22 HTTP/1.1" 200 90
+INFO 2026-04-10 19:23:01,876 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 14734
+WARNING 2026-04-10 19:23:01,975 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:23:01,975 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+WARNING 2026-04-10 19:23:05,339 log Not Found: /secmark/delete_page/
+WARNING 2026-04-10 19:23:05,339 basehttp "DELETE /secmark/delete_page/?id=0%7C3%7C3979 HTTP/1.1" 404 119
+INFO 2026-04-10 19:24:13,530 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 19:24:15,962 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 14155
+WARNING 2026-04-10 19:24:16,057 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:24:16,057 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+INFO 2026-04-10 19:24:16,706 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 16550
+WARNING 2026-04-10 19:24:16,797 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:24:16,797 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+WARNING 2026-04-10 19:24:18,532 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:24:18,532 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+WARNING 2026-04-10 19:24:18,580 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:24:18,581 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+INFO 2026-04-10 19:24:50,470 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 19:24:54,484 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 14155
+WARNING 2026-04-10 19:24:54,584 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:24:54,584 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+INFO 2026-04-10 19:24:56,121 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 14155
+WARNING 2026-04-10 19:24:56,201 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:24:56,202 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+INFO 2026-04-10 19:42:52,545 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 19:42:54,531 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 2089
+WARNING 2026-04-10 19:42:54,626 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:42:54,626 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+INFO 2026-04-10 19:43:01,330 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 2089
+WARNING 2026-04-10 19:43:01,407 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:43:01,407 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+INFO 2026-04-10 19:44:39,070 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 19:44:43,128 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 13478
+WARNING 2026-04-10 19:44:43,222 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:44:43,222 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+INFO 2026-04-10 19:44:45,789 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 16552
+WARNING 2026-04-10 19:44:45,874 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:44:45,874 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+INFO 2026-04-10 19:45:03,208 basehttp "POST /secmark/create/ HTTP/1.1" 200 43
+INFO 2026-04-10 19:45:04,470 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 13478
+WARNING 2026-04-10 19:45:04,550 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:45:04,550 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+INFO 2026-04-10 19:45:05,714 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 13478
+WARNING 2026-04-10 19:45:05,794 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:45:05,794 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+INFO 2026-04-10 19:45:35,346 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 19:45:36,942 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 19:45:52,590 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 13478
+WARNING 2026-04-10 19:45:52,687 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:45:52,687 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+INFO 2026-04-10 19:45:54,628 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 16552
+WARNING 2026-04-10 19:45:54,711 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:45:54,712 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+ERROR 2026-04-10 19:46:01,831 log Internal Server Error: /secmark/dashboard/
+Traceback (most recent call last):
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\urllib3\connectionpool.py", line 773, in urlopen
+    self._prepare_proxy(conn)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\urllib3\connectionpool.py", line 1042, in _prepare_proxy
+    conn.connect()
+    ~~~~~~~~~~~~^^
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\urllib3\connection.py", line 790, in connect
+    sock_and_verified = _ssl_wrap_socket_and_match_hostname(
+        sock=sock,
+    ...<14 lines>...
+        assert_fingerprint=self.assert_fingerprint,
+    )
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\urllib3\connection.py", line 969, in _ssl_wrap_socket_and_match_hostname
+    ssl_sock = ssl_wrap_socket(
+        sock=sock,
+    ...<8 lines>...
+        tls_in_tls=tls_in_tls,
+    )
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\urllib3\util\ssl_.py", line 480, in ssl_wrap_socket
+    ssl_sock = _ssl_wrap_socket_impl(sock, context, tls_in_tls, server_hostname)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\urllib3\util\ssl_.py", line 524, in _ssl_wrap_socket_impl
+    return ssl_context.wrap_socket(sock, server_hostname=server_hostname)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\robom\AppData\Local\Programs\Python\Python313\Lib\ssl.py", line 455, in wrap_socket
+    return self.sslsocket_class._create(
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        sock=sock,
+        ^^^^^^^^^^
+    ...<5 lines>...
+        session=session
+        ^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\robom\AppData\Local\Programs\Python\Python313\Lib\ssl.py", line 1076, in _create
+    self.do_handshake()
+    ~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\robom\AppData\Local\Programs\Python\Python313\Lib\ssl.py", line 1372, in do_handshake
+    self._sslobj.do_handshake()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^^
+TimeoutError: _ssl.c:1015: The handshake operation timed out
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\requests\adapters.py", line 644, in send
+    resp = conn.urlopen(
+        method=request.method,
+    ...<9 lines>...
+        chunked=chunked,
+    )
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\urllib3\connectionpool.py", line 841, in urlopen
+    retries = retries.increment(
+        method, url, error=new_e, _pool=self, _stacktrace=sys.exc_info()[2]
+    )
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\urllib3\util\retry.py", line 474, in increment
+    raise reraise(type(error), error, _stacktrace)
+          ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\urllib3\util\util.py", line 39, in reraise
+    raise value
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\urllib3\connectionpool.py", line 775, in urlopen
+    self._raise_timeout(
+    ~~~~~~~~~~~~~~~~~~~^
+        err=e, url=self.proxy.url, timeout_value=conn.timeout
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\urllib3\connectionpool.py", line 367, in _raise_timeout
+    raise ReadTimeoutError(
+        self, url, f"Read timed out. (read timeout={timeout_value})"
+    ) from err
+urllib3.exceptions.ReadTimeoutError: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=15)
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "F:\projects\1A.TbS-server\accounts\avito.py", line 202, in avito_dashboard
+    user_data = SessionManager.validate_request(request)
+  File "F:\projects\1A.TbS-server\accounts\reg.py", line 38, in validate_request
+    session_data = client.validate_session(session_token)
+  File "F:\projects\1A.TbS-server\accounts\client.py", line 130, in validate_session
+    user_data = self.get(user_id)
+  File "F:\projects\1A.TbS-server\accounts\client.py", line 87, in get
+    return self.cache.setdefault(google_id, tmp | tg.UndefinedVar(id=tg.Id().from_str(self[google_id])).get())
+                                                  ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\projects\1A.TbS-server\tgcloud\Undefined.py", line 10, in __init__
+    self._obj = Bytes(pickle.dumps(value), id=id, init_symbol="u", convert_block=convert_block)
+                ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "F:\projects\1A.TbS-server\tgcloud\Bytes.py", line 27, in __init__
+    if(getbot_id(id).get_text(id)[1] == "l"):
+       ~~~~~~~~~~~~~~~~~~~~~~^^^^
+  File "F:\projects\1A.TbS-server\tgcloud\config.py", line 106, in get_text
+    cache[idd] = (text := self.forward(idd).text)
+                          ~~~~~~~~~~~~^^^^^
+  File "F:\projects\1A.TbS-server\tgcloud\config.py", line 100, in forward
+    return self.bot.forward_message(trashgroup, groups[idd.group], idd.id)
+           ~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\telebot\__init__.py", line 1876, in forward_message
+    apihelper.forward_message(
+    ~~~~~~~~~~~~~~~~~~~~~~~~~^
+        self.token, chat_id, from_chat_id, message_id, disable_notification=disable_notification,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    ...<2 lines>...
+        suggested_post_parameters=suggested_post_parameters
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\telebot\apihelper.py", line 452, in forward_message
+    return _make_request(token, method_url, params=payload)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\telebot\apihelper.py", line 162, in _make_request
+    result = _get_req_session().request(
+        method, request_url, params=params, files=files,
+        timeout=(connect_timeout, read_timeout), proxies=proxy)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\requests\sessions.py", line 589, in request
+    resp = self.send(prep, **send_kwargs)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\requests\sessions.py", line 703, in send
+    r = adapter.send(request, **kwargs)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\requests\adapters.py", line 690, in send
+    raise ReadTimeout(e, request=request)
+requests.exceptions.ReadTimeout: HTTPSConnectionPool(host='api.telegram.org', port=443): Read timed out. (read timeout=15)
+INFO 2026-04-10 19:46:01,841 basehttp - Broken pipe from ('127.0.0.1', 50492)
+INFO 2026-04-10 19:46:12,128 basehttp "POST /secmark/create/ HTTP/1.1" 200 43
+INFO 2026-04-10 19:46:14,176 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 13478
+WARNING 2026-04-10 19:46:14,262 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:46:14,262 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+INFO 2026-04-10 19:46:56,657 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 19:46:58,411 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 19:47:07,713 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 19:47:09,511 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 19:47:15,791 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 19:47:17,488 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 19:47:22,385 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 14263
+WARNING 2026-04-10 19:47:22,477 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:47:22,478 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+ERROR 2026-04-10 19:47:36,099 log Internal Server Error: /secmark/edit_page/
+Traceback (most recent call last):
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "F:\projects\1A.TbS-server\accounts\avito.py", line 274, in edit_product_page
+    product = packager.get_obj().get()
+TypeError: get expected at least 1 argument, got 0
+ERROR 2026-04-10 19:47:36,102 basehttp "GET /secmark/edit_page/?id=0%7C1%7C4252 HTTP/1.1" 500 79177
+INFO 2026-04-10 19:48:04,844 autoreload Watching for file changes with StatReloader
+ERROR 2026-04-10 19:48:07,660 log Internal Server Error: /secmark/edit_page/
+Traceback (most recent call last):
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\views\decorators\csrf.py", line 56, in wrapper_view
+    return view_func(*args, **kwargs)
+  File "F:\projects\1A.TbS-server\accounts\avito.py", line 274, in edit_product_page
+    product = packager.get_obj().get()
+TypeError: get expected at least 1 argument, got 0
+ERROR 2026-04-10 19:48:07,662 basehttp "GET /secmark/edit_page/?id=0%7C1%7C4252 HTTP/1.1" 500 79177
+INFO 2026-04-10 19:48:33,625 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 19:48:35,237 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 19:48:39,006 basehttp "GET /secmark/edit_page/?id=0%7C1%7C4252 HTTP/1.1" 302 0
+INFO 2026-04-10 19:48:39,270 basehttp - Broken pipe from ('127.0.0.1', 56645)
+INFO 2026-04-10 19:48:39,995 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 14263
+INFO 2026-04-10 19:48:41,225 basehttp "GET /secmark/edit_page/?id=0%7C1%7C4252 HTTP/1.1" 302 0
+INFO 2026-04-10 19:48:41,235 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 14263
+INFO 2026-04-10 19:48:44,697 basehttp "GET /secmark/edit_page/?id=0%7C1%7C4252 HTTP/1.1" 302 0
+INFO 2026-04-10 19:48:44,706 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 14263
+INFO 2026-04-10 19:48:46,650 basehttp "GET /secmark/edit_page/?id=0%7C1%7C4252 HTTP/1.1" 302 0
+INFO 2026-04-10 19:48:46,661 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 14263
+INFO 2026-04-10 19:48:48,217 basehttp "GET /secmark/edit_page/?id=0%7C1%7C4253 HTTP/1.1" 302 0
+INFO 2026-04-10 19:48:48,226 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 14263
+INFO 2026-04-10 19:48:54,850 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 19:48:56,799 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 19:48:58,762 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 14263
+INFO 2026-04-10 19:48:59,996 basehttp "GET /secmark/edit_page/?id=0%7C1%7C4252 HTTP/1.1" 302 0
+INFO 2026-04-10 19:49:00,005 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 14263
+WARNING 2026-04-10 19:49:12,026 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:49:12,027 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+INFO 2026-04-10 19:49:12,900 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 14263
+WARNING 2026-04-10 19:49:12,981 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:49:12,982 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+INFO 2026-04-10 19:49:20,595 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 19:49:22,219 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 19:49:29,600 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 19:49:31,314 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 19:49:34,522 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 14263
+WARNING 2026-04-10 19:49:34,624 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:49:34,624 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+INFO 2026-04-10 19:49:35,932 basehttp "GET /secmark/edit_page/?id=0%7C1%7C4252 HTTP/1.1" 302 0
+INFO 2026-04-10 19:49:35,941 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 14263
+WARNING 2026-04-10 19:49:36,027 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:49:36,027 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+INFO 2026-04-10 19:49:54,098 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 19:49:55,704 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 19:49:59,020 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 14263
+WARNING 2026-04-10 19:49:59,117 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:49:59,118 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+INFO 2026-04-10 19:50:00,180 basehttp "GET /secmark/edit_page/?id=0%7C1%7C4252 HTTP/1.1" 200 16932
+WARNING 2026-04-10 19:50:00,266 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:50:00,266 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+ERROR 2026-04-10 19:50:07,454 log Internal Server Error: /secmark/edit/
+ERROR 2026-04-10 19:50:07,454 basehttp "POST /secmark/edit/?id=%220%7C1%7C4252%22 HTTP/1.1" 500 58
+WARNING 2026-04-10 19:50:09,814 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:50:09,814 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+INFO 2026-04-10 19:50:56,926 autoreload Watching for file changes with StatReloader
+WARNING 2026-04-10 19:50:58,197 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:50:58,198 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+WARNING 2026-04-10 19:50:58,247 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:50:58,247 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+INFO 2026-04-10 19:50:59,880 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 14263
+WARNING 2026-04-10 19:50:59,968 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:50:59,968 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+INFO 2026-04-10 19:51:01,439 basehttp "GET /secmark/edit_page/?id=0%7C1%7C4252 HTTP/1.1" 200 17050
+WARNING 2026-04-10 19:51:01,526 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:51:01,527 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+ERROR 2026-04-10 19:51:07,553 log Internal Server Error: /secmark/edit/
+ERROR 2026-04-10 19:51:07,553 basehttp "POST /secmark/edit/?id=0%7C1%7C4252 HTTP/1.1" 500 52
+INFO 2026-04-10 19:51:52,071 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-10 19:51:53,979 autoreload Watching for file changes with StatReloader
+WARNING 2026-04-10 19:51:56,509 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:51:56,509 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+WARNING 2026-04-10 19:51:56,562 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:51:56,562 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+INFO 2026-04-10 19:51:58,858 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 14263
+WARNING 2026-04-10 19:51:58,951 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:51:58,952 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+INFO 2026-04-10 19:51:59,900 basehttp "GET /secmark/edit_page/?id=0%7C1%7C4252 HTTP/1.1" 200 17050
+WARNING 2026-04-10 19:51:59,993 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:51:59,994 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+INFO 2026-04-10 19:52:03,273 basehttp "POST /secmark/edit/?id=0%7C1%7C4252 HTTP/1.1" 200 17
+INFO 2026-04-10 19:52:04,878 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 14270
+WARNING 2026-04-10 19:52:04,970 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:52:04,971 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+INFO 2026-04-10 19:52:07,331 basehttp "GET /secmark/edit_page/?id=0%7C1%7C4252 HTTP/1.1" 200 17057
+INFO 2026-04-10 19:52:10,600 basehttp "POST /secmark/edit/?id=0%7C1%7C4252 HTTP/1.1" 200 17
+INFO 2026-04-10 19:52:11,828 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 14306
+WARNING 2026-04-10 19:52:13,922 log Not Found: /secmark/delete/
+WARNING 2026-04-10 19:52:13,923 basehttp "DELETE /secmark/delete/?id=0%7C1%7C4253 HTTP/1.1" 404 6129
+INFO 2026-04-10 19:52:15,434 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 14306
+WARNING 2026-04-10 19:52:18,684 log Not Found: /secmark/delete/
+WARNING 2026-04-10 19:52:18,684 basehttp "DELETE /secmark/delete/?id=0%7C1%7C4253 HTTP/1.1" 404 6129
+WARNING 2026-04-10 19:52:19,425 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:52:19,425 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6209
+WARNING 2026-04-10 19:52:22,007 log Not Found: /secmark/delete/
+WARNING 2026-04-10 19:52:22,007 basehttp "DELETE /secmark/delete/?id=0%7C1%7C4253 HTTP/1.1" 404 6129
+INFO 2026-04-10 19:52:42,338 autoreload F:\projects\1A.TbS-server\myapp\urls.py changed, reloading.
+INFO 2026-04-10 19:52:44,036 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 19:52:46,250 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 14306
+WARNING 2026-04-10 19:52:46,352 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-10 19:52:46,353 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 6204
+INFO 2026-04-10 19:52:51,031 basehttp "DELETE /secmark/delete/?id=0%7C1%7C4253 HTTP/1.1" 200 17
+INFO 2026-04-10 19:52:53,224 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 13922
+INFO 2026-04-10 19:52:54,131 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 13922
+INFO 2026-04-10 19:52:54,383 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 13922
+INFO 2026-04-10 19:52:54,598 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 13922
+INFO 2026-04-10 19:52:54,779 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 13922
+INFO 2026-04-10 19:54:29,072 autoreload Watching for file changes with StatReloader
+INFO 2026-04-10 19:54:30,796 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 13928
+INFO 2026-04-10 19:54:32,020 basehttp "GET /secmark/create_page/ HTTP/1.1" 200 16670
+INFO 2026-04-10 19:55:02,320 basehttp "POST /secmark/create/ HTTP/1.1" 200 43
+INFO 2026-04-10 19:55:03,075 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 14217
+INFO 2026-04-10 19:55:04,850 basehttp "GET /secmark/edit_page/?id=0%7C1%7C4252 HTTP/1.1" 200 17093
+INFO 2026-04-10 19:55:07,152 basehttp "POST /secmark/edit/?id=0%7C1%7C4252 HTTP/1.1" 200 17
+INFO 2026-04-10 19:55:08,164 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 14218
+INFO 2026-04-10 19:55:09,725 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 14218
+INFO 2026-04-10 19:55:30,586 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 14214
+INFO 2026-04-10 19:57:14,918 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 14214
