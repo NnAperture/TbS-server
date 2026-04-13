@@ -131,22 +131,17 @@ def edit_product_view(request):
         if missing:
             return JsonResponse({'error': f'Missing fields: {missing}'}, status=400)
         
-        # Получаем существующий продукт через tg.UndefinedVar напрямую
         tg_id = tg.Id().from_str(product_id)
         product_var = tg.UndefinedVar(id=tg_id)
         
-        # Пробуем разные варианты получения данных
         existing_product = None
         try:
-            # Вариант 1: без аргументов
             existing_product = product_var.get()
         except TypeError:
             try:
-                # Вариант 2: с пустым аргументом
                 existing_product = product_var.get(None)
             except:
                 try:
-                    # Вариант 3: через cache
                     existing_product = product_var.cache().get()
                 except:
                     existing_product = None
@@ -157,7 +152,6 @@ def edit_product_view(request):
         if str(existing_product.get('author')) != str(user_id):
             return JsonResponse({'error': 'Access denied'}, status=403)
         
-        # Обновляем поля
         for key, value in properties.items():
             if key in existing_product:
                 existing_product[key] = value
@@ -166,7 +160,6 @@ def edit_product_view(request):
                     existing_product['special'] = {}
                 existing_product['special']['tags'] = value
         
-        # Сохраняем - пробуем set с разными способами
         try:
             product_var.set(existing_product)
         except:
@@ -199,7 +192,6 @@ def delete_product_view(request):
         
         user_id = user_data.get("id")
         
-        # Проверяем существование продукта
         try:
             packager = Packager(id=tg.Id().from_str(product_id))
             product = packager.get_obj().get()
@@ -208,7 +200,6 @@ def delete_product_view(request):
         except Exception as e:
             print(f"Product {product_id} may not exist: {e}")
         
-        # Удаляем из списка пользователя
         av_data = client.get(user_id).get("avito")
         if av_data:
             try:
@@ -223,7 +214,6 @@ def delete_product_view(request):
             except Exception as e:
                 print(f"Error updating user product list: {e}")
         
-        # Пытаемся удалить продукт (если существует)
         try:
             packager._obj.set(None)
         except:
@@ -251,7 +241,6 @@ def get_user_products(user_id):
     products = []
     for pid in product_ids:
         try:
-            # Проверяем существует ли продукт
             product_var = tg.UndefinedVar(id=tg.Id().from_str(pid))
             if product_var.get() is None:
                 print(f"Product {pid} is None, skipping")
@@ -278,7 +267,6 @@ def avito_dashboard(request):
     user_id = user_data['id']
     products = get_user_products(user_id)
     
-    # Фильтруем None и пустые продукты
     products = [p for p in products if p and isinstance(p, dict)]
     
     response = render(request, 'avito/dashboard.html', {
@@ -319,16 +307,12 @@ def edit_product_page(request):
     user_id = user_data['id']
     
     try:
-        # Получаем ID объект
         tg_id = tg.Id().from_str(product_id)
         
-        # Создаем UndefinedVar с ID
         var = tg.UndefinedVar(id=tg_id)
         
-        # Пытаемся получить данные
         product = var.get() if hasattr(var, 'get') else None
         
-        # Если не получилось, пробуем через cache
         if not product:
             product = var.cache().get() if hasattr(var, 'cache') else None
         
@@ -353,3 +337,17 @@ def edit_product_page(request):
     
     response.set_cookie('csrftoken', get_token(request), max_age=31449600, secure=True, httponly=False, samesite='Lax')
     return response
+
+def avito_get_product_view(request):
+    product_id = request.GET.get('id')
+    try:
+        id = tg.Id().from_str(product_id)
+        data = tg.Var(id=id).get()
+        if(type(data) == dict and set(data.keys()) >= 
+           {'icon', 'name', 'price', 'description', 'backcom', 'author', 'special', 'type'}):
+            return JsonResponse(data, status=200)
+        else:
+            return JsonResponse({"status":"Wrong ID!"})
+    except Exception as e:
+        print(f"Error loading product: {e}")
+        return JsonResponse({'error': str(e)}, status=500)
