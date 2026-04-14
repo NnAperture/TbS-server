@@ -358,8 +358,10 @@ def avito_get_profile_ids(request):
         data = client.get_user_by_pub_id(user_id)
         avito = data['avito']
         if(avito is None):
-            avito = []
-        return JsonResponse(avito, status=200)
+            return JsonResponse({'status':'success', 
+                                 'ids':[]}, status=200)
+        return JsonResponse({'status':'success', 
+                             'ids':tg.Var(id=avito).get()}, status=200)
     except Exception as e:
         print(f"Error loading product: {e}")
         return JsonResponse({'error': str(e)}, status=500)
