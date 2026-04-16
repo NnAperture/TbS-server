@@ -7,6 +7,7 @@ from .client import client
 from .reg import SessionManager
 import threading
 import json
+import time
 
 PUBLIC_ID = tg.Id().from_str("0|1|4259")
 public_list = tg.UndefinedVar(id=PUBLIC_ID)
@@ -31,6 +32,7 @@ def create_product_dict(author_id=None, properties=None):
                 product['special'] = value
             elif key == 'tags':
                 product['special']['tags'] = value
+                product['special']['time'] = time.time()
     
     return product
 
@@ -162,6 +164,7 @@ def edit_product_view(request):
                 if 'special' not in existing_product:
                     existing_product['special'] = {}
                 existing_product['special']['tags'] = value
+                existing_product['special']['time'] = time.time()
         
         try:
             product_var.set(existing_product)
