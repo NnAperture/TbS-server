@@ -217,6 +217,9 @@ def delete_product_view(request):
                         product_list.set(current_ids)
                     else:
                         client.update_user_info(user_id, {"avito": None})
+                    public = public_list.get()
+                    public.discard(product_id)
+                    public_list.set(public)
             except Exception as e:
                 print(f"Error updating user product list: {e}")
         
