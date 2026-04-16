@@ -436,7 +436,7 @@
             
             const idScript = document.getElementById('product-id-data');
             if (idScript && idScript.textContent && idScript.textContent !== 'null' && idScript.textContent !== '') {
-                productId = idScript.textContent.replace(/^"|"$/g, ''); // Убираем кавычки
+                productId = idScript.textContent.replace(/^"|"$/g, '');
                 console.log('Product ID cleaned:', productId);
             }
             

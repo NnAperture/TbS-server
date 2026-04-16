@@ -242,6 +242,7 @@
                     <div style="margin-top: 15px;">
                         <button class="edit-btn" onclick="editProduct('${realId}')">✏️ Редактировать</button>
                         <button class="delete-btn" onclick="deleteProduct('${realId}')">🗑️ Удалить</button>
+                        <button class="publish-btn" onclick="publishProduct('${realId}')">Опубликовать</button>
                     </div>
                 </div>
             `;
@@ -315,6 +316,10 @@
                     showNotification('Ошибка сети', 'error');
                 }
             }
+        }
+
+        function publishProduct(realId){
+            window.location.href = `../../secmark/publish?id=${realId}`;
         }
 
         function getCookie(name) {

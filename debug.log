@@ -2067,3 +2067,81 @@ INFO 2026-04-14 19:07:07,339 autoreload Watching for file changes with StatReloa
 INFO 2026-04-14 19:07:16,431 autoreload F:\projects\1A.TbS-server\myapp\urls.py changed, reloading.
 INFO 2026-04-14 19:07:19,352 autoreload Watching for file changes with StatReloader
 INFO 2026-04-14 19:11:08,067 basehttp "GET /secmark/get_profile/?pub_id=3 HTTP/1.1" 200 54
+INFO 2026-04-16 19:30:37,603 autoreload Watching for file changes with StatReloader
+INFO 2026-04-16 19:31:58,218 basehttp "GET / HTTP/1.1" 200 31707
+INFO 2026-04-16 19:31:59,228 basehttp "GET /avatar/?pub_id=3&format=image&t=1776349918261 HTTP/1.1" 200 20324
+INFO 2026-04-16 19:31:59,567 basehttp "GET /avatar/?pub_id=3&format=image&t=1776349918261 HTTP/1.1" 200 20324
+WARNING 2026-04-16 19:31:59,629 log Not Found: /favicon.ico
+WARNING 2026-04-16 19:31:59,629 basehttp "GET /favicon.ico HTTP/1.1" 404 6924
+INFO 2026-04-16 19:32:11,982 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 15254
+WARNING 2026-04-16 19:32:13,999 log Not Found: /secmark/dashboard/secmark/publish
+WARNING 2026-04-16 19:32:13,999 basehttp "GET /secmark/dashboard/secmark/publish?id=0|1|4258 HTTP/1.1" 404 7006
+INFO 2026-04-16 19:32:51,068 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 15260
+INFO 2026-04-16 19:32:53,274 basehttp "GET /secmark/publish?id=0|1|4258 HTTP/1.1" 301 0
+INFO 2026-04-16 19:32:53,313 basehttp "GET /secmark/publish/?id=0%7C1%7C4258 HTTP/1.1" 200 10295
+INFO 2026-04-16 19:32:53,384 basehttp "GET /secmark/get_product/?id=0%7C1%7C4258 HTTP/1.1" 200 385
+ERROR 2026-04-16 19:34:18,999 log Internal Server Error: /secmark/publish_view/
+Traceback (most recent call last):
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\base.py", line 204, in _get_response
+    self.check_response(response, callback)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\base.py", line 332, in check_response
+    raise ValueError(
+    ...<2 lines>...
+    )
+ValueError: The view accounts.avito.publish_view didn't return an HttpResponse object. It returned None instead.
+ERROR 2026-04-16 19:34:19,003 basehttp "POST /secmark/publish_view/ HTTP/1.1" 500 74656
+WARNING 2026-04-16 19:34:21,910 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-16 19:34:21,911 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7035
+INFO 2026-04-16 19:34:27,811 basehttp "GET /secmark/publish/?id=0%7C1%7C4258 HTTP/1.1" 200 10209
+INFO 2026-04-16 19:34:27,896 basehttp "GET /secmark/get_product/?id=0%7C1%7C4258 HTTP/1.1" 200 385
+WARNING 2026-04-16 19:34:27,938 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-16 19:34:27,939 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7035
+ERROR 2026-04-16 19:34:31,405 log Internal Server Error: /secmark/publish_view/
+Traceback (most recent call last):
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\base.py", line 204, in _get_response
+    self.check_response(response, callback)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\base.py", line 332, in check_response
+    raise ValueError(
+    ...<2 lines>...
+    )
+ValueError: The view accounts.avito.publish_view didn't return an HttpResponse object. It returned None instead.
+ERROR 2026-04-16 19:34:31,407 basehttp "POST /secmark/publish_view/ HTTP/1.1" 500 74656
+INFO 2026-04-16 19:34:50,735 autoreload F:\projects\1A.TbS-server\myapp\urls.py changed, reloading.
+INFO 2026-04-16 19:34:52,520 autoreload Watching for file changes with StatReloader
+ERROR 2026-04-16 19:35:23,896 log Internal Server Error: /secmark/publish_view/
+Traceback (most recent call last):
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\base.py", line 204, in _get_response
+    self.check_response(response, callback)
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "f:\projects\1A.TbS-server\venv\Lib\site-packages\django\core\handlers\base.py", line 332, in check_response
+    raise ValueError(
+    ...<2 lines>...
+    )
+ValueError: The view accounts.avito.publish_view didn't return an HttpResponse object. It returned None instead.
+ERROR 2026-04-16 19:35:23,899 basehttp "POST /secmark/publish_view/ HTTP/1.1" 500 74656
+INFO 2026-04-16 19:35:36,846 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-16 19:35:38,632 autoreload Watching for file changes with StatReloader
+INFO 2026-04-16 19:35:44,280 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-16 19:35:46,078 autoreload Watching for file changes with StatReloader
+INFO 2026-04-16 19:35:48,667 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-16 19:37:52,680 autoreload Watching for file changes with StatReloader
+INFO 2026-04-16 19:37:56,559 basehttp "POST /secmark/publish_view/ HTTP/1.1" 200 21
+INFO 2026-04-16 19:37:59,873 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 15260
+WARNING 2026-04-16 19:38:00,021 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-16 19:38:00,021 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7035
+ERROR 2026-04-16 19:38:53,817 log Internal Server Error: /secmark/get_public/
+ERROR 2026-04-16 19:38:53,818 basehttp "GET /secmark/get_public/ HTTP/1.1" 500 56
+ERROR 2026-04-16 19:39:32,250 log Internal Server Error: /secmark/get_public/
+ERROR 2026-04-16 19:39:32,251 basehttp "GET /secmark/get_public/ HTTP/1.1" 500 56
+INFO 2026-04-16 19:39:53,326 autoreload F:\projects\1A.TbS-server\accounts\avito.py changed, reloading.
+INFO 2026-04-16 19:39:55,462 autoreload Watching for file changes with StatReloader
+INFO 2026-04-16 19:40:09,661 autoreload Watching for file changes with StatReloader
+INFO 2026-04-16 19:40:15,047 basehttp "GET /secmark/get_public/ HTTP/1.1" 200 42

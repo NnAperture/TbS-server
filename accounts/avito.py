@@ -8,6 +8,9 @@ from .reg import SessionManager
 import threading
 import json
 
+PUBLIC_ID = tg.Id().from_str("0|1|4259")
+public_list = tg.UndefinedVar(id=PUBLIC_ID)
+
 def create_product_dict(author_id=None, properties=None):
     product = {
         'icon': None,
@@ -362,6 +365,77 @@ def avito_get_profile_ids(request):
                                  'ids':[]}, status=200)
         return JsonResponse({'status':'success', 
                              'ids':tg.Var(id=avito).get()}, status=200)
+    except Exception as e:
+        print(f"Error loading product: {e}")
+        return JsonResponse({'error': str(e)}, status=500)
+
+def avito_publish(request):
+    product_id = request.GET.get('id')
+    
+    if not product_id:
+        return redirect('/secmark/dashboard/')
+    
+    user_data = SessionManager.validate_request(request)
+    if not user_data:
+        return redirect('/oauth/google/')
+    
+    user_id = user_data['id']
+    
+    try:
+        tg_id = tg.Id().from_str(product_id)
+        var = tg.UndefinedVar(id=tg_id)
+        product = var.get() if hasattr(var, 'get') else None
+        
+        if not product:
+            product = var.cache().get() if hasattr(var, 'cache') else None
+        
+        if not product or not isinstance(product, dict):
+            print(f"Product not found or invalid: {product}")
+            return redirect('/secmark/dashboard/')
+        
+        if str(product.get('author')) != str(user_id):
+            return redirect('/secmark/dashboard/')
+            
+    except Exception as e:
+        print(f"Error loading product: {e}")
+        import traceback
+        traceback.print_exc()
+        return redirect('/secmark/dashboard/')
+    
+    response = render(request, 'avito/publish.html', {
+        'name': client.get(user_id)["name"],
+        'product_id': product_id
+    })
+    
+    response.set_cookie('csrftoken', get_token(request), max_age=31449600, secure=True, httponly=False, samesite='Lax')
+    return response
+
+@csrf_exempt
+def publish_view(request):
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+    
+    try:
+        data = json.loads(request.body)
+        product_id = data.get('id')
+        print(product_id)
+
+        public = public_list.get()
+        public.add(product_id)
+        public_list.set(public)
+        return JsonResponse({'status': 'success'}, status=200)
+    except json.JSONDecodeError:
+        return JsonResponse({'error': 'Invalid JSON'}, status=400)
+    except Exception as e:
+        print(f"Error publishing product: {e}")
+        import traceback
+        traceback.print_exc()
+        return JsonResponse({'error': str(e)}, status=500)
+    
+def avito_get_public_ids(request):
+    try:
+        return JsonResponse({'status':'success', 
+                             'ids':list(public_list.get())}, status=200)
     except Exception as e:
         print(f"Error loading product: {e}")
         return JsonResponse({'error': str(e)}, status=500)
