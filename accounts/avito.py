@@ -437,7 +437,7 @@ def publish_view(request):
 def avito_get_public_ids(request):
     try:
         return JsonResponse({'status':'success', 
-                             'ids':list(public_list.get())}, status=200)
+                             'ids':public_list.get()}, status=200)
     except Exception as e:
         print(f"Error loading product: {e}")
         return JsonResponse({'error': str(e)}, status=500)
