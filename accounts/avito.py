@@ -419,7 +419,7 @@ def publish_view(request):
     try:
         data = json.loads(request.body)
         product_id = data.get('id')
-        product_data = tg.UndefinedVar(id=product_id).cache()
+        product_data = tg.UndefinedVar(id=tg.Id().from_str(product_id)).cache()
         print(product_id)
 
         public = public_list.get()
