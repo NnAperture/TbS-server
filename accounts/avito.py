@@ -138,18 +138,12 @@ def edit_product_view(request):
         
         tg_id = tg.Id().from_str(product_id)
         product_var = tg.UndefinedVar(id=tg_id)
-        
-        existing_product = None
-        try:
-            existing_product = product_var.get()
-        except TypeError:
-            try:
-                existing_product = product_var.get(None)
-            except:
-                try:
-                    existing_product = product_var.cache().get()
-                except:
-                    existing_product = None
+        public = public_list.get()
+        t = time.time()
+        if(tg_id in public):
+            public[tg_id] = t
+
+        existing_product = product_var.get()
         
         if not existing_product:
             return JsonResponse({'error': 'Product not found'}, status=404)
@@ -164,7 +158,7 @@ def edit_product_view(request):
                 if 'special' not in existing_product:
                     existing_product['special'] = {}
                 existing_product['special']['tags'] = value
-                existing_product['special']['time'] = time.time()
+                existing_product['special']['time'] = t
         
         try:
             product_var.set(existing_product)
@@ -218,7 +212,7 @@ def delete_product_view(request):
                     else:
                         client.update_user_info(user_id, {"avito": None})
                     public = public_list.get()
-                    public.discard(product_id)
+                    public.pop(product_id, None)
                     public_list.set(public)
             except Exception as e:
                 print(f"Error updating user product list: {e}")
@@ -316,6 +310,7 @@ def edit_product_page(request):
     user_id = user_data['id']
     
     try:
+        
         tg_id = tg.Id().from_str(product_id)
         
         var = tg.UndefinedVar(id=tg_id)
@@ -424,10 +419,11 @@ def publish_view(request):
     try:
         data = json.loads(request.body)
         product_id = data.get('id')
+        product_data = tg.UndefinedVar(id=product_id).cache()
         print(product_id)
 
         public = public_list.get()
-        public.add(product_id)
+        public[product_id] = product_data.get()['special']['time']
         public_list.set(public)
         return JsonResponse({'status': 'success'}, status=200)
     except json.JSONDecodeError:
