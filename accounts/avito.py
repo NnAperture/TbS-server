@@ -189,6 +189,7 @@ def edit_product_view(request):
         t = time.time()
         if(product_id in public):
             public[product_id] = t
+            public_list.set(public)
 
         existing_product = product_var.get()
         
