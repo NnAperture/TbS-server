@@ -88,7 +88,7 @@ def create_product(user_id, properties):
     return product_id
 
 @csrf_exempt
-def edit_product_view(request):
+def create_product_view(request):
     if request.method != 'POST':
         return JsonResponse({'error': 'Method not allowed'}, status=405)
     
