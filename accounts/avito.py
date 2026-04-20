@@ -146,8 +146,8 @@ def create_product_view(request):
             except Exception as e:
                 print(f"Error saving: {e}")
         
-        if tg_id in public:
-            public[tg_id] = current_time
+        if product_id in public:
+            public[product_id] = current_time
             public_list.set(public)
             print(f"Updated public time for {product_id} to {current_time}")
         
@@ -188,7 +188,7 @@ def edit_product_view(request):
         public = public_list.get()
         t = time.time()
         if(product_id in public):
-            public[tg_id] = t
+            public[product_id] = t
 
         existing_product = product_var.get()
         
