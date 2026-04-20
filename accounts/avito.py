@@ -187,7 +187,7 @@ def edit_product_view(request):
         product_var = tg.UndefinedVar(id=tg_id)
         public = public_list.get()
         t = time.time()
-        if(tg_id in public):
+        if(product_id in public):
             public[tg_id] = t
 
         existing_product = product_var.get()
