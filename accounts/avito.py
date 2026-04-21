@@ -97,6 +97,31 @@ def create_product_view(request):
         if not user_data:
             return JsonResponse({'error': 'Authentication required'}, status=401)
         
+        properties = json.loads(request.body)
+        user_id = user_data.get("id")
+        
+        required_fields = ['name', 'price', 'backcom', 'type']
+        missing = [f for f in required_fields if not properties.get(f)]
+        
+        if missing:
+            return JsonResponse({'error': f'Missing fields: {missing}'}, status=400)
+        
+        product_id = create_product(user_id, properties)
+        return JsonResponse({'success': True, 'product_id': product_id})
+        
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
+
+@csrf_exempt
+def edit_product_view(request):
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+    
+    try:
+        user_data = SessionManager.validate_request(request)
+        if not user_data:
+            return JsonResponse({'error': 'Authentication required'}, status=401)
+        
         product_id = request.GET.get('id', '').strip('"')
         if not product_id:
             return JsonResponse({'error': 'Product ID required'}, status=400)
@@ -150,71 +175,6 @@ def create_product_view(request):
             public[product_id] = current_time
             public_list.set(public)
             print(f"Updated public time for {product_id} to {current_time}")
-        
-        return JsonResponse({'success': True})
-        
-    except Exception as e:
-        print(f"Edit error: {e}")
-        import traceback
-        traceback.print_exc()
-        return JsonResponse({'error': str(e)}, status=500)
-
-@csrf_exempt
-def edit_product_view(request):
-    if request.method != 'POST':
-        return JsonResponse({'error': 'Method not allowed'}, status=405)
-    
-    try:
-        user_data = SessionManager.validate_request(request)
-        if not user_data:
-            return JsonResponse({'error': 'Authentication required'}, status=401)
-        
-        product_id = request.GET.get('id', '').strip('"')
-        if not product_id:
-            return JsonResponse({'error': 'Product ID required'}, status=400)
-        
-        print(f"Editing product ID: {product_id}")
-        
-        properties = json.loads(request.body)
-        user_id = user_data.get("id")
-        
-        required_fields = ['name', 'price', 'backcom', 'type']
-        missing = [f for f in required_fields if not properties.get(f)]
-        if missing:
-            return JsonResponse({'error': f'Missing fields: {missing}'}, status=400)
-        
-        tg_id = tg.Id().from_str(product_id)
-        product_var = tg.UndefinedVar(id=tg_id)
-        public = public_list.get()
-        t = time.time()
-        if(product_id in public):
-            public[product_id] = t
-            public_list.set(public)
-
-        existing_product = product_var.get()
-        
-        if not existing_product:
-            return JsonResponse({'error': 'Product not found'}, status=404)
-        
-        if str(existing_product.get('author')) != str(user_id):
-            return JsonResponse({'error': 'Access denied'}, status=403)
-        
-        for key, value in properties.items():
-            if key in existing_product:
-                existing_product[key] = value
-            elif key == 'tags':
-                if 'special' not in existing_product:
-                    existing_product['special'] = {}
-                existing_product['special']['tags'] = value
-                existing_product['special']['time'] = t
-        
-        try:
-            product_var.set(existing_product)
-        except:
-            try:
-                product_var.cache().set(existing_product)
-            except Exception as e:
-                print(f"Error saving: {e}")
         
         return JsonResponse({'success': True})
         
