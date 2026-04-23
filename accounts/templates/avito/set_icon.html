@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOMEL - Установка иконки товара</title>
+    <style>
+        body {
+            background: #001f3f;
+            color: white;
+            font-family: courier, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #0036944f;
+            border: solid #eef4ff54 1px;
+            border-radius: 20px;
+            padding: 30px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+        }
+
+        .current-icon {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+        }
+
+        .current-icon img {
+            max-width: 150px;
+            max-height: 150px;
+            border-radius: 15px;
+            margin-top: 10px;
+        }
+
+        .icon-preview {
+            width: 150px;
+            height: 150px;
+            margin: 20px auto;
+            background: #001f3f;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+            overflow: hidden;
+            border: 2px solid #eef4ff54;
+        }
+
+        .icon-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid #eef4ff54;
+            border-radius: 10px;
+            color: white;
+            font-family: courier, sans-serif;
+            cursor: pointer;
+        }
+
+        input[type="file"]::file-selector-button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: courier, sans-serif;
+            margin-right: 10px;
+        }
+
+        input[type="file"]::file-selector-button:hover {
+            background: #45a049;
+        }
+
+        .icon-presets {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        .preset-icon {
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid transparent;
+            border-radius: 10px;
+            padding: 10px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .preset-icon:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
+        }
+
+        .preset-icon.selected {
+            border-color: #4CAF50;
+            background: rgba(76, 175, 80, 0.2);
+        }
+
+        .preset-icon .preset-emoji {
+            font-size: 40px;
+        }
+
+        .preset-icon .preset-name {
+            font-size: 10px;
+            color: #ccc;
+        }
+
+        .buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-family: courier, sans-serif;
+            font-size: 16px;
+            transition: opacity 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .btn-secondary {
+            background: #757575;
+            color: white;
+        }
+
+        .btn-danger {
+            background: #f44336;
+            color: white;
+        }
+
+        .btn-warning {
+            background: #FF9800;
+            color: white;
+        }
+
+        .btn:hover {
+            opacity: 0.8;
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 12px 20px;
+            border-radius: 8px;
+            z-index: 1000;
+            animation: slideIn 0.3s ease;
+        }
+
+        .notification.success {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .notification.error {
+            background: #f44336;
+            color: white;
+        }
+
+        .notification.info {
+            background: #2196F3;
+            color: white;
+        }
+
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+
+        @keyframes slideOut {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
+
+        .product-info {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .product-name {
+            font-size: 18px;
+            font-weight: bold;
+            color: #ffd700;
+        }
+
+        .upload-progress {
+            margin-top: 10px;
+            display: none;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            width: 0%;
+            height: 100%;
+            background: #4CAF50;
+            transition: width 0.3s ease;
+        }
+
+        .or-divider {
+            text-align: center;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .or-divider::before,
+        .or-divider::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            width: 45%;
+            height: 1px;
+            background: #eef4ff54;
+        }
+
+        .or-divider::before {
+            left: 0;
+        }
+
+        .or-divider::after {
+            right: 0;
+        }
+
+        .or-divider span {
+            background: #001f3f;
+            padding: 0 10px;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎨 Установка иконки товара</h1>
+        
+        <div class="product-info">
+            <div class="product-name">{{ product.name|default:"Без названия" }}</div>
+            <div style="font-size: 12px; margin-top: 5px;">ID: {{ product_id }}</div>
+        </div>
+        
+        <div class="current-icon">
+            <label>Текущая иконка:</label>
+            <div class="icon-preview" id="iconPreview">
+                {% if product.icon and product.icon != 'None' %}
+                    <img src="{{ product.icon }}" alt="Текущая иконка">
+                {% else %}
+                    📦
+                {% endif %}
+            </div>
+        </div>
+        
+        <!-- Загрузка файла -->
+        <div class="form-group">
+            <label>📁 Загрузить файл:</label>
+            <input type="file" id="iconFile" accept="image/jpeg,image/png,image/gif,image/webp">
+            <div class="upload-progress" id="uploadProgress">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <div style="font-size: 12px; margin-top: 5px;" id="progressText"></div>
+            </div>
+            <div style="font-size: 12px; margin-top: 5px; color: #ccc;">
+                Поддерживаемые форматы: JPEG, PNG, GIF, WEBP. Максимальный размер: 5MB
+            </div>
+        </div>
+
+        <div class="or-divider">
+            <span>ИЛИ</span>
+        </div>
+        
+        <!-- Эмодзи пресеты -->
+        <div>
+            <label>😊 Выбрать эмодзи:</label>
+            <div class="icon-presets" id="iconPresets">
+                <div class="preset-icon" data-icon="📦">
+                    <div class="preset-emoji">📦</div>
+                    <div class="preset-name">Посылка</div>
+                </div>
+                <div class="preset-icon" data-icon="🛒">
+                    <div class="preset-emoji">🛒</div>
+                    <div class="preset-name">Корзина</div>
+                </div>
+                <div class="preset-icon" data-icon="💎">
+                    <div class="preset-emoji">💎</div>
+                    <div class="preset-name">Драгоценность</div>
+                </div>
+                <div class="preset-icon" data-icon="🎮">
+                    <div class="preset-emoji">🎮</div>
+                    <div class="preset-name">Игры</div>
+                </div>
+                <div class="preset-icon" data-icon="📱">
+                    <div class="preset-emoji">📱</div>
+                    <div class="preset-name">Техника</div>
+                </div>
+                <div class="preset-icon" data-icon="👕">
+                    <div class="preset-emoji">👕</div>
+                    <div class="preset-name">Одежда</div>
+                </div>
+                <div class="preset-icon" data-icon="📚">
+                    <div class="preset-emoji">📚</div>
+                    <div class="preset-name">Книги</div>
+                </div>
+                <div class="preset-icon" data-icon="🏠">
+                    <div class="preset-emoji">🏠</div>
+                    <div class="preset-name">Недвижимость</div>
+                </div>
+                <div class="preset-icon" data-icon="🚗">
+                    <div class="preset-emoji">🚗</div>
+                    <div class="preset-name">Авто</div>
+                </div>
+                <div class="preset-icon" data-icon="⚡">
+                    <div class="preset-emoji">⚡</div>
+                    <div class="preset-name">Электроника</div>
+                </div>
+                <div class="preset-icon" data-icon="🎁">
+                    <div class="preset-emoji">🎁</div>
+                    <div class="preset-name">Подарок</div>
+                </div>
+                <div class="preset-icon" data-icon="🏆">
+                    <div class="preset-emoji">🏆</div>
+                    <div class="preset-name">Достижение</div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="buttons">
+            <button class="btn btn-secondary" onclick="window.location.href='/secmark/dashboard/'">❌ Отмена</button>
+            <button class="btn btn-danger" onclick="clearIcon()">🗑️ Очистить</button>
+            <button class="btn btn-primary" onclick="saveIcon()">💾 Сохранить иконку</button>
+        </div>
+    </div>
+    
+    <script>
+        let selectedFile = null;
+        let selectedEmoji = null;
+        
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.textContent = message;
+            notification.className = `notification ${type}`;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
+        
+        function updatePreview(iconValue, isFile = false) {
+            const preview = document.getElementById('iconPreview');
+            if (!iconValue || iconValue === 'None' || iconValue === '') {
+                preview.innerHTML = '📦';
+            } else if (isFile && iconValue instanceof File) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.innerHTML = `<img src="${e.target.result}" alt="Предпросмотр">`;
+                };
+                reader.readAsDataURL(iconValue);
+            } else if (iconValue.startsWith('data:image') || iconValue.startsWith('blob:')) {
+                preview.innerHTML = `<img src="${iconValue}" alt="Предпросмотр">`;
+            } else if (iconValue.startsWith('http')) {
+                preview.innerHTML = `<img src="${iconValue}" alt="Иконка" onerror="this.parentElement.innerHTML='📦'">`;
+            } else {
+                // Эмодзи
+                preview.innerHTML = `<div style="font-size: 80px;">${iconValue}</div>`;
+            }
+        }
+        
+        function clearIcon() {
+            selectedFile = null;
+            selectedEmoji = null;
+            document.getElementById('iconFile').value = '';
+            document.querySelectorAll('.preset-icon').forEach(p => p.classList.remove('selected'));
+            updatePreview('');
+            showNotification('Иконка очищена', 'success');
+        }
+        
+        async function saveIcon() {
+            const productId = '{{ product_id }}';
+            
+            if (!productId) {
+                showNotification('Ошибка: ID товара не найден', 'error');
+                return;
+            }
+            
+            // Приоритет: файл > эмодзи
+            if (selectedFile) {
+                await uploadFileIcon(productId);
+            } else if (selectedEmoji) {
+                await saveEmojiIcon(productId);
+            } else {
+                // Очистка иконки
+                await saveEmojiIcon(productId, null);
+            }
+        }
+        
+        async function uploadFileIcon(productId) {
+            const formData = new FormData();
+            formData.append('product_id', productId);
+            formData.append('icon_file', selectedFile);
+            
+            // Показываем прогресс
+            const progressDiv = document.getElementById('uploadProgress');
+            const progressFill = document.getElementById('progressFill');
+            const progressText = document.getElementById('progressText');
+            
+            progressDiv.style.display = 'block';
+            progressFill.style.width = '0%';
+            progressText.textContent = 'Загрузка... 0%';
+            
+            try {
+                const response = await fetch('/secmark/set_icon_view/', {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': getCookie('csrftoken'),
+                    },
+                    body: formData
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok && data.success) {
+                    progressFill.style.width = '100%';
+                    progressText.textContent = 'Загрузка завершена!';
+                    showNotification('Иконка успешно сохранена!', 'success');
+                    setTimeout(() => {
+                        window.location.href = '/secmark/dashboard/';
+                    }, 1000);
+                } else {
+                    progressDiv.style.display = 'none';
+                    showNotification(data.error || 'Ошибка при сохранении иконки', 'error');
+                }
+            } catch (error) {
+                console.error('Error saving icon:', error);
+                progressDiv.style.display = 'none';
+                showNotification('Ошибка сети', 'error');
+            }
+        }
+        
+        async function saveEmojiIcon(productId, emoji = null) {
+            try {
+                const response = await fetch('/secmark/set_icon_view/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCookie('csrftoken'),
+                    },
+                    body: JSON.stringify({
+                        product_id: productId,
+                        emoji: emoji
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok && data.success) {
+                    showNotification('Иконка успешно сохранена!', 'success');
+                    setTimeout(() => {
+                        window.location.href = '/secmark/dashboard/';
+                    }, 1000);
+                } else {
+                    showNotification(data.error || 'Ошибка при сохранении иконки', 'error');
+                }
+            } catch (error) {
+                console.error('Error saving emoji:', error);
+                showNotification('Ошибка сети', 'error');
+            }
+        }
+        
+        // Обработка выбора файла
+        document.getElementById('iconFile').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                // Проверка типа файла
+                const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+                if (!allowedTypes.includes(file.type)) {
+                    showNotification('Неподдерживаемый формат файла. Используйте JPEG, PNG, GIF или WEBP.', 'error');
+                    this.value = '';
+                    return;
+                }
+                
+                // Проверка размера (5MB)
+                if (file.size > 5 * 1024 * 1024) {
+                    showNotification('Файл слишком большой. Максимальный размер 5MB.', 'error');
+                    this.value = '';
+                    return;
+                }
+                
+                selectedFile = file;
+                selectedEmoji = null;
+                updatePreview(file, true);
+                
+                // Снимаем выделение с эмодзи
+                document.querySelectorAll('.preset-icon').forEach(p => p.classList.remove('selected'));
+                
+                showNotification(`Выбран файл: ${file.name}`, 'info');
+            } else {
+                selectedFile = null;
+                updatePreview(selectedEmoji || '');
+            }
+        });
+        
+        // Обработка выбора эмодзи
+        document.querySelectorAll('.preset-icon').forEach(preset => {
+            preset.addEventListener('click', function() {
+                const emoji = this.getAttribute('data-icon');
+                selectedEmoji = emoji;
+                selectedFile = null;
+                document.getElementById('iconFile').value = '';
+                updatePreview(emoji);
+                
+                // Визуальное выделение
+                document.querySelectorAll('.preset-icon').forEach(p => p.classList.remove('selected'));
+                this.classList.add('selected');
+                
+                showNotification(`Выбран эмодзи: ${emoji}`, 'info');
+            });
+        });
+        
+        // Симуляция прогресса загрузки (для эффекта)
+        if (document.getElementById('iconFile')) {
+            document.getElementById('iconFile').addEventListener('change', function() {
+                // Сброс прогресса при новом выборе
+                const progressDiv = document.getElementById('uploadProgress');
+                progressDiv.style.display = 'none';
+                document.getElementById('progressFill').style.width = '0%';
+            });
+        }
+    </script>
+</body>
+</html>

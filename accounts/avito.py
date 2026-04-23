@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.middleware.csrf import get_token
 import tgcloud as tg
@@ -8,6 +8,8 @@ from .reg import SessionManager
 import threading
 import json
 import time
+import base64
+import imghdr
 
 PUBLIC_ID = tg.Id().from_str("0|1|4259")
 public_list = tg.UndefinedVar(id=PUBLIC_ID)
@@ -47,7 +49,6 @@ class Packager:
                 return None
             if isinstance(value, dict):
                 return value
-            # Если value - строка (ID)
             if isinstance(value, str) and '|' in value:
                 return tg.UndefinedVar(id=tg.Id().from_str(value)).get()
             return None
@@ -269,7 +270,6 @@ def get_user_products(user_id):
     
     return products
 
-@csrf_exempt
 def avito_dashboard(request):
     user_data = SessionManager.validate_request(request)
     if not user_data:
@@ -277,8 +277,6 @@ def avito_dashboard(request):
     
     user_id = user_data['id']
     products = get_user_products(user_id)
-    
-    products = [p for p in products if p and isinstance(p, dict)]
     
     response = render(request, 'avito/dashboard.html', {
         'products': products,
@@ -318,11 +316,8 @@ def edit_product_page(request):
     user_id = user_data['id']
     
     try:
-        
         tg_id = tg.Id().from_str(product_id)
-        
         var = tg.UndefinedVar(id=tg_id)
-        
         product = var.get() if hasattr(var, 'get') else None
         
         if not product:
@@ -355,11 +350,10 @@ def avito_get_product_view(request):
     try:
         id = tg.Id().from_str(product_id)
         data = tg.Var(id=id).get()
-        if(type(data) == dict and set(data.keys()) >= 
-           {'icon', 'name', 'price', 'description', 'backcom', 'author', 'special', 'type'}):
+        if type(data) == dict and set(data.keys()) >= {'icon', 'name', 'price', 'description', 'backcom', 'author', 'special', 'type'}:
             return JsonResponse(data, status=200)
         else:
-            return JsonResponse({"status":"Wrong ID!"})
+            return JsonResponse({"status": "Wrong ID!"}, status=400)
     except Exception as e:
         print(f"Error loading product: {e}")
         return JsonResponse({'error': str(e)}, status=500)
@@ -369,11 +363,9 @@ def avito_get_profile_ids(request):
     try:
         data = client.get_user_by_pub_id(user_id)
         avito = data['avito']
-        if(avito is None):
-            return JsonResponse({'status':'success', 
-                                 'ids':[]}, status=200)
-        return JsonResponse({'status':'success', 
-                             'ids':tg.Var(id=avito).get()}, status=200)
+        if avito is None:
+            return JsonResponse({'status': 'success', 'ids': []}, status=200)
+        return JsonResponse({'status': 'success', 'ids': tg.Var(id=avito).get()}, status=200)
     except Exception as e:
         print(f"Error loading product: {e}")
         return JsonResponse({'error': str(e)}, status=500)
@@ -444,8 +436,132 @@ def publish_view(request):
     
 def avito_get_public_ids(request):
     try:
-        return JsonResponse({'status':'success', 
-                             'ids':public_list.get()}, status=200)
+        return JsonResponse({'status': 'success', 'ids': public_list.get()}, status=200)
     except Exception as e:
         print(f"Error loading product: {e}")
+        return JsonResponse({'error': str(e)}, status=500)
+
+@csrf_exempt
+def set_icon_page(request):
+    product_id = request.GET.get('id')
+    if not product_id:
+        return redirect('/secmark/dashboard/')
+    
+    user_data = SessionManager.validate_request(request)
+    if not user_data:
+        return redirect('/oauth/google/')
+    
+    user_id = user_data['id']
+    
+    try:
+        tg_id = tg.Id().from_str(product_id)
+        var = tg.UndefinedVar(id=tg_id)
+        product = var.get() if hasattr(var, 'get') else None
+        
+        if not product:
+            product = var.cache().get() if hasattr(var, 'cache') else None
+        
+        if not product or not isinstance(product, dict):
+            print(f"Product not found or invalid: {product}")
+            return redirect('/secmark/dashboard/')
+        
+        if str(product.get('author')) != str(user_id):
+            return redirect('/secmark/dashboard/')
+            
+    except Exception as e:
+        print(f"Error loading product: {e}")
+        return redirect('/secmark/dashboard/')
+    
+    response = render(request, 'avito/set_icon.html', {
+        'name': client.get(user_id)["name"],
+        'product': product,
+        'product_id': product_id
+    })
+    
+    response.set_cookie('csrftoken', get_token(request), max_age=31449600, secure=True, httponly=False, samesite='Lax')
+    return response
+
+@csrf_exempt
+def set_icon_view(request):
+    if request.method != 'POST':
+        return JsonResponse({'error': 'Method not allowed'}, status=405)
+    
+    try:
+        user_data = SessionManager.validate_request(request)
+        if not user_data:
+            return JsonResponse({'error': 'Authentication required'}, status=401)
+        
+        user_id = user_data.get("id")
+        
+        if request.content_type and 'multipart' in request.content_type:
+            product_id = request.POST.get('product_id')
+            icon_file = request.FILES.get('icon_file')
+        else:
+            data = json.loads(request.body)
+            product_id = data.get('product_id')
+            emoji = data.get('emoji')
+            icon_file = None
+        
+        if not product_id:
+            return JsonResponse({'error': 'Product ID required'}, status=400)
+        
+        tg_id = tg.Id().from_str(product_id)
+        product_var = tg.UndefinedVar(id=tg_id)
+        existing_product = product_var.get()
+        
+        if not existing_product:
+            return JsonResponse({'error': 'Product not found'}, status=404)
+        
+        if str(existing_product.get('author')) != str(user_id):
+            return JsonResponse({'error': 'Access denied'}, status=403)
+        
+        icon_value = None
+        
+        if icon_file:
+            icon_var = tg.Var(icon_file.read())
+            icon_value = str(icon_var.id)
+        elif emoji is not None:
+            icon_value = emoji if emoji else None
+        
+        existing_product['icon'] = icon_value
+        product_var.set(existing_product)
+        
+        return JsonResponse({'success': True, 'icon': icon_value})
+        
+    except Exception as e:
+        print(f"Error setting icon: {e}")
+        import traceback
+        traceback.print_exc()
+        return JsonResponse({'error': str(e)}, status=500)
+
+def avito_get_icon_view(request):
+    product_id = request.GET.get('product_id')
+    if not product_id:
+        return JsonResponse({'error': 'Product ID required'}, status=400)
+    
+    try:
+        tg_id = tg.Id().from_str(product_id)
+        product = tg.UndefinedVar(id=tg_id).get()
+        
+        if not product:
+            return JsonResponse({'error': 'Product not found'}, status=404)
+        
+        icon_value = product.get('icon')
+        if not icon_value:
+            return JsonResponse({'error': 'No icon'}, status=404)
+        
+        if not isinstance(icon_value, str) or '|' not in icon_value:
+            return JsonResponse({'type': 'emoji', 'value': icon_value})
+        
+        icon_data = tg.Var(id=tg.Id().from_str(icon_value)).get()
+        
+        if isinstance(icon_data, bytes):
+            extension = imghdr.what(None, icon_data)
+            content_type = f'image/{extension}' if extension else 'application/octet-stream'
+            return HttpResponse(icon_data, content_type=content_type)
+        
+        return JsonResponse({'error': 'Invalid icon data'}, status=500)
+        
+    except Exception as e:
+        print(f"Error getting icon: {e}")
         return JsonResponse({'error': str(e)}, status=500)

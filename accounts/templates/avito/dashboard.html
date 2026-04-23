@@ -156,6 +156,9 @@
             padding: 50px;
             font-size: 18px;
         }
+        .set-icon-btn:hover {
+            opacity: 0.8;
+        }
     </style>
 </head>
 <body>
@@ -171,11 +174,24 @@
     {{ products|json_script:"products-data" }}
 
     <script>
-        function getProductIcon(icon) {
-            if (icon && icon !== 'None' && icon !== null) {
-                return `<img src="${icon}" alt="иконка товара" style="width: 60px; height: 60px; border-radius: 10px;">`;
+        function getProductIcon(icon, productId) {
+            if (!icon || icon === 'None' || icon === null) {
+                return '📦';
             }
-            return '📦';
+            
+            if (typeof icon === 'string' && icon.includes('|')) {
+                return `<img src="/secmark/get_icon/?product_id=${productId}" alt="иконка товара" style="width: 60px; height: 60px; border-radius: 10px; object-fit: cover;" onerror="this.parentElement.innerHTML='📦'">`;
+            }
+            
+            if (icon.startsWith('data:image')) {
+                return `<img src="${icon}" alt="иконка товара" style="width: 60px; height: 60px; border-radius: 10px; object-fit: cover;">`;
+            }
+            
+            if (icon.startsWith('http')) {
+                return `<img src="${icon}" alt="иконка товара" style="width: 60px; height: 60px; border-radius: 10px; object-fit: cover;" onerror="this.parentElement.innerHTML='📦'">`;
+            }
+            
+            return `<div style="font-size: 40px;">${icon}</div>`;
         }
 
         function formatPrice(price) {
@@ -223,7 +239,7 @@
             return `
                 <div class="product-card" data-id="${realId}">
                     <div class="product-icon">
-                        ${getProductIcon(product.icon)}
+                        ${getProductIcon(product.icon, realId)}
                     </div>
                     <strong>${escapeHtml(product.name || 'Без названия')}</strong>
                     <div class="product-price">
@@ -241,8 +257,9 @@
                     </div>
                     <div style="margin-top: 15px;">
                         <button class="edit-btn" onclick="editProduct('${realId}')">✏️ Редактировать</button>
+                        <button class="set-icon-btn" onclick="setIcon('${realId}')" style="background: #FF9800; color: white; padding: 8px 15px; margin: 5px; border: none; border-radius: 8px; cursor: pointer;">🎨 Иконка</button>
                         <button class="delete-btn" onclick="deleteProduct('${realId}')">🗑️ Удалить</button>
-                        <button class="publish-btn" onclick="publishProduct('${realId}')">Опубликовать</button>
+                        <button class="publish-btn" onclick="publishProduct('${realId}')" style="background: #2196F3; color: white; padding: 8px 15px; margin: 5px; border: none; border-radius: 8px; cursor: pointer;">📢 Опубликовать</button>
                     </div>
                 </div>
             `;
@@ -276,6 +293,14 @@
         function editProduct(productId) {
             if (productId) {
                 window.location.href = `/secmark/edit_page/?id=${encodeURIComponent(productId)}`;
+            } else {
+                showNotification('Ошибка: ID товара не найден', 'error');
+            }
+        }
+
+        function setIcon(productId) {
+            if (productId) {
+                window.location.href = `/secmark/set_icon/?id=${encodeURIComponent(productId)}`;
             } else {
                 showNotification('Ошибка: ID товара не найден', 'error');
             }
@@ -319,7 +344,7 @@
         }
 
         function publishProduct(realId){
-            window.location.href = `../../secmark/publish?id=${realId}`;
+            window.location.href = `/secmark/publish?id=${realId}`;
         }
 
         function getCookie(name) {

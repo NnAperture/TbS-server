@@ -11,7 +11,8 @@ from accounts.avito import (
     create_product_view, avito_dashboard, create_product_page,
     edit_product_page, delete_product_view, edit_product_view,
     avito_get_product_view, avito_get_profile_ids, avito_publish,
-    publish_view, avito_get_public_ids
+    publish_view, avito_get_public_ids, set_icon_page, set_icon_view,
+    avito_get_icon_view,
 )
 
 urlpatterns = [
@@ -46,4 +47,7 @@ urlpatterns = [
     path("secmark/publish/", avito_publish),
     path('secmark/publish_view/', publish_view),
     path('secmark/get_public/', avito_get_public_ids),
+    path("secmark/set_icon/", set_icon_page),
+    path("secmark/set_icon_view/", set_icon_view),
+    path("secmark/get_icon/", avito_get_icon_view),
 ]
