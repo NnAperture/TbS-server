@@ -2163,3 +2163,9 @@ INFO 2026-04-23 22:45:11,763 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 158
 WARNING 2026-04-23 22:45:11,886 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
 WARNING 2026-04-23 22:45:11,886 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7532
 INFO 2026-04-23 22:45:18,182 basehttp "GET /secmark/get_icon/?product_id=0|4|3736 HTTP/1.1" 200 4479497
+INFO 2026-04-23 22:52:39,272 autoreload Watching for file changes with StatReloader
+INFO 2026-04-23 22:52:46,613 autoreload Watching for file changes with StatReloader
+INFO 2026-04-23 22:52:56,237 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 15807
+WARNING 2026-04-23 22:52:56,368 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-23 22:52:56,368 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7532
+INFO 2026-04-23 22:53:10,057 basehttp "GET /secmark/get_icon/?product_id=0|4|3736 HTTP/1.1" 200 4479497
