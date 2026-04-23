@@ -455,6 +455,9 @@ class LinkedBytes:
         threading.Thread(target=self.get).start()
         return self
 
+    def get(self):
+        return bytes(self)
+
 
 class SimpleBytes:
     def __init__(self, value=None, id=None, init_symbol="c"):

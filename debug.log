@@ -2147,3 +2147,19 @@ INFO 2026-04-16 19:40:09,661 autoreload Watching for file changes with StatReloa
 INFO 2026-04-16 19:40:15,047 basehttp "GET /secmark/get_public/ HTTP/1.1" 200 42
 INFO 2026-04-20 21:20:04,244 autoreload Watching for file changes with StatReloader
 INFO 2026-04-20 21:23:19,900 autoreload Watching for file changes with StatReloader
+INFO 2026-04-23 22:40:22,488 autoreload Watching for file changes with StatReloader
+INFO 2026-04-23 22:40:53,726 autoreload Watching for file changes with StatReloader
+INFO 2026-04-23 22:41:27,761 autoreload Watching for file changes with StatReloader
+INFO 2026-04-23 22:41:53,020 autoreload Watching for file changes with StatReloader
+INFO 2026-04-23 22:42:08,117 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 15807
+WARNING 2026-04-23 22:42:09,631 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-23 22:42:09,632 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7532
+ERROR 2026-04-23 22:42:13,780 log Internal Server Error: /secmark/get_icon/
+ERROR 2026-04-23 22:42:13,780 basehttp "GET /secmark/get_icon/?product_id=0|4|3736 HTTP/1.1" 500 56
+WARNING 2026-04-23 22:42:13,855 log Not Found: /favicon.ico
+WARNING 2026-04-23 22:42:13,856 basehttp "GET /favicon.ico HTTP/1.1" 404 7421
+INFO 2026-04-23 22:44:58,296 autoreload Watching for file changes with StatReloader
+INFO 2026-04-23 22:45:11,763 basehttp "GET /secmark/dashboard/ HTTP/1.1" 200 15807
+WARNING 2026-04-23 22:45:11,886 log Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2026-04-23 22:45:11,886 basehttp "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 7532
+INFO 2026-04-23 22:45:18,182 basehttp "GET /secmark/get_icon/?product_id=0|4|3736 HTTP/1.1" 200 4479497

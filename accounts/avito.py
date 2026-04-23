@@ -8,8 +8,6 @@ from .reg import SessionManager
 import threading
 import json
 import time
-import base64
-import imghdr
 
 PUBLIC_ID = tg.Id().from_str("0|1|4259")
 public_list = tg.UndefinedVar(id=PUBLIC_ID)
@@ -556,8 +554,16 @@ def avito_get_icon_view(request):
         icon_data = tg.Var(id=tg.Id().from_str(icon_value)).get()
         
         if isinstance(icon_data, bytes):
-            extension = imghdr.what(None, icon_data)
-            content_type = f'image/{extension}' if extension else 'application/octet-stream'
+            content_type = 'image/png'
+            if icon_data[:4] == b'\x89PNG':
+                content_type = 'image/png'
+            elif icon_data[:2] == b'\xff\xd8':
+                content_type = 'image/jpeg'
+            elif icon_data[:2] == b'GI':
+                content_type = 'image/gif'
+            elif icon_data[:4] == b'RIFF' and icon_data[8:12] == b'WEBP':
+                content_type = 'image/webp'
+            
             return HttpResponse(icon_data, content_type=content_type)
         
         return JsonResponse({'error': 'Invalid icon data'}, status=500)

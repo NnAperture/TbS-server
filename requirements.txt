@@ -9,3 +9,4 @@ Pillow
 dj_database_url
 whitenoise
 PyJWT
+imghdr
